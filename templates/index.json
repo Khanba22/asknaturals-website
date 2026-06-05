@@ -15,7 +15,7 @@
         "subtitle": "PREMIUM SUPPLEMENTS",
         "heading": "<p>SUPPLEMENTS DESIGNED AROUND HER BIOLOGY.</p>",
         "description": "<p>Clinically selected ingredients to support hormones, digestion, metabolism and energy.</p>",
-        "button_label": "Shop Now",
+        "button_label": "Shop Originals",
         "button_link": "/collections/all",
         "button_label_2": "",
         "button_link_2": "",
@@ -83,6 +83,7 @@
         "subtitle": "AskNatural Original",
         "heading": "ASKNATURAL ORIGINAL",
         "description": "Most supplements work alone. Askknatural Originals are formulated to work together for hormones, sleep, metabolism, and real daily results. One intentional formulation. This is not a product. It is a decision made for you, by someone who actually understands the biology.",
+        "image": "shopify://shop_images/Group_1321314257.png",
         "button_label": "Shop AskNatural Original",
         "button_link": "/collections/all"
       }
@@ -161,21 +162,13 @@
             "value": "94%",
             "label": "Community trust"
           }
-        },
-        "s5": {
-          "type": "stat",
-          "settings": {
-            "value": "100%",
-            "label": "Lab tested"
-          }
         }
       },
       "block_order": [
         "s1",
         "s2",
         "s3",
-        "s4",
-        "s5"
+        "s4"
       ],
       "settings": {
         "heading": "WELLNESS SUPPORT DESIGNED AROUND REAL WOMEN",

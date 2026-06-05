@@ -17,8 +17,8 @@ export function Stats({ settings }: StatsProps) {
   const stats = settings.stats ?? [];
   const gridClass =
     stats.length >= 5
-      ? 'mt-14 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5 lg:gap-6'
-      : 'mt-14 grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-6';
+      ? 'mt-14 grid grid-cols-2 items-center justify-center gap-8 md:grid-cols-3 lg:grid-cols-5 lg:gap-6'
+      : 'mt-14 grid grid-cols-2 items-center justify-center gap-8 md:grid-cols-4 md:gap-6';
 
   return (
     <section className="bg-cream/60 py-16 md:py-24">
@@ -39,9 +39,9 @@ export function Stats({ settings }: StatsProps) {
         </div>
         <div className={gridClass}>
           {stats.map((stat) => (
-            <div key={`${stat.value}-${stat.label}`} className="text-center md:text-left">
-              <p className="text-3xl font-bold text-primary md:text-4xl">{stat.value}</p>
-              <p className="mt-2 text-xs font-bold uppercase leading-snug tracking-wide text-primary">
+            <div key={`${stat.value}-${stat.label}`} className="text-center justify-center md:text-left">
+              <p className="text-center text-3xl font-bold text-primary md:text-4xl">{stat.value}</p>
+              <p className="mt-2 text-center text-xs font-bold uppercase leading-snug tracking-wide text-primary">
                 {stat.label}
               </p>
             </div>

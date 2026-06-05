@@ -36,25 +36,22 @@ export function Categories({ settings }: CategoriesProps) {
             </p>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-8">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-10">
           {blocks.map((block) => {
-            const { title, icon, icon_url, link } = block.settings;
+            const { title, icon, icon_url } = block.settings;
             return (
-              <a
-                key={block.id}
-                href={link || '#'}
-                className="flex flex-col items-center justify-center rounded-2xl border border-transparent bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]"
-              >
-                <div className="mb-5 flex size-[72px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-2xl text-white">
+              <div key={block.id} className="flex flex-col items-center justify-center">
+                <div className="mb-4 flex size-16 shrink-0 items-center justify-center md:size-20">
                   {icon_url ? (
                     <img
                       src={icon_url}
                       alt=""
-                      className="size-full object-contain p-1"
-                      style={{ transform: 'scale(1.45)' }}
+                      className="size-full object-contain"
                     />
                   ) : (
-                    <span>{ICONS[icon ?? 'other'] ?? '•'}</span>
+                    <span className="text-3xl text-primary md:text-4xl">
+                      {ICONS[icon ?? 'other'] ?? '•'}
+                    </span>
                   )}
                 </div>
                 {title && (
@@ -62,7 +59,7 @@ export function Categories({ settings }: CategoriesProps) {
                     {title}
                   </h3>
                 )}
-              </a>
+              </div>
             );
           })}
         </div>
