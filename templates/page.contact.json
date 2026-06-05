@@ -1,0 +1,96 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "react-contact-page",
+      "settings": {
+        "heading": "Contact us",
+        "intro_heading": "Get in touch",
+        "intro_text": "Reach us anytime and we'll do our best to respond within one business day.",
+        "phone_label": "Phone number",
+        "phone_value": "+91 XXXXX XXXXX",
+        "phone_url": "https://wa.me/",
+        "phone_icon": "shopify://shop_images/Frame_2147227088.png",
+        "email_label": "Email",
+        "email_value": "askknatural01@gmail.com",
+        "email_url": "mailto:askknatural01@gmail.com",
+        "email_icon": "shopify://shop_images/Frame_2147227088_1.png",
+        "instagram_label": "Instagram",
+        "instagram_value": "@askknatural",
+        "instagram_url": "https://instagram.com/askknatural",
+        "instagram_icon": "shopify://shop_images/Frame_2147227088_2.png",
+        "support_label": "Support hours",
+        "support_value": "Monday to Friday\n10:00 AM to 6:00 PM",
+        "support_url": "",
+        "support_icon": "shopify://shop_images/Frame_2147227088_3.png",
+        "form_heading": "Send us a message",
+        "form_text": "Tell us how we can help and our team will get back to you shortly.",
+        "phone_default_country": "IN"
+      }
+    },
+    "faq": {
+      "type": "react-contact-faq",
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "Who is this for?",
+            "answer": "Designed for women seeking hormonal wellness support through Ayurvedic nutrition."
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "When should I take it?",
+            "answer": "Enjoy one serving daily, preferably in the morning or evening as part of your wellness routine."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this a medicine?",
+            "answer": "This is a dietary supplement, not a medicine. Consult your healthcare provider if you have specific conditions."
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "How long should I use it?",
+            "answer": "Most customers notice benefits with consistent use over 8–12 weeks."
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I cancel subscription anytime?",
+            "answer": "Yes — pause, skip, or cancel your subscription anytime from your account dashboard."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ],
+      "settings": {
+        "heading": "FAQ.",
+        "subheading": "Common Inquiries",
+        "background": "cream"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

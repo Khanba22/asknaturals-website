@@ -1,0 +1,5 @@
+extends: theme-check:recommended
+
+Ignore:
+  - MatchingTranslations
+  - ValidJSON

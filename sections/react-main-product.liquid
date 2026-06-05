@@ -1,0 +1,92 @@
+{%- liquid
+  assign crumb_collection = product.collections.first
+  assign category_label = section.settings.category
+  if category_label == blank and crumb_collection
+    assign category_label = crumb_collection.title
+  endif
+-%}
+
+{%- capture breadcrumbs_json -%}
+[
+  {
+    "title": "Shop",
+    "url": {{ routes.all_products_collection_url | json }}
+  }
+  {%- if crumb_collection -%}
+  ,{
+    "title": {{ crumb_collection.title | json }},
+    "url": {{ crumb_collection.url | json }}
+  }
+  {%- endif -%}
+  ,{
+    "title": {{ product.title | json }},
+    "url": {{ product.url | json }}
+  }
+]
+{%- endcapture -%}
+
+{%- capture product_json -%}{% render 'liquid-product-detail-json', product: product %}{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "product": {{ product_json }},
+  "category": {{ category_label | json }},
+  "review_count": {{ section.settings.review_count | json }},
+  "short_description": {{ section.settings.short_description | json }},
+  "subscribe_price": {% if section.settings.subscribe_price != blank %}{{ section.settings.subscribe_price | plus: 0 | json }}{% else %}null{% endif %},
+  "onetime_price": {% if section.settings.onetime_price != blank %}{{ section.settings.onetime_price | plus: 0 | json }}{% else %}null{% endif %},
+  "breadcrumbs": {{ breadcrumbs_json }},
+  "trust_badges": [
+    { "label": "Lab Tested", "icon": "beaker" },
+    { "label": "Authenticity Verified", "icon": "check" },
+    { "label": "Women Formulated", "icon": "female" },
+    { "label": "Ayurvedic Blend", "icon": "leaf" }
+  ]
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'main-product-' | append: section.id,
+  component: 'MainProduct',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Product detail",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "category",
+      "label": "Category label",
+      "default": "Hormonal Wellness"
+    },
+    {
+      "type": "text",
+      "id": "short_description",
+      "label": "Short description",
+      "default": "A precisely formulated Ayurvedic supplement to support hormonal balance, reduce stress-related fatigue, and nurture your cycle from within."
+    },
+    {
+      "type": "number",
+      "id": "review_count",
+      "label": "Review count",
+      "default": 124
+    },
+    {
+      "type": "text",
+      "id": "subscribe_price",
+      "label": "Subscribe price override (cents, optional)"
+    },
+    {
+      "type": "text",
+      "id": "onetime_price",
+      "label": "One-time price override (cents, optional)"
+    }
+  ],
+  "presets": [{ "name": "Product detail" }]
+}
+{% endschema %}

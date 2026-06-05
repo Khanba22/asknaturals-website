@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <title>
+      {{ page_title }}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {{ content_for_header }}
+
+    {%- liquid
+      assign font_heading = settings.font_heading | default: blank
+      assign font_body = settings.font_body | default: blank
+    -%}
+
+    {% style %}
+      {{ font_heading | font_face: font_display: 'swap' }}
+      {{ font_body | font_face: font_display: 'swap' }}
+
+      :root {
+        --color-primary: {{ settings.color_primary }};
+        --color-primary-dark: {{ settings.color_primary_dark }};
+        --color-cream: {{ settings.color_cream }};
+        --color-text: {{ settings.color_text }};
+        --color-background: {{ settings.color_background }};
+        --font-heading: {{ font_heading.family | default: 'Libre Baskerville' }}, {{ font_heading.fallback_families | default: 'Georgia, serif' }};
+        --font-body: {{ font_body.family | default: 'DM Sans' }}, {{ font_body.fallback_families | default: 'system-ui, sans-serif' }};
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        color: var(--color-text);
+        background-color: #ffffff;
+      }
+    {% endstyle %}
+
+    {{ 'app.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.__SHOPIFY__ = {
+        shop: {{ shop.name | json }},
+        shopUrl: {{ shop.url | json }},
+        routes: {
+          cart_add_url: {{ routes.cart_add_url | json }},
+          cart_change_url: {{ routes.cart_change_url | json }},
+          cart_update_url: {{ routes.cart_update_url | json }},
+          cart_url: {{ routes.cart_url | json }},
+          checkout_url: {{ routes.root_url | append: 'checkout' | json }},
+          contact_url: {{ routes.root_url | append: 'contact#contact_form' | json }},
+          search_url: {{ routes.search_url | json }},
+          predictive_search_url: {{ routes.predictive_search_url | json }},
+          root_url: {{ routes.root_url | json }},
+          account_url: {{ routes.account_url | json }},
+          account_login_url: {{ routes.account_login_url | json }},
+          account_register_url: {{ routes.account_register_url | json }},
+          account_logout_url: {{ routes.account_logout_url | json }},
+          account_recover_url: {{ routes.account_login_url | replace: '/login', '/recover' | json }},
+          account_reset_url: {{ routes.account_login_url | replace: '/login', '/reset' | json }},
+          account_addresses_url: {{ routes.account_addresses_url | json }},
+          collections_url: {{ routes.collections_url | json }},
+          all_products_collection_url: {{ routes.all_products_collection_url | json }}
+        },
+        authenticity_token: {{ form_authenticity_token | json }},
+        cart: {{ cart | json }},
+        locale: {{ request.locale.iso_code | json }},
+        customer: {% if customer %}{
+          "id": {{ customer.id | json }},
+          "email": {{ customer.email | json }},
+          "first_name": {{ customer.first_name | json }},
+          "last_name": {{ customer.last_name | json }},
+          "name": {{ customer.name | json }},
+          "orders_count": {{ customer.orders_count | json }},
+          "total_spent": {{ customer.total_spent | json }}
+        }{% else %}null{% endif %},
+        storefront: {
+          domain: {{ shop.permanent_domain | json }},
+          token: {{ settings.storefront_access_token | json }},
+          apiVersion: '2025-01'
+        },
+        moneyFormat: {{ shop.money_format | json }},
+        currency: {{ cart.currency.iso_code | default: shop.currency | json }},
+        cart_ajax: {
+          load: {{ routes.root_url | append: 'cart.js' | json }},
+          add: {{ routes.root_url | append: 'cart/add.js' | json }},
+          change: {{ routes.root_url | append: 'cart/change.js' | json }},
+          update: {{ routes.root_url | append: 'cart/update.js' | json }}
+        },
+        addToCartUrl: {{ routes.root_url | append: 'cart/add.js' | json }}
+      };
+
+      {%- comment -%} Ensure JSON cart API uses *.js even if an older app.js bundle is cached {%- endcomment -%}
+      (function () {
+        var nativeFetch = window.fetch.bind(window);
+        window.fetch = function (input, init) {
+          var url = typeof input === 'string' ? input : (input && input.url ? input.url : String(input));
+          if (!url) return nativeFetch(input, init);
+
+          // Match both relative and absolute cart endpoints (avoid rewriting when already *.js)
+          // Examples:
+          // - /cart/add → /cart/add.js
+          // - https://shop.myshopify.com/cart/add → https://shop.myshopify.com/cart/add.js
+          var needsJs = /(^|\/)cart\/(add|change|update)$/.test(url) && !/\.js($|\?)/.test(url);
+          if (needsJs) {
+            url = url + '.js';
+            input = typeof input === 'string' ? url : new Request(url, input);
+          }
+          return nativeFetch(input, init);
+        };
+      })();
+    </script>
+  </head>
+  <body class="template-{{ template.name | handle }}">
+    <div id="site-container" class="relative mx-auto min-h-screen w-full max-w-[90rem] bg-white">
+      {% sections 'header-group' %}
+
+      <main id="MainContent" role="main">
+        {{ content_for_layout }}
+      </main>
+
+      {% sections 'footer-group' %}
+    </div>
+
+    {% section 'cart-drawer' %}
+
+    <script src="{{ 'app.js' | asset_url }}?v={{ 'now' | date: '%s' }}" type="module"></script>
+  </body>
+</html>

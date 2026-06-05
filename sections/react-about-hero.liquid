@@ -1,0 +1,50 @@
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 900 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-hero-' | append: section.id,
+  component: 'AboutHero',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "About AskNatural" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Helping women navigate wellness with more clarity and less confusion."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "The wellness industry often overwhelms women with endless advice, conflicting information, and products that promise everything. AskNatural exists to simplify that journey through trusted guidance."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Our Vision" },
+    {
+      "type": "text",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "#about-vision",
+      "info": "Use #about-vision to scroll to the Our Vision section on this page."
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [{ "name": "About hero" }]
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+{%- capture config_json -%}
+{
+  "title": {{ page.title | json }},
+  "content_html": {{ page.content | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'page-content',
+  component: 'PageContent',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": []
+}
+{% endschema %}

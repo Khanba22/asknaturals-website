@@ -1,0 +1,53 @@
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 900 | json }}{% else %}null{% endif %},
+  "image_position": {{ section.settings.image_position | json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-split-' | append: section.id,
+  component: 'AboutSplit',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About split",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Section label" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Section heading" },
+    { "type": "textarea", "id": "body", "label": "Body" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "green", "label": "Green" },
+        { "value": "cream", "label": "Cream" }
+      ],
+      "default": "white"
+    }
+  ],
+  "presets": [{ "name": "About split" }]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+{%- liquid
+  assign collection_handle = collection.handle
+-%}
+
+{%- capture products_json -%}
+[
+{%- for product in collection.products limit: section.settings.products_per_page -%}
+  {%- render 'liquid-product-json', product: product -%}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ collection.title | json }},
+  "collection_title": {{ collection.title | json }},
+  "subheading": {{ collection.description | strip_html | truncate: 160 | json }},
+  "products": {{ products_json }},
+  "products_count": {{ collection.products_count | json }},
+  "collection_handle": {{ collection_handle | json }},
+  "show_shop_header": {{ section.settings.show_shop_header | json }},
+  "color_scheme": "scheme-1"
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'collection-grid-' | append: section.id,
+  component: 'ProductGrid',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Collection products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_shop_header",
+      "label": "Show shop page header",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 12
+    }
+  ]
+}
+{% endschema %}

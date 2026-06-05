@@ -1,0 +1,188 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "react-about-hero",
+      "settings": {
+        "eyebrow": "About AskNatural",
+        "heading": "Helping women navigate wellness with more clarity and less confusion.",
+        "body": "The wellness industry often overwhelms women with endless advice, conflicting information, and products that promise everything. AskNatural exists to simplify that journey through trusted guidance.",
+        "button_label": "Our Mission",
+        "button_link": "",
+        "image": "shopify://shop_images/Frame_2147227261.png"
+      }
+    },
+    "problem": {
+      "type": "react-about-split",
+      "settings": {
+        "eyebrow": "The problem",
+        "heading": "Wellness became too complicated.",
+        "body": "Women are expected to navigate thousands of products, endless social media advice, and conflicting wellness trends. The result is confusion, wasted money, and frustration.",
+        "image": "shopify://shop_images/coffee.png",
+        "image_position": "left",
+        "color_scheme": "white"
+      }
+    },
+    "approach": {
+      "type": "react-about-approach",
+      "blocks": {
+        "p1": {
+          "type": "pillar",
+          "settings": {
+            "label": "Understand First",
+            "icon": "shopify://shop_images/Frame_2147227086.png"
+          }
+        },
+        "p2": {
+          "type": "pillar",
+          "settings": {
+            "label": "Long-Term Wellness",
+            "icon": "shopify://shop_images/Frame_2147227086_1.png"
+          }
+        },
+        "p3": {
+          "type": "pillar",
+          "settings": {
+            "label": "Thoughtful Recommendations",
+            "icon": "shopify://shop_images/Frame_2147227086_2.png"
+          }
+        },
+        "p4": {
+          "type": "pillar",
+          "settings": {
+            "label": "Transparent Information",
+            "icon": "shopify://shop_images/Frame_2147227086_3.png"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "eyebrow": "Our approach",
+        "heading": "Built around women, not wellness trends.",
+        "image": "shopify://shop_images/Group_1321314257.png",
+        "leaf_background": "shopify://shop_images/Group_1321314256.png"
+      }
+    },
+    "philosophy": {
+      "type": "react-about-split",
+      "settings": {
+        "eyebrow": "Our philosophy",
+        "heading": "Better wellness starts with better understanding.",
+        "body": "We believe women deserve wellness guidance that feels honest, transparent, and easy to understand. Our goal isn't to create more noise. It's to help women make informed decisions with greater confidence.",
+        "image": "shopify://shop_images/AB6AXuAk7AwpsbCAhuDGyKZ8EnPTIP8FJHje0D7FrdS6c-Aq1f-BzATGExPZAo8xKizdNVS2uQ107HGaosTcg5I8_X8A3xBKW3XhCQBeLdL2cQjZAr4COYcLCj-co5OswkCxgLyN-oLtghpV5F5LGkTWfto-ud0z884kH0pkzZSd2iPsjjY8IKd.png",
+        "image_position": "left",
+        "color_scheme": "white"
+      }
+    },
+    "vision": {
+      "type": "react-about-vision",
+      "settings": {
+        "eyebrow": "Our vision",
+        "heading": "A future where wellness feels simpler for every woman.",
+        "body": "We imagine a world where women no longer have to spend years experimenting, guessing, and navigating conflicting advice. A world where trusted wellness support is accessible — our step toward that future.",
+        "section_id": "about-vision"
+      }
+    },
+    "founder_intro": {
+      "type": "react-about-split",
+      "settings": {
+        "eyebrow": "Meet the founder",
+        "heading": "The frustration that started everything.",
+        "body": "Before AskNatural existed, I was simply trying to solve my own wellness challenges. Like many women, I followed advice that promised results but never seemed designed around what I actually needed. That experience eventually became the foundation for AskNatural.",
+        "image": "shopify://shop_images/Image.png",
+        "image_position": "right",
+        "color_scheme": "green"
+      }
+    },
+    "founder_quote": {
+      "type": "react-about-founder-quote",
+      "blocks": {
+        "b1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Calorie counting."
+          }
+        },
+        "b2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Generic advice."
+          }
+        },
+        "b3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Supplements that promised everything and delivered nothing."
+          }
+        },
+        "b4": {
+          "type": "bullet",
+          "settings": {
+            "text": "That frustration became the foundation of AskNatural."
+          }
+        },
+        "b5": {
+          "type": "bullet",
+          "settings": {
+            "text": "Everything on this platform exists because I went looking for something better and couldn't find it."
+          }
+        },
+        "b6": {
+          "type": "bullet",
+          "settings": {
+            "text": "So I built it for women who are done being misled, done being sold to, and ready for something that actually works."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6"
+      ],
+      "settings": {
+        "quote": "I spent five years trying to fix my own body the way the industry told me to and failing.",
+        "author_name": "Yash",
+        "author_title": "Founder, AskNatural",
+        "leaf_background": "shopify://shop_images/Group_1321314256.png"
+      }
+    },
+    "cta": {
+      "type": "react-about-cta",
+      "settings": {
+        "heading": "Ready to start your wellness journey?",
+        "body": "Discover personalised wellness support designed around your body, goals, and everyday routine.",
+        "button_1_label": "Explore Products",
+        "button_1_link": "",
+        "button_2_label": "Take The Wellness Quiz",
+        "button_2_link": "",
+        "image": "shopify://shop_images/621838553ef10775cf55beaa10100e1ac3b8120f.png"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "problem",
+    "approach",
+    "philosophy",
+    "vision",
+    "founder_intro",
+    "founder_quote",
+    "cta"
+  ]
+}

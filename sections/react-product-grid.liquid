@@ -1,0 +1,71 @@
+{%- liquid
+  assign collection = section.settings.collection
+  assign collection_handle = null
+  if collection != blank
+    assign collection_handle = collection.handle
+  endif
+-%}
+
+{%- capture products_json -%}
+[
+{%- if collection != blank -%}
+  {%- for product in collection.products limit: section.settings.products_to_show -%}
+    {%- render 'liquid-product-json', product: product -%}{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "products": {{ products_json }},
+  "collection_handle": {{ collection_handle | json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'product-grid-' | append: section.id,
+  component: 'ProductGrid',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Product grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Backed by science. <em>Chosen with care.</em></p>"
+    },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View all products" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+  ],
+  "presets": [{ "name": "Product grid" }]
+}
+{% endschema %}

@@ -1,0 +1,45 @@
+{%- capture addresses_json -%}
+[
+{%- if customer -%}
+  {%- for address in customer.addresses -%}
+    {
+      "id": {{ address.id | json }},
+      "first_name": {{ address.first_name | json }},
+      "last_name": {{ address.last_name | json }},
+      "company": {{ address.company | json }},
+      "address1": {{ address.address1 | json }},
+      "address2": {{ address.address2 | json }},
+      "city": {{ address.city | json }},
+      "province": {{ address.province | json }},
+      "zip": {{ address.zip | json }},
+      "country": {{ address.country | json }},
+      "phone": {{ address.phone | json }},
+      "default": {{ address.default | json }},
+      "url": {{ address.url | json }}
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "addresses": {{ addresses_json }},
+  "form_errors": {% render 'customer-form-errors' %},
+  "default_country": {{ shop.address.country | default: localization.country.iso_code | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'customer-addresses',
+  component: 'CustomerAddresses',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Customer addresses",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+{%- capture items_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "question": {{ block.settings.question | json }},
+    "answer": {{ block.settings.answer | json }}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "background": {{ section.settings.background | json }},
+  "items": {{ items_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'contact-faq-' | append: section.id,
+  component: 'ContactFaq',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Contact FAQ",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FAQ." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Common Inquiries" },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "cream", "label": "Cream" }
+      ],
+      "default": "cream"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "Answer." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "Who is this for?", "answer": "Designed for women seeking hormonal wellness support." } },
+        { "type": "faq", "settings": { "question": "When should I take it?", "answer": "Enjoy one serving daily as part of your wellness routine." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

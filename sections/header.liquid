@@ -1,0 +1,81 @@
+{%- capture logo_url -%}{%- render 'brand-logo-url' -%}{%- endcapture -%}
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign overlay_hero = false
+  if template.name == 'index'
+    assign overlay_hero = true
+  endif
+-%}
+{%- capture menu_links_json -%}
+[
+{%- if menu != blank -%}
+  {%- for link in menu.links -%}
+    {
+      "title": {{ link.title | json }},
+      "url": {{ link.url | json }}
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+]
+{%- endcapture -%}
+
+{%- liquid
+  assign about_url = section.settings.about_link
+  if about_url == blank
+    assign about_url = routes.root_url | append: 'pages/about'
+  endif
+  assign contact_url = section.settings.contact_link
+  if contact_url == blank
+    assign contact_url = routes.root_url | append: 'pages/contact'
+  endif
+  assign lab_results_url = section.settings.lab_results_link
+  if lab_results_url == blank
+    assign lab_results_url = routes.root_url | append: 'pages/lab-results'
+  endif
+-%}
+
+{%- capture utility_links_json -%}
+[
+  { "title": {{ section.settings.about_label | json }}, "url": {{ about_url | json }} },
+  { "title": {{ section.settings.contact_label | json }}, "url": {{ contact_url | json }} },
+  { "title": {{ section.settings.lab_results_label | json }}, "url": {{ lab_results_url | json }} }
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "logo_url": {{ logo_url | json }},
+  "shop_name": {{ shop.name | json }},
+  "menu_links": {{ menu_links_json }},
+  "utility_links": {{ utility_links_json }},
+  "overlay_hero": {{ overlay_hero | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'header-' | append: section.id,
+  component: 'Header',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    { "type": "header", "content": "Utility links" },
+    { "type": "text", "id": "about_label", "label": "About label", "default": "About Us" },
+    { "type": "url", "id": "about_link", "label": "About link" },
+    { "type": "text", "id": "contact_label", "label": "Contact label", "default": "Contact Us" },
+    { "type": "url", "id": "contact_link", "label": "Contact link" },
+    { "type": "text", "id": "lab_results_label", "label": "Lab results label", "default": "Lab Results" },
+    { "type": "url", "id": "lab_results_link", "label": "Lab results link" }
+  ]
+}
+{% endschema %}

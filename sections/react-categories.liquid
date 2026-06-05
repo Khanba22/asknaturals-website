@@ -1,0 +1,116 @@
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign icon_url = null
+    case block.settings.icon
+      when 'pcos'
+        assign icon_url = 'images/icon_pcos.png' | asset_url
+      when 'hormones'
+        assign icon_url = 'images/icon_hormonal.png' | asset_url
+      when 'fatloss'
+        assign icon_url = 'images/icon_fatloss.png' | asset_url
+      when 'sleep'
+        assign icon_url = 'images/icon_sleep.png' | asset_url
+    endcase
+    if block.settings.custom_icon != blank
+      assign icon_url = block.settings.custom_icon | image_url: width: 80
+    endif
+  -%}
+  {
+    "id": {{ block.id | json }},
+    "type": {{ block.type | json }},
+    "settings": {
+      "title": {{ block.settings.title | json }},
+      "subtitle": {{ block.settings.subtitle | json }},
+      "icon": {{ block.settings.icon | json }},
+      "icon_url": {{ icon_url | json }},
+      "link": {{ block.settings.link | json }}
+    }
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "blocks": {{ blocks_json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'categories-' | append: section.id,
+  component: 'Categories',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Categories",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find the right support for your body"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Choose from our range of scientifically formulated supplements"
+    },
+    {
+      "type": "text",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Hormonal Balance" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "pcos", "label": "PCOS" },
+            { "value": "hormones", "label": "Hormones" },
+            { "value": "fatloss", "label": "Fat loss" },
+            { "value": "sleep", "label": "Sleep" },
+            { "value": "digestion", "label": "Digestion" },
+            { "value": "metabolism", "label": "Metabolism" },
+            { "value": "energy", "label": "Energy" },
+            { "value": "immunity", "label": "Immunity" }
+          ],
+          "default": "hormones"
+        },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom icon (overrides theme icon)" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Hormonal Balance", "icon": "hormones" } },
+        { "type": "category", "settings": { "title": "Gut & Digestion", "icon": "digestion" } },
+        { "type": "category", "settings": { "title": "Metabolic Health", "icon": "metabolism" } },
+        { "type": "category", "settings": { "title": "Everyday Energy", "icon": "energy" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

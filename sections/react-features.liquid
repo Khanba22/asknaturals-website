@@ -1,0 +1,71 @@
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "id": {{ block.id | json }},
+    "type": {{ block.type | json }},
+    "settings": {
+      "title": {{ block.settings.title | json }},
+      "description": {{ block.settings.description | json }},
+      "emoji": {{ block.settings.emoji | json }},
+      "custom_icon_url": {% if block.settings.custom_icon != blank %}{{ block.settings.custom_icon | image_url: width: 80 | json }}{% else %}null{% endif %}
+    }
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "blocks": {{ blocks_json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'features-' | append: section.id,
+  component: 'Features',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Features",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Thoughtfully formulated. <em>Easy to use.</em></p>"
+    },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    { "type": "text", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Pure" },
+        { "type": "text", "id": "description", "label": "Description", "default": "100% natural ingredients" },
+        { "type": "text", "id": "emoji", "label": "Emoji", "default": "🌿" },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom icon" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Pure", "description": "100% natural ingredients", "emoji": "🌿" } },
+        { "type": "feature", "settings": { "title": "Authentic", "description": "Clinically tested", "emoji": "✓" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

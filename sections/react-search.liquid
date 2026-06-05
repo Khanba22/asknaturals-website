@@ -1,0 +1,40 @@
+{%- capture products_json -%}
+[
+{%- assign product_index = 0 -%}
+{%- paginate search.results by 24 -%}
+  {%- for item in search.results -%}
+    {%- if item.object_type == 'product' -%}
+      {%- if product_index > 0 -%},{%- endif -%}
+      {%- capture one_product -%}{% render 'liquid-product-json', product: item %}{%- endcapture -%}
+      {{ one_product }}
+      {%- assign product_index = product_index | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endpaginate -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "terms": {{ search.terms | json }},
+  "results_count": {{ search.results_count | json }},
+  "products": {{ products_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'search-page',
+  component: 'SearchPage',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Search" }
+  ]
+}
+{% endschema %}

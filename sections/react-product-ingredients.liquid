@@ -1,0 +1,116 @@
+{%- capture ingredients_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "title": {{ block.settings.title | json }},
+    "short_label": {{ block.settings.short_label | json }},
+    "description": {{ block.settings.description | json }}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "hub_label": {{ section.settings.hub_label | json }},
+  "hub_description": {{ section.settings.hub_description | json }},
+  "ingredients": {{ ingredients_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'product-ingredients-' | append: section.id,
+  component: 'ProductIngredients',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Product ingredients",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Ingredients" },
+    { "type": "text", "id": "hub_label", "label": "Wheel center label", "default": "Harmony Blend" },
+    {
+      "type": "textarea",
+      "id": "hub_description",
+      "label": "Harmony blend description",
+      "default": "A synergistic Ayurvedic blend designed to support hormonal balance, energy, and everyday wellness."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Ashwagandha" },
+        { "type": "text", "id": "short_label", "label": "Wheel label", "default": "ASHWA" },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "The gold-standard adaptogen. Clinically shown to reduce cortisol by up to 28%, supporting the adrenal-hormonal axis and easing stress-driven hormonal disruption."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product ingredients",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Ashwagandha",
+            "short_label": "ASHWA",
+            "description": "The gold-standard adaptogen. Clinically shown to reduce cortisol by up to 28%, supporting the adrenal-hormonal axis and easing stress-driven hormonal disruption."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Shatavari",
+            "short_label": "SHATAV",
+            "description": "Ayurveda's sacred women's tonic. Supports follicular health, eases perimenopause symptoms, and nourishes the reproductive system through every phase of life."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Brahmi",
+            "short_label": "BRAHMI",
+            "description": "Enhances cognitive clarity and reduces anxiety by modulating GABA and serotonin pathways — supporting mental wellness alongside hormonal balance."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Lodhra",
+            "short_label": "LODHRA",
+            "description": "A traditional Ayurvedic herb used specifically for female reproductive health. Supports ovarian function and helps regulate FSH and LH levels."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Moringa",
+            "short_label": "MORINGA",
+            "description": "Nature's most nutrient-dense plant. Provides essential micronutrients including iron, calcium, and zinc — often depleted during hormonal imbalance and menstruation."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Triphala",
+            "short_label": "TRIPHALA",
+            "description": "The ancient tri-fruit formula. Supports gut health, enhances nutrient absorption, and promotes gentle detoxification — the foundation for hormonal resilience."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

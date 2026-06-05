@@ -1,0 +1,26 @@
+{%- capture config_json -%}
+{
+  "empty_message": {{ section.settings.empty_message | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'cart-page',
+  component: 'CartPage',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "empty_message",
+      "label": "Empty cart message",
+      "default": "Your cart is empty"
+    }
+  ]
+}
+{% endschema %}

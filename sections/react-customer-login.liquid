@@ -1,0 +1,32 @@
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subtext": {{ section.settings.subtext | json }},
+  "return_to": {{ request.path | json }},
+  "form_errors": {% render 'customer-form-errors' %},
+  "recover_success": {{ form.posted_successfully? | json }},
+  "form_type": {{ form.type | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'customer-login',
+  component: 'CustomerLogin',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Customer login",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Log in" },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Log in to view orders and checkout faster."
+    }
+  ]
+}
+{% endschema %}

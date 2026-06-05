@@ -1,0 +1,33 @@
+{% doc %}
+  Serializes one product for React product cards / cart.
+  Picks the first variant that is actually available for purchase.
+
+  @param {product} product - Shopify product object
+{% enddoc %}
+
+{%- liquid
+  assign cart_variant = nil
+  for variant in product.variants
+    if variant.available
+      assign cart_variant = variant
+      break
+    endif
+  endfor
+  if cart_variant == nil
+    assign cart_variant = product.selected_or_first_available_variant
+  endif
+-%}
+{
+  "id": {{ product.id | json }},
+  "variant_id": {{ cart_variant.id | json }},
+  "variant_title": {{ cart_variant.title | json }},
+  "variant_available": {{ cart_variant.available | json }},
+  "title": {{ product.title | json }},
+  "handle": {{ product.handle | json }},
+  "url": {{ product.url | json }},
+  "featured_image": {% if product.featured_image %}{{ product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %},
+  "price": {{ cart_variant.price | json }},
+  "compare_at_price": {{ cart_variant.compare_at_price | json }},
+  "available": {{ product.available | json }},
+  "vendor": {{ product.vendor | json }}
+}

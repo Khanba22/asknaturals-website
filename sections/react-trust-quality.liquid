@@ -1,0 +1,84 @@
+{%- capture badges_json -%}
+[
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign badge_icon = 'images/tick_icon.png' | asset_url
+    if forloop.index == 2
+      assign badge_icon = 'images/lab_icon.png' | asset_url
+    elsif forloop.index == 3
+      assign badge_icon = 'images/thumb_icon.png' | asset_url
+    endif
+    if block.settings.icon != blank
+      assign badge_icon = block.settings.icon | image_url: width: 80
+    endif
+  -%}
+  {
+    "label": {{ block.settings.label | json }},
+    "icon_url": {{ badge_icon | json }}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "description": {{ section.settings.description | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "badges": {{ badges_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'trust-' | append: section.id,
+  component: 'TrustQuality',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Trust & quality",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Quality you can trust" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "VERIFIED SUPPLEMENTS CURATED BY US"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every product is selected with care and tested for quality so you can shop with confidence."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Launching Soon" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Third-Party Lab Tested" },
+        { "type": "image_picker", "id": "icon", "label": "Custom icon (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust & quality",
+      "blocks": [
+        { "type": "badge", "settings": { "label": "Third-Party Lab Tested" } },
+        { "type": "badge", "settings": { "label": "Authenticity Verified" } },
+        { "type": "badge", "settings": { "label": "Quality You Deserve" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

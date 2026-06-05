@@ -1,0 +1,121 @@
+{%- liquid
+  assign hero_image_url = 'images/hero_bg.png' | asset_url
+  if section.settings.image != blank
+    assign hero_image_url = section.settings.image | image_url: width: 1200
+  endif
+  assign overlay_header = false
+  if template.name == 'index'
+    assign overlay_header = true
+  endif
+-%}
+{%- capture config_json -%}
+{
+  "subtitle": {{ section.settings.subtitle | json }},
+  "heading": {{ section.settings.heading | json }},
+  "description": {{ section.settings.description | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "button_label_2": {{ section.settings.button_label_2 | json }},
+  "button_link_2": {{ section.settings.button_link_2 | json }},
+  "image_url": {{ hero_image_url | json }},
+  "overlay_header": {{ overlay_header | json }},
+  "show_trust_badges": {{ section.settings.show_trust_badges | json }},
+  "show_floating_badges": {{ section.settings.show_floating_badges | json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'hero-' | append: section.id,
+  component: 'Hero',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "PREMIUM SUPPLEMENTS"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>SUPPLEMENTS DESIGNED AROUND HER BIOLOGY.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Clinically selected ingredients to support hormones, digestion, metabolism and energy.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Second button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Second button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero background image"
+    },
+    {
+      "type": "range",
+      "id": "button_spacer_height",
+      "label": "Shop button vertical offset",
+      "info": "Adjust the invisible spacer height to move the Shop Now button up or down.",
+      "min": 0,
+      "max": 480,
+      "step": 8,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_floating_badges",
+      "label": "Show floating badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

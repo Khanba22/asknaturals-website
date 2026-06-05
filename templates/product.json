@@ -1,0 +1,329 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "react-main-product",
+      "settings": {
+        "category": "Hormonal Wellness",
+        "short_description": "A precisely formulated Ayurvedic supplement to support hormonal balance, reduce stress-related fatigue, and nurture your cycle from within.",
+        "review_count": 124,
+        "subscribe_price": "",
+        "onetime_price": ""
+      }
+    },
+    "accordion": {
+      "type": "react-product-accordion",
+      "blocks": {
+        "shipping": {
+          "type": "item",
+          "settings": {
+            "title": "Shipping & Delivery",
+            "content": "Free shipping on subscriptions. Standard delivery across India in 3–7 business days."
+          }
+        },
+        "returns": {
+          "type": "item",
+          "settings": {
+            "title": "Returns & Refunds",
+            "content": "Unopened products may be returned within 14 days. Contact support for assistance."
+          }
+        },
+        "subscription": {
+          "type": "item",
+          "settings": {
+            "title": "Subscription Details",
+            "content": "Pause, skip, or cancel your subscription anytime from your account. No hidden fees."
+          }
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "subscription"
+      ],
+      "settings": {}
+    },
+    "story_wellness": {
+      "type": "react-product-story",
+      "blocks": {
+        "p1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "Women's wellness is deeply interconnected — from energy and stress to metabolism, sleep, and hormonal balance."
+          }
+        },
+        "p2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "Asknatural formulations are designed to support these systems thoughtfully, helping women feel more supported in their everyday routines."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2"
+      ],
+      "settings": {
+        "heading": "Support for the realities of modern wellness",
+        "image_position": "right",
+        "image": "shopify://shop_images/coffee.png"
+      }
+    },
+    "story_formulated": {
+      "type": "react-product-story",
+      "blocks": {
+        "p1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "Most women are often recommended multiple supplements without clarity on what truly works together."
+          }
+        },
+        "p2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "This formulation was created to simplify that experience — combining carefully selected ingredients that work synergistically to support hormonal wellbeing, energy, recovery, and everyday balance."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2"
+      ],
+      "settings": {
+        "heading": "Formulated with intention, not trends",
+        "image_position": "left",
+        "image": "shopify://shop_images/prod_3e64973f-d12d-4843-96a3-15ba535931be.png"
+      }
+    },
+    "ingredients": {
+      "type": "react-product-ingredients",
+      "blocks": {
+        "ashwa": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Ashwagandha",
+            "short_label": "ASHWA",
+            "description": "The gold-standard adaptogen. Clinically shown to reduce cortisol by up to 28%, supporting the adrenal-hormonal axis and easing stress-driven hormonal disruption."
+          }
+        },
+        "shatav": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Shatavari",
+            "short_label": "SHATAV",
+            "description": "Ayurveda's sacred women's tonic. Supports follicular health, eases perimenopause symptoms, and nourishes the reproductive system through every phase of life."
+          }
+        },
+        "brahmi": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Brahmi",
+            "short_label": "BRAHMI",
+            "description": "Enhances cognitive clarity and reduces anxiety by modulating GABA and serotonin pathways — supporting mental wellness alongside hormonal balance."
+          }
+        },
+        "lodhra": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Lodhra",
+            "short_label": "LODHRA",
+            "description": "A traditional Ayurvedic herb used specifically for female reproductive health. Supports ovarian function and helps regulate FSH and LH levels."
+          }
+        },
+        "moringa": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Moringa",
+            "short_label": "MORINGA",
+            "description": "Nature's most nutrient-dense plant. Provides essential micronutrients including iron, calcium, and zinc — often depleted during hormonal imbalance and menstruation."
+          }
+        },
+        "triphala": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Triphala",
+            "short_label": "TRIPHALA",
+            "description": "The ancient tri-fruit formula. Supports gut health, enhances nutrient absorption, and promotes gentle detoxification — the foundation for hormonal resilience."
+          }
+        }
+      },
+      "block_order": [
+        "ashwa",
+        "shatav",
+        "brahmi",
+        "lodhra",
+        "moringa",
+        "triphala"
+      ],
+      "settings": {
+        "heading": "Ingredients",
+        "hub_label": "Harmony Blend",
+        "hub_description": "A synergistic Ayurvedic blend designed to support hormonal balance, energy, and everyday wellness."
+      }
+    },
+    "lab_verified": {
+      "type": "react-product-lab-verified",
+      "settings": {
+        "heading": "Laboratory Verified & Triple Tested.",
+        "description": "Every batch is tested for purity, potency, and the absence of heavy metals. We believe transparency is the highest form of luxury.",
+        "stat_1_value": "0.00%",
+        "stat_1_label": "Synthetic Fillers",
+        "stat_2_value": "100%",
+        "stat_2_label": "Batch Traced"
+      }
+    },
+    "testimonials": {
+      "type": "react-testimonials",
+      "blocks": {
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, something that actually works for my PMS brain fog. I feel sharper and more stable throughout the entire month.",
+            "author_name": "Sarah J.",
+            "author_date": "24/06/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, something that actually works for my PMS brain fog. I feel sharper and more stable throughout the entire month.",
+            "author_name": "Sarah J.",
+            "author_date": "24/06/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, something that actually works for my PMS brain fog. I feel sharper and more stable throughout the entire month.",
+            "author_name": "Sarah J.",
+            "author_date": "24/06/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "heading": "What people are saying",
+        "subheading": "",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "trust": {
+      "type": "react-trust-quality",
+      "blocks": {
+        "b1": {
+          "type": "badge",
+          "settings": {
+            "label": "Third-Party Lab Tested"
+          }
+        },
+        "b2": {
+          "type": "badge",
+          "settings": {
+            "label": "Authenticity Verified"
+          }
+        },
+        "b3": {
+          "type": "badge",
+          "settings": {
+            "label": "Quality You Deserve"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "eyebrow": "Quality you can trust",
+        "heading": "Verified supplements curated by us",
+        "description": "Every product is selected with care and tested for quality so you can shop with confidence.",
+        "button_label": "Launching Soon",
+        "button_link": ""
+      }
+    },
+    "faq": {
+      "type": "react-product-faq",
+      "blocks": {
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "question": "Who is this for?",
+            "answer": "Designed for women seeking hormonal wellness support through Ayurvedic nutrition."
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "question": "When should I take it?",
+            "answer": "Enjoy one serving daily, preferably in the morning or evening as part of your wellness routine."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this a medicine?",
+            "answer": "This is a dietary supplement, not a medicine. Consult your healthcare provider if you have specific conditions."
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "question": "How long should I use it?",
+            "answer": "Most customers notice benefits with consistent use over 8–12 weeks."
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I cancel subscription anytime?",
+            "answer": "Yes — pause, skip, or cancel your subscription anytime from your account dashboard."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ],
+      "settings": {
+        "heading": "FAQ.",
+        "subheading": "Common Inquiries"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "accordion",
+    "story_wellness",
+    "story_formulated",
+    "ingredients",
+    "lab_verified",
+    "testimonials",
+    "trust",
+    "faq"
+  ]
+}

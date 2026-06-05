@@ -1,0 +1,77 @@
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "label": {{ block.settings.label | json }},
+    "icon_url": {% if block.settings.icon != blank %}{{ block.settings.icon | image_url: width: 256 | json }}{% else %}null{% endif %}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 900 | json }}{% else %}null{% endif %},
+  "leaf_background_url": {% if section.settings.leaf_background != blank %}{{ section.settings.leaf_background | image_url: width: 1600 | json }}{% else %}null{% endif %},
+  "blocks": {{ blocks_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-approach-' | append: section.id,
+  component: 'AboutApproach',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About approach",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our approach" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built around women, not wellness trends."
+    },
+    { "type": "image_picker", "id": "image", "label": "Product image" },
+    {
+      "type": "image_picker",
+      "id": "leaf_background",
+      "label": "Leaf background image",
+      "info": "Optional decorative leafy watermark behind the section."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Understand First" },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image",
+          "info": "Square image recommended. Displayed in a 64×64px circle."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About approach",
+      "blocks": [
+        { "type": "pillar", "settings": { "label": "Understand First" } },
+        { "type": "pillar", "settings": { "label": "Long-Term Wellness" } },
+        { "type": "pillar", "settings": { "label": "Thoughtful Recommendations" } },
+        { "type": "pillar", "settings": { "label": "Transparent Information" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

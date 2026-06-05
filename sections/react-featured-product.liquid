@@ -1,0 +1,44 @@
+{%- capture config_json -%}
+{
+  "subtitle": {{ section.settings.subtitle | json }},
+  "heading": {{ section.settings.heading | json }},
+  "description": {{ section.settings.description | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1200 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'featured-' | append: section.id,
+  component: 'FeaturedProduct',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Featured original",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "AskNatural Original" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "ASKNATURAL ORIGINAL" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Most supplements work alone. Askknatural Originals are formulated to work together for hormones, sleep, metabolism, and real daily results."
+    },
+    { "type": "image_picker", "id": "image", "label": "Featured image" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop AskNatural Original" },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Shop link",
+      "info": "Link to the AskNatural Original collection or product page."
+    }
+  ],
+  "presets": [{ "name": "Featured original" }]
+}
+{% endschema %}

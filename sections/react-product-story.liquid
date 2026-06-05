@@ -1,0 +1,65 @@
+{%- capture paragraphs_json -%}
+[
+{%- for block in section.blocks -%}
+  {{ block.settings.text | json }}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "paragraphs": {{ paragraphs_json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 900 | json }}{% else %}null{% endif %},
+  "image_position": {{ section.settings.image_position | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'product-story-' | append: section.id,
+  component: 'ProductStorySplit',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Product story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Support for the realities of modern wellness"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Women's wellness is deeply interconnected — from energy and stress to metabolism, sleep, and hormonal balance."
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product story" }]
+}
+{% endschema %}

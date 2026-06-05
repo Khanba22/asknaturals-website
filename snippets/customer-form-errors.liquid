@@ -1,0 +1,19 @@
+{% doc %}
+  Outputs a JSON array of form field errors for data-config.
+
+  Must be inlined where used — {% render %} isolates {% capture %}, so a captured
+  variable here is not visible in the parent section.
+
+  @example
+  "form_errors": {% render 'customer-form-errors' %},
+{% enddoc %}
+[
+{%- if form.errors -%}
+  {%- for field in form.errors -%}
+    {
+      "field": {{ field | json }},
+      "message": {{ form.errors.messages[field] | json }}
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+]

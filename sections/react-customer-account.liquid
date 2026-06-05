@@ -1,0 +1,39 @@
+{%- capture orders_json -%}
+[
+{%- if customer -%}
+  {%- for order in customer.orders -%}
+    {
+      "id": {{ order.id | json }},
+      "name": {{ order.name | json }},
+      "order_number": {{ order.order_number | json }},
+      "created_at": {{ order.created_at | json }},
+      "financial_status": {{ order.financial_status | json }},
+      "fulfillment_status": {{ order.fulfillment_status | json }},
+      "total_price": {{ order.total_price | json }},
+      "line_items_count": {{ order.line_items.size | json }},
+      "url": {{ order.customer_url | json }}
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "orders": {{ orders_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'customer-account',
+  component: 'CustomerAccount',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Customer account",
+  "settings": []
+}
+{% endschema %}

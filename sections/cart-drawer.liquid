@@ -1,0 +1,25 @@
+{%- capture config_json -%}
+{
+  "empty_message": {{ section.settings.empty_message | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'cart-drawer',
+  component: 'CartDrawer',
+  config_json: config_json
+%}
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "empty_message",
+      "label": "Empty cart message",
+      "default": "Your cart is empty"
+    }
+  ]
+}
+{% endschema %}

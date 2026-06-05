@@ -1,0 +1,7 @@
+{% doc %}
+  Builds a compact JSON array of contact info items from section settings,
+  with optional extra items from blocks.
+
+  @param {object} section - The contact page section object
+{% enddoc %}
+{"label":{{ section.settings.phone_label | json }},"value":{{ section.settings.phone_value | json }},"url":{{ section.settings.phone_url | json }},"icon_url":{%- if section.settings.phone_icon != blank -%}{{ section.settings.phone_icon | image_url: width: 88 | json }}{%- else -%}null{%- endif -%}},{"label":{{ section.settings.email_label | json }},"value":{{ section.settings.email_value | json }},"url":{{ section.settings.email_url | json }},"icon_url":{%- if section.settings.email_icon != blank -%}{{ section.settings.email_icon | image_url: width: 88 | json }}{%- else -%}null{%- endif -%}},{"label":{{ section.settings.instagram_label | json }},"value":{{ section.settings.instagram_value | json }},"url":{{ section.settings.instagram_url | json }},"icon_url":{%- if section.settings.instagram_icon != blank -%}{{ section.settings.instagram_icon | image_url: width: 88 | json }}{%- else -%}null{%- endif -%}},{"label":{{ section.settings.support_label | json }},"value":{{ section.settings.support_value | json }},"url":{{ section.settings.support_url | json }},"icon_url":{%- if section.settings.support_icon != blank -%}{{ section.settings.support_icon | image_url: width: 88 | json }}{%- else -%}null{%- endif -%}}

@@ -1,0 +1,100 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "AskNatural React",
+    "theme_version": "1.1.0",
+    "theme_author": "AskNatural",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Storefront API",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Create a custom app with Storefront API access. Paste the public token below (Theme settings — never commit real tokens)."
+      },
+      {
+        "type": "text",
+        "id": "storefront_access_token",
+        "label": "Storefront API access token"
+      }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo (light — for dark header)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_dark",
+        "label": "Logo (dark — for light backgrounds)"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Defaults match AskNatural design mockups. Components use these via CSS variables."
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary green",
+        "default": "#2D4F1E"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary dark",
+        "default": "#1E3614"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream background",
+        "default": "#F5F1EB"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body text",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Page background",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "libre_baskerville_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "dm_sans_n4"
+      }
+    ]
+  }
+]

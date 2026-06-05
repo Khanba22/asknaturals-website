@@ -1,0 +1,20 @@
+{% doc %}
+  Renders a mount point for a React island.
+
+  @param {string} mount_id - Unique DOM id
+  @param {string} component - Registry key (data-react-root)
+  @param {object} [config] - Settings object serialized to data-config
+  @param {string} [config_json] - Pre-built JSON string (for image URLs, blocks, etc.)
+  @param {string} [shopify_attributes] - Theme editor attributes
+{% enddoc %}
+
+<div
+  id="{{ mount_id }}"
+  data-react-root="{{ component }}"
+  {% if config_json != blank %}
+    data-config="{{ config_json | strip_newlines | escape }}"
+  {% else %}
+    data-config="{{ config | json | strip_newlines | escape }}"
+  {% endif %}
+  {% if shopify_attributes %}{{ shopify_attributes }}{% endif %}
+></div>

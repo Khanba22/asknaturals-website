@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "react-page-content",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

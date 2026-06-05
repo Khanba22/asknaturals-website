@@ -1,0 +1,90 @@
+{%- capture bullets_json -%}
+[
+{%- for block in section.blocks -%}
+  {{ block.settings.text | json }}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "quote": {{ section.settings.quote | json }},
+  "bullets": {{ bullets_json }},
+  "author_name": {{ section.settings.author_name | json }},
+  "author_title": {{ section.settings.author_title | json }},
+  "leaf_background_url": {% if section.settings.leaf_background != blank %}{{ section.settings.leaf_background | image_url: width: 1600 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-founder-quote-' | append: section.id,
+  component: 'AboutFounderQuote',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About founder quote",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "I spent five years trying to fix my own body the way the industry told me to and failing."
+    },
+    { "type": "text", "id": "author_name", "label": "Author name", "default": "Yash" },
+    { "type": "text", "id": "author_title", "label": "Author title", "default": "Founder, AskNatural" },
+    {
+      "type": "image_picker",
+      "id": "leaf_background",
+      "label": "Leaf background image",
+      "info": "Optional decorative leafy watermark behind the section."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Calorie counting." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About founder quote",
+      "blocks": [
+        { "type": "bullet", "settings": { "text": "Calorie counting." } },
+        { "type": "bullet", "settings": { "text": "Generic advice." } },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "Supplements that promised everything and delivered nothing."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "That frustration became the foundation of AskNatural."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "Everything on this platform exists because I went looking for something better and couldn't find it."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "So I built it for women who are done being misled, done being sold to, and ready for something that actually works."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

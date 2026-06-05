@@ -1,0 +1,11 @@
+node_modules/
+.shopify/
+.DS_Store
+*.log
+.env
+.env.local
+
+# Optional: commit built assets for CI without Node; uncomment to ignore:
+# assets/app.js
+# assets/app.css
+assets/app.js.map

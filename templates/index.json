@@ -1,0 +1,290 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "react-hero",
+      "settings": {
+        "subtitle": "PREMIUM SUPPLEMENTS",
+        "heading": "<p>SUPPLEMENTS DESIGNED AROUND HER BIOLOGY.</p>",
+        "description": "<p>Clinically selected ingredients to support hormones, digestion, metabolism and energy.</p>",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all",
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_spacer_height": 200,
+        "show_trust_badges": true,
+        "show_floating_badges": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "categories": {
+      "type": "react-categories",
+      "blocks": {
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "title": "PCOS",
+            "subtitle": "",
+            "icon": "pcos",
+            "link": "/collections/all"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "title": "Hormonal Balance",
+            "subtitle": "",
+            "icon": "hormones",
+            "link": "/collections/all"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "title": "Fat Loss",
+            "subtitle": "",
+            "icon": "fatloss",
+            "link": "/collections/all"
+          }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": {
+            "title": "Sleep",
+            "subtitle": "",
+            "icon": "sleep",
+            "link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "cat-1",
+        "cat-2",
+        "cat-3",
+        "cat-4"
+      ],
+      "settings": {
+        "heading": "FIND SUPPORT DESIGNED AROUND YOUR BODY",
+        "subheading": "Explore by how you feel. Get support designed around hormones, energy, metabolism, recovery, and everyday balance.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured": {
+      "type": "react-featured-product",
+      "settings": {
+        "subtitle": "AskNatural Original",
+        "heading": "ASKNATURAL ORIGINAL",
+        "description": "Most supplements work alone. Askknatural Originals are formulated to work together for hormones, sleep, metabolism, and real daily results. One intentional formulation. This is not a product. It is a decision made for you, by someone who actually understands the biology.",
+        "button_label": "Shop AskNatural Original",
+        "button_link": "/collections/all"
+      }
+    },
+    "trust": {
+      "type": "react-trust-quality",
+      "blocks": {
+        "b1": {
+          "type": "badge",
+          "settings": {
+            "label": "Third-Party Lab Tested"
+          }
+        },
+        "b2": {
+          "type": "badge",
+          "settings": {
+            "label": "Authenticity Verified"
+          }
+        },
+        "b3": {
+          "type": "badge",
+          "settings": {
+            "label": "Quality You Deserve"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "eyebrow": "Quality you can trust",
+        "heading": "VERIFIED SUPPLEMENTS CURATED BY US",
+        "description": "Every product in our collection is carefully selected and tested for quality, so you can shop with confidence knowing you are getting supplements that meet our high standards.",
+        "button_label": "Launching Soon",
+        "button_link": ""
+      }
+    },
+    "quiz": {
+      "type": "react-wellness-quiz",
+      "settings": {
+        "heading": "NOT SURE WHAT YOUR BODY NEEDS RIGHT NOW?",
+        "subheading": "Answer a few thoughtful questions and receive personalized wellness recommendations designed around your goals, lifestyle, and how you feel day to day.",
+        "button_label": "Take the wellness quiz",
+        "button_link": "/pages/wellness-quiz"
+      }
+    },
+    "stats": {
+      "type": "react-stats",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "12,000+",
+            "label": "Wellness routines supported"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "5+",
+            "label": "Years of research"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "1,800+",
+            "label": "Coaching hours"
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "value": "94%",
+            "label": "Community trust"
+          }
+        },
+        "s5": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Lab tested"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "settings": {
+        "heading": "WELLNESS SUPPORT DESIGNED AROUND REAL WOMEN",
+        "description": "We believe wellness should feel personal, not overwhelming. Our approach is rooted in science, guided by care, and designed to fit naturally into everyday life."
+      }
+    },
+    "testimonials": {
+      "type": "react-testimonials",
+      "blocks": {
+        "t-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, something that actually works for my PMS brain fog. I feel more balanced throughout the month.",
+            "author_name": "Sarah J.",
+            "author_date": "24/06/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t-2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The hot chocolate is delicious and easy to stick with every morning.",
+            "author_name": "Maya R.",
+            "author_date": "24/06/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t-3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Quality you can trust. I love knowing everything is lab tested.",
+            "author_name": "Priya K.",
+            "author_date": "24/06/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t-4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "My energy feels steadier through the day and my evening routine finally feels sustainable.",
+            "author_name": "Ananya S.",
+            "author_date": "12/01/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t-5": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I appreciate how thoughtful the formulation feels — not like another generic supplement stack.",
+            "author_name": "Rhea M.",
+            "author_date": "03/02/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        },
+        "t-6": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Seeing the lab results gave me confidence. The product quality matches the brand promise.",
+            "author_name": "Divya N.",
+            "author_date": "18/02/2026",
+            "author_title": "Verified Customer",
+            "rating": 5,
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "t-1",
+        "t-2",
+        "t-3",
+        "t-4",
+        "t-5",
+        "t-6"
+      ],
+      "settings": {
+        "heading": "WHAT PEOPLE ARE SAYING",
+        "subheading": "The AskNatural experience",
+        "know_more_label": "Know More",
+        "know_more_link": "/pages/lab-results",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "founder": {
+      "type": "react-founder",
+      "settings": {
+        "heading": "FROM THE FOUNDER",
+        "body": "Askknatural grew from years of working closely with women navigating hormonal imbalance, fatigue, irregular cycles, and everyday wellness struggles.\n\nWe kept seeing the same challenge — supplements that never felt truly personal or thoughtfully designed.\n\nAskknatural exists to fill that gap with gentle, science-informed wellness support built around real daily routines.",
+        "signature": "-Yash, Founder of Askknatural"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "featured",
+    "trust",
+    "quiz",
+    "stats",
+    "testimonials",
+    "founder"
+  ]
+}

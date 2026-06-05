@@ -1,0 +1,44 @@
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "description": {{ section.settings.description | json }},
+  "stat_1_value": {{ section.settings.stat_1_value | json }},
+  "stat_1_label": {{ section.settings.stat_1_label | json }},
+  "stat_2_value": {{ section.settings.stat_2_value | json }},
+  "stat_2_label": {{ section.settings.stat_2_label | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'product-lab-' | append: section.id,
+  component: 'ProductLabVerified',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Product lab verified",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Laboratory Verified & Triple Tested."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every batch is tested for purity, potency, and the absence of heavy metals. We believe transparency is the highest form of luxury."
+    },
+    { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "0.00%" },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Synthetic Fillers" },
+    { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "100%" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Batch Traced" }
+  ],
+  "presets": [{ "name": "Product lab verified" }]
+}
+{% endschema %}

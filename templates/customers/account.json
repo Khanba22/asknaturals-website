@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "react-customer-account",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

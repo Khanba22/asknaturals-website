@@ -1,0 +1,74 @@
+{%- capture items_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "title": {{ block.settings.title | json }},
+    "content": {{ block.settings.content | json }}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "items": {{ items_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'product-accordion-' | append: section.id,
+  component: 'ProductAccordion',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Product accordion",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Accordion item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shipping & Delivery" },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content",
+          "default": "Free shipping on subscriptions. Standard delivery across India in 3–7 business days."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product accordion",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Shipping & Delivery",
+            "content": "Free shipping on subscriptions. Standard delivery across India in 3–7 business days."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Returns & Refunds",
+            "content": "Unopened products may be returned within 14 days. Contact support for assistance."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Subscription Details",
+            "content": "Pause, skip, or cancel your subscription anytime from your account. No hidden fees."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

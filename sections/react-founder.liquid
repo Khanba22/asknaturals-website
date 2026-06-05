@@ -1,0 +1,42 @@
+{%- liquid
+  assign founder_image = 'images/img_founder.png' | asset_url
+  if section.settings.image != blank
+    assign founder_image = section.settings.image | image_url: width: 800
+  endif
+-%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "signature": {{ section.settings.signature | json }},
+  "image_url": {{ founder_image | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'founder-' | append: section.id,
+  component: 'Founder',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Founder",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FROM THE FOUNDER" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Story",
+      "default": "Askknatural grew from years of working closely with women navigating hormonal imbalance, fatigue, irregular cycles, and everyday wellness struggles.\n\nWe kept seeing the same challenge — supplements that never felt truly personal or thoughtfully designed.\n\nAskknatural exists to fill that gap with gentle, science-informed wellness support built around real daily routines."
+    },
+    { "type": "text", "id": "signature", "label": "Signature", "default": "-Yash, Founder of Askknatural" },
+    { "type": "image_picker", "id": "image", "label": "Founder photo" }
+  ],
+  "presets": [{ "name": "Founder" }]
+}
+{% endschema %}

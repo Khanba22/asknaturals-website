@@ -1,0 +1,91 @@
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "id": {{ block.id | json }},
+    "type": {{ block.type | json }},
+    "settings": {
+      "quote": {{ block.settings.quote | json }},
+      "author_name": {{ block.settings.author_name | json }},
+      "author_date": {{ block.settings.author_date | json }},
+      "author_title": {{ block.settings.author_title | json }},
+      "author_image_url": {% if block.settings.author_image != blank %}{{ block.settings.author_image | image_url: width: 120 | json }}{% else %}null{% endif %},
+      "rating": {{ block.settings.rating | json }},
+      "verified": {{ block.settings.verified | json }}
+    }
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "know_more_label": {{ section.settings.know_more_label | json }},
+  "know_more_link": {{ section.settings.know_more_link | json }},
+  "blocks": {{ blocks_json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'testimonials-' | append: section.id,
+  component: 'Testimonials',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHAT PEOPLE ARE SAYING"
+    },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    { "type": "text", "id": "know_more_label", "label": "Know more label", "default": "Know More" },
+    {
+      "type": "url",
+      "id": "know_more_link",
+      "label": "Know more link",
+      "info": "Links to lab results page."
+    },
+    { "type": "text", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "I've been using these supplements for 3 months and feel the difference."
+        },
+        { "type": "text", "id": "author_name", "label": "Author name", "default": "Priya Sharma" },
+        { "type": "text", "id": "author_date", "label": "Date", "default": "24/06/2026" },
+        { "type": "text", "id": "author_title", "label": "Author title", "default": "Verified Customer" },
+        { "type": "image_picker", "id": "author_image", "label": "Author image" },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        { "type": "checkbox", "id": "verified", "label": "Verified badge", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Testimonials" }]
+}
+{% endschema %}

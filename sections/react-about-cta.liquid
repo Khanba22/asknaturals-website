@@ -1,0 +1,46 @@
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "button_1_label": {{ section.settings.button_1_label | json }},
+  "button_1_link": {{ section.settings.button_1_link | json }},
+  "button_2_label": {{ section.settings.button_2_label | json }},
+  "button_2_link": {{ section.settings.button_2_link | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1600 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-cta-' | append: section.id,
+  component: 'AboutCta',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About CTA",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ready to start your wellness journey?"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Discover personalised wellness support designed around your body, goals, and everyday routine."
+    },
+    { "type": "text", "id": "button_1_label", "label": "Primary button", "default": "Explore Products" },
+    { "type": "url", "id": "button_1_link", "label": "Primary button link" },
+    { "type": "text", "id": "button_2_label", "label": "Secondary button", "default": "Take The Wellness Quiz" },
+    { "type": "url", "id": "button_2_link", "label": "Secondary button link" },
+    { "type": "image_picker", "id": "image", "label": "Background image" }
+  ],
+  "presets": [{ "name": "About CTA" }]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subtext": {{ section.settings.subtext | json }},
+  "form_errors": {% render 'customer-form-errors' %},
+  "form_type": {{ form.type | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'customer-register',
+  component: 'CustomerRegister',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Customer register",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Create account" },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Create an account to track orders and save your details."
+    }
+  ]
+}
+{% endschema %}

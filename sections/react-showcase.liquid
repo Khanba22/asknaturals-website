@@ -1,0 +1,96 @@
+{%- liquid
+  assign showcase_image_url = null
+  if section.settings.image != blank
+    assign showcase_image_url = section.settings.image | image_url: width: 800
+  endif
+-%}
+
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "id": {{ block.id | json }},
+    "type": {{ block.type | json }},
+    "settings": {
+      "text": {{ block.settings.text | json }}
+    }
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "subtitle": {{ section.settings.subtitle | json }},
+  "heading": {{ section.settings.heading | json }},
+  "description": {{ section.settings.description | json }},
+  "image_url": {{ showcase_image_url | json }},
+  "image_position": {{ section.settings.image_position | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "blocks": {{ blocks_json }},
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'showcase-' | append: section.id,
+  component: 'Showcase',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "WHY CHOOSE US" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Simple to use. <em>Easy to stay consistent.</em></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our convenient sachets make it easy to incorporate powerful nutrition into your daily routine.</p>"
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn More" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Feature text", "default": "Super Antioxidant formula" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Showcase",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Super Antioxidant formula" } },
+        { "type": "feature", "settings": { "text": "Designed for daily energy" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

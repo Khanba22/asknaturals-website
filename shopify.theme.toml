@@ -1,0 +1,5 @@
+# Integration / dev store only — not asknaturals.myshopify.com.
+# Used by `shopify theme dev --environment development` and `npm run shopify:dev`.
+
+[environments.development]
+store = "ask-naturals"

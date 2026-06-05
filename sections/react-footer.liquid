@@ -1,0 +1,140 @@
+{%- capture logo_url -%}{%- render 'brand-logo-url' -%}{%- endcapture -%}
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "id": {{ block.id | json }},
+    "type": {{ block.type | json }},
+    "settings": {
+      "title": {{ block.settings.title | json }},
+      "menu_handle": {{ block.settings.menu | json }},
+      "links": [
+        {%- if block.settings.menu != blank -%}
+          {%- assign menu = linklists[block.settings.menu] -%}
+          {%- for link in menu.links -%}
+            {
+              "title": {{ link.title | json }},
+              "url": {{ link.url | json }}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      ]
+    }
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture policy_links_json -%}
+[
+  {%- if shop.privacy_policy -%}
+    { "title": "Privacy Policy", "url": {{ shop.privacy_policy.url | json }} }
+  {%- else -%}
+    { "title": "Privacy Policy", "url": {{ routes.root_url | append: 'policies/privacy-policy' | json }} }
+  {%- endif -%}
+  ,
+  {%- if shop.refund_policy -%}
+    { "title": "Refund Policy", "url": {{ shop.refund_policy.url | json }} }
+  {%- else -%}
+    { "title": "Refund Policy", "url": {{ routes.root_url | append: 'policies/refund-policy' | json }} }
+  {%- endif -%}
+  ,
+  {%- if shop.shipping_policy -%}
+    { "title": "Shipping Policy", "url": {{ shop.shipping_policy.url | json }} }
+  {%- else -%}
+    { "title": "Shipping Policy", "url": {{ routes.root_url | append: 'policies/shipping-policy' | json }} }
+  {%- endif -%}
+  ,
+  {%- if shop.terms_of_service -%}
+    { "title": "Terms of Service", "url": {{ shop.terms_of_service.url | json }} }
+  {%- else -%}
+    { "title": "Terms of Service", "url": {{ routes.root_url | append: 'policies/terms-of-service' | json }} }
+  {%- endif -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "footer_description": {{ section.settings.footer_description | json }},
+  "show_newsletter": {{ section.settings.show_newsletter | json }},
+  "newsletter_title": {{ section.settings.newsletter_title | json }},
+  "newsletter_description": {{ section.settings.newsletter_description | json }},
+  "newsletter_placeholder": {{ section.settings.newsletter_placeholder | json }},
+  "show_contact": {{ section.settings.show_contact | json }},
+  "contact_title": {{ section.settings.contact_title | json }},
+  "contact_email": {{ section.settings.contact_email | json }},
+  "contact_phone": {{ section.settings.contact_phone | json }},
+  "contact_address": {{ section.settings.contact_address | json }},
+  "show_payment_icons": {{ section.settings.show_payment_icons | json }},
+  "logo_url": {{ logo_url | json }},
+  "shop_name": {{ shop.name | json }},
+  "blocks": {{ blocks_json }},
+  "policy_links": {{ policy_links_json }},
+  "social_links": [
+    { "id": "twitter", "label": "Twitter", "url": {{ section.settings.social_twitter | default: '#' | json }} },
+    { "id": "facebook", "label": "Facebook", "url": {{ section.settings.social_facebook | default: '#' | json }} },
+    { "id": "instagram", "label": "Instagram", "url": {{ section.settings.social_instagram | default: '#' | json }} },
+    { "id": "youtube", "label": "YouTube", "url": {{ section.settings.social_youtube | default: '#' | json }} }
+  ],
+  "color_scheme": {{ section.settings.color_scheme | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'footer-' | append: section.id,
+  component: 'Footer',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "footer_description",
+      "label": "Brand description",
+      "default": "<p>Thoughtfully designed wellness support created around women's real everyday health journeys.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter",
+      "default": true
+    },
+    { "type": "text", "id": "newsletter_title", "label": "Newsletter title", "default": "Join the wellness journal" },
+    {
+      "type": "text",
+      "id": "newsletter_description",
+      "label": "Newsletter description",
+      "default": "Receive thoughtful wellness insights, formulation updates, and calm guidance designed around women's everyday health."
+    },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Email placeholder", "default": "Your email address" },
+    { "type": "checkbox", "id": "show_contact", "label": "Show contact", "default": true },
+    { "type": "text", "id": "contact_title", "label": "Contact title", "default": "Contact Us" },
+    { "type": "text", "id": "contact_email", "label": "Email", "default": "hello@example.com" },
+    { "type": "text", "id": "contact_phone", "label": "Phone" },
+    { "type": "textarea", "id": "contact_address", "label": "Address" },
+    { "type": "header", "content": "Social links" },
+    { "type": "url", "id": "social_twitter", "label": "Twitter / X" },
+    { "type": "url", "id": "social_facebook", "label": "Facebook" },
+    { "type": "url", "id": "social_instagram", "label": "Instagram" },
+    { "type": "url", "id": "social_youtube", "label": "YouTube" },
+    { "type": "text", "id": "color_scheme", "label": "Color scheme", "default": "scheme-3" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Quick Links" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Footer" }]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "section_id": {{ section.settings.section_id | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-vision-' | append: section.id,
+  component: 'AboutVision',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About vision",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our vision" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A future where wellness feels simpler for every woman."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "We imagine a world where women no longer have to spend years experimenting, guessing, and navigating conflicting advice. A world where trusted wellness support is accessible — our step toward that future."
+    },
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section anchor ID",
+      "default": "about-vision",
+      "info": "Used for in-page links (e.g. #about-vision from the About hero button)."
+    }
+  ],
+  "presets": [{ "name": "About vision" }]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #2d4a1e;
+  --color-primary-dark: #243c18;
+  --color-primary-light: #3a5c28;
+  --color-cream: #f5f1eb;
+  --color-cream-dark: #ebe5dc;
+  --color-marble: #f0eeeb;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5c5c5c;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Libre Baskerville', Georgia, serif;
+  --radius-pill: 9999px;
+}
+
+@utility font-heading {
+  font-family: var(--font-heading);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: #ffffff;
+  }
+
+  /* Home hero: header overlays on mobile — collapse section height so no green gap */
+  @media (max-width: 767px) {
+    .template-index .shopify-section-group-header-group {
+      display: contents;
+    }
+
+    .template-index .section-header {
+      position: relative;
+      z-index: 50;
+      height: 0;
+      min-height: 0;
+      overflow: visible;
+    }
+  }
+}
