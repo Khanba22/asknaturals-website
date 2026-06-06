@@ -1,0 +1,50 @@
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "button_label": {{ section.settings.button_label | json }},
+  "button_link": {{ section.settings.button_link | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1600 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-why-created-' | append: section.id,
+  component: 'AboutWhyCreated',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About why created",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why We Created It" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "PCOS/PMOS Hormonal Balance Premix"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "info": "Separate paragraphs with a blank line.",
+      "default": "Women's hormonal health deserves more attention, better solutions, and greater convenience. Our PCOS/PMOS Hormonal Balance Premix was created to support women looking for an easy and enjoyable way to incorporate carefully selected nutrients into their daily routine.\n\nWe wanted to move beyond capsules and complicated supplement regimens and create something that people would genuinely look forward to consuming every day. The result is a delicious wellness beverage formulated with ingredients commonly associated with supporting hormonal balance, metabolic wellness, and overall wellbeing."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn More" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Displayed as a full-section background, anchored to the center right."
+    }
+  ],
+  "presets": [{ "name": "About why created" }]
+}
+{% endschema %}

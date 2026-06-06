@@ -1,0 +1,39 @@
+{%- capture config_json -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-looking-ahead-' | append: section.id,
+  component: 'AboutLookingAhead',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About looking ahead",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Looking Ahead" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Future Of Wellness Starts Here"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "info": "Separate paragraphs with a blank line.",
+      "default": "Our journey is just beginning. As we continue to grow, our focus remains unchanged: developing innovative, science-backed wellness products that empower people to take charge of their health, naturally and sustainably.\n\nThank you for being a part of the Askknatural community. Better health starts with better daily choices—and we're here to make those choices easier."
+    }
+  ],
+  "presets": [{ "name": "About looking ahead" }]
+}
+{% endschema %}

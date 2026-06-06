@@ -1,39 +1,48 @@
-{%- capture orders_json -%}
-[
-{%- if customer -%}
-  {%- for order in customer.orders -%}
-    {
-      "id": {{ order.id | json }},
-      "name": {{ order.name | json }},
-      "order_number": {{ order.order_number | json }},
-      "created_at": {{ order.created_at | json }},
-      "financial_status": {{ order.financial_status | json }},
-      "fulfillment_status": {{ order.fulfillment_status | json }},
-      "total_price": {{ order.total_price | json }},
-      "line_items_count": {{ order.line_items.size | json }},
-      "url": {{ order.customer_url | json }}
-    }{%- unless forloop.last -%},{%- endunless -%}
-  {%- endfor -%}
-{%- endif -%}
-]
-{%- endcapture -%}
+{%- unless customer -%}
+  {% render 'customer-auth-redirect', return_to: '/account' %}
+{%- else -%}
+  {%- capture orders_json -%}
+  {% render 'customer-orders-json' %}
+  {%- endcapture -%}
 
-{%- capture config_json -%}
-{
-  "orders": {{ orders_json }}
-}
-{%- endcapture -%}
+  {%- capture config_json -%}
+  {
+    "orders": {{ orders_json }},
+    "products_page_url": {{ routes.all_products_collection_url | json }},
+    "contact_page_url": {{ routes.contact_url | json }},
+    "breadcrumbs": [
+      { "title": "Home", "url": {{ routes.root_url | json }} },
+      { "title": "Order history", "url": {{ routes.account_url | json }} }
+    ]
+  }
+  {%- endcapture -%}
 
-{% render 'react-mount',
-  mount_id: 'customer-account',
-  component: 'CustomerAccount',
-  config_json: config_json,
-  shopify_attributes: section.shopify_attributes
-%}
+  {% render 'react-mount',
+    mount_id: 'customer-account',
+    component: 'OrderListPage',
+    config_json: config_json,
+    shopify_attributes: section.shopify_attributes
+  %}
+{%- endunless -%}
 
 {% schema %}
 {
-  "name": "Customer account",
-  "settings": []
+  "name": "Order history",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["customers/account"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Custom order history UI. Requires Classic customer accounts (Settings → Customer accounts). Logged-out visitors are sent to sign in."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Order history"
+    }
+  ]
 }
 {% endschema %}

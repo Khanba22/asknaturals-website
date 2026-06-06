@@ -1,0 +1,45 @@
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 2000 | json }}{% else %}null{% endif %},
+  "decor_left_url": {% if section.settings.decor_left != blank %}{{ section.settings.decor_left | image_url: width: 2000 | json }}{% else %}null{% endif %},
+  "decor_right_url": {% if section.settings.decor_right != blank %}{{ section.settings.decor_right | image_url: width: 2000 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-mission-statement-' | append: section.id,
+  component: 'AboutMissionStatement',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About mission statement",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Mission"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Mission statement",
+      "default": "To create wellness products that help people make healthier choices every day—without sacrificing convenience, taste, or quality. We are committed to building a brand that customers can trust, where every product serves a genuine purpose and contributes to a healthier lifestyle."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Covers the full section. Use a wide image for best results."
+    }
+  ],
+  "presets": [{ "name": "About mission statement" }]
+}
+{% endschema %}

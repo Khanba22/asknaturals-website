@@ -7,13 +7,19 @@ Complete these steps in **ask-naturals** admin (or your target store) to run as 
 **Settings → Customer accounts**
 
 - Choose **Accounts are optional** or **Accounts are required**
-- Use **Classic customer accounts** (recommended for this theme’s login/register forms)
+- Select **Classic customer accounts** (required for custom order history & order summary pages in this theme)
 - Save
 
-Customers can then:
-- Register at `/account/register`
-- Log in at `/account/login`
-- View orders at `/account`
+> **Important:** Custom order UI at `/account` and `/account/orders/{id}` only works with **Classic customer accounts**. If you use **New customer accounts**, Shopify hosts orders on its own portal and the theme cannot replace that UI.
+
+Sign-in uses Shopify’s flow (`routes.storefront_login_url`). When logged out, **My account**, **Orders**, and **Profile** in the header all go to sign-in first (not the slow hosted portal).
+
+### Preview order pages in the theme editor
+
+1. **Online Store → Themes → Customize**
+2. Page selector → **Legacy customer accounts**
+3. Choose **Customer account** (order history) or **Customer order** (order summary)
+4. Preview while logged in as a customer with at least one order
 
 ## 2. Navigation menu
 
@@ -83,20 +89,41 @@ These templates use the same header/footer and brand styling as the homepage:
 | 404 | (any missing URL) | `404.json` |
 | Collections index | `/collections` | `list-collections.json` |
 | Generic page | `/pages/…` | `page.json` |
-| Account | `/account` | `customers/account.json` |
+| Login | `/account/login` | `customers/login.json` → sign-in redirect |
+| Register | `/account/register` | `customers/register.json` → sign-in redirect |
+| **Order history** | `/account` | `customers/account.json` → `OrderListPage` |
+| **Order summary** | `/account/orders/…` | `customers/order.json` → `OrderStatusPage` |
 | Addresses | `/account/addresses` | `customers/addresses.json` |
-| Order detail | `/account/orders/…` | `customers/order.json` |
+
+**Theme editor:** Customize → **Legacy customer accounts** → Customer account / Customer order.
 
 **Checkout** is always Shopify-hosted (`/checkout`) — the cart drawer and cart page link there via `checkout_url`.
 
 ## 9. Push theme
+
+Deploy customer account auth and portal redirects together with built assets:
 
 ```bash
 npm run build
 shopify theme push -s ask-naturals.myshopify.com --unpublished --theme "AskNatural React"
 ```
 
+**Include these paths:**
+
+- `layout/theme.liquid` (includes `storefront_login_url`)
+- `sections/react-customer-login.liquid`
+- `sections/react-customer-register.liquid`
+- `sections/react-customer-account.liquid`
+- `sections/react-customer-order.liquid`
+- `assets/app.js` and `assets/app.css`
+
 Publish when ready: **Online Store → Themes → Publish**.
+
+**Smoke test after deploy:**
+
+1. Click **Sign in** in the header — should use email verification (not a password form posting to `shop.app`)
+2. Complete sign-in — should land back on the storefront or account portal
+3. Click **Orders** / **My account** — should open Shopify customer account portal
 
 ## 10. Cart add returns 422 “already sold out”
 

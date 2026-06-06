@@ -10,6 +10,7 @@ export interface ShopifyRoutes {
   root_url: string;
   account_url: string;
   account_login_url: string;
+  storefront_login_url: string;
   account_register_url: string;
   account_logout_url: string;
   account_recover_url: string;
@@ -121,6 +122,7 @@ export interface OrderLineItem {
   final_line_price: number;
   image: string | null;
   url: string | null;
+  product_description?: string | null;
 }
 
 export interface OrderAddress {
@@ -131,6 +133,7 @@ export interface OrderAddress {
   province: string | null;
   zip: string | null;
   country: string | null;
+  phone?: string | null;
 }
 
 export interface CustomerOrderDetail extends CustomerOrder {

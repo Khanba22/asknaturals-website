@@ -1,72 +1,49 @@
-{%- capture order_json -%}
-{%- if order -%}
-{
-  "id": {{ order.id | json }},
-  "name": {{ order.name | json }},
-  "order_number": {{ order.order_number | json }},
-  "created_at": {{ order.created_at | json }},
-  "financial_status": {{ order.financial_status | json }},
-  "fulfillment_status": {{ order.fulfillment_status | json }},
-  "total_price": {{ order.total_price | json }},
-  "subtotal_price": {{ order.subtotal_price | json }},
-  "total_tax": {{ order.tax_price | json }},
-  "total_shipping_price": {{ order.shipping_price | json }},
-  "line_items_count": {{ order.line_items.size | json }},
-  "url": {{ order.customer_url | json }},
-  "line_items": [
-    {%- for line_item in order.line_items -%}
-      {
-        "id": {{ line_item.id | json }},
-        "title": {{ line_item.title | json }},
-        "variant_title": {{ line_item.variant_title | json }},
-        "quantity": {{ line_item.quantity | json }},
-        "price": {{ line_item.price | json }},
-        "final_line_price": {{ line_item.final_line_price | json }},
-        "image": {% if line_item.image %}{{ line_item.image | image_url: width: 200 | json }}{% else %}null{% endif %},
-        "url": {% if line_item.product %}{{ line_item.product.url | json }}{% else %}null{% endif %}
-      }{%- unless forloop.last -%},{%- endunless -%}
-    {%- endfor -%}
-  ],
-  "shipping_address": {% if order.shipping_address %}{
-    "name": {{ order.shipping_address.name | json }},
-    "address1": {{ order.shipping_address.address1 | json }},
-    "address2": {{ order.shipping_address.address2 | json }},
-    "city": {{ order.shipping_address.city | json }},
-    "province": {{ order.shipping_address.province | json }},
-    "zip": {{ order.shipping_address.zip | json }},
-    "country": {{ order.shipping_address.country | json }}
-  }{% else %}null{% endif %},
-  "billing_address": {% if order.billing_address %}{
-    "name": {{ order.billing_address.name | json }},
-    "address1": {{ order.billing_address.address1 | json }},
-    "address2": {{ order.billing_address.address2 | json }},
-    "city": {{ order.billing_address.city | json }},
-    "province": {{ order.billing_address.province | json }},
-    "zip": {{ order.billing_address.zip | json }},
-    "country": {{ order.billing_address.country | json }}
-  }{% else %}null{% endif %}
-}
+{%- unless customer -%}
+  {% render 'customer-auth-redirect', return_to: request.path %}
 {%- else -%}
-null
-{%- endif -%}
-{%- endcapture -%}
+  {%- capture order_json -%}
+  {% render 'customer-order-detail-json' %}
+  {%- endcapture -%}
 
-{%- capture config_json -%}
-{
-  "order": {{ order_json }}
-}
-{%- endcapture -%}
+  {%- capture config_json -%}
+  {
+    "order": {{ order_json }},
+    "order_list_page_url": {{ routes.account_url | json }},
+    "contact_page_url": {{ routes.contact_url | json }},
+    "breadcrumbs": [
+      { "title": "Home", "url": {{ routes.root_url | json }} },
+      { "title": "Order history", "url": {{ routes.account_url | json }} },
+      { "title": "Order summary", "url": {{ request.path | json }} }
+    ]
+  }
+  {%- endcapture -%}
 
-{% render 'react-mount',
-  mount_id: 'customer-order',
-  component: 'CustomerOrder',
-  config_json: config_json,
-  shopify_attributes: section.shopify_attributes
-%}
+  {% render 'react-mount',
+    mount_id: 'customer-order',
+    component: 'OrderStatusPage',
+    config_json: config_json,
+    shopify_attributes: section.shopify_attributes
+  %}
+{%- endunless -%}
 
 {% schema %}
 {
-  "name": "Customer order",
-  "settings": []
+  "name": "Order summary",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["customers/order"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Custom order tracking UI. Requires Classic customer accounts. Logged-out visitors are sent to sign in."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Order summary"
+    }
+  ]
 }
 {% endschema %}

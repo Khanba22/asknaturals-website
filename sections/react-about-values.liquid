@@ -1,0 +1,109 @@
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "title": {{ block.settings.title | json }},
+    "description": {{ block.settings.description | json }},
+    "icon_url": {% if block.settings.icon != blank %}{{ block.settings.icon | image_url: width: 256 | json }}{% else %}null{% endif %}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "blocks": {{ blocks_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-values-' | append: section.id,
+  component: 'AboutValues',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About values",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What We Stand For"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The values behind every formulation, ingredient, and decision we make."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Science-Led Formulations"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "We believe customers deserve clarity about what they consume and confidence in what they choose."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image",
+          "info": "Square image recommended. Fills the circular icon container."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Science-Led Formulations",
+            "description": "We believe customers deserve clarity about what they consume and confidence in what they choose."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Quality Ingredients",
+            "description": "Every ingredient is selected with care, with an emphasis on quality, functionality, and purpose."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Daily Consistency",
+            "description": "Health is built through small actions repeated over time. Consistency matters more than perfection."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Transparency & Trust",
+            "description": "We believe customers deserve clarity about what they consume and confidence in what they choose."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

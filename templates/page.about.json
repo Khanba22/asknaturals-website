@@ -12,154 +12,131 @@
     "hero": {
       "type": "react-about-hero",
       "settings": {
-        "eyebrow": "About AskNatural",
-        "heading": "Helping women navigate wellness with more clarity and less confusion.",
-        "body": "The wellness industry often overwhelms women with endless advice, conflicting information, and products that promise everything. AskNatural exists to simplify that journey through trusted guidance.",
-        "button_label": "Our Mission",
+        "eyebrow": "About Askknatural",
+        "heading": "Wellness Inspired By Nature. Backed By Science.",
+        "body": "At Askknatural, we believe that good health begins with the choices we make every day.\n\nIn a world filled with complicated health advice and unrealistic promises, our goal is simple: create products that make healthy living easier, more enjoyable, and more sustainable.\n\nOur brand was born from the belief that wellness should be accessible, practical, and rooted in both nature and science. Every product we develop is inspired by this philosophy—combining thoughtfully selected ingredients with evidence-based formulations to support modern health needs.",
+        "image": "shopify://shop_images/BG.png"
+      }
+    },
+    "mission": {
+      "type": "react-about-mission",
+      "blocks": {
+        "v1": {
+          "type": "value",
+          "settings": {
+            "title": "Long-Term Health",
+            "description": "Prioritizing long-term health over quick fixes and temporary results.",
+            "icon": "shopify://shop_images/Frame_2147227708_4.png"
+          }
+        },
+        "v2": {
+          "type": "value",
+          "settings": {
+            "title": "Sustainable Habits",
+            "description": "Focusing on daily habits that create meaningful and lasting change.",
+            "icon": "shopify://shop_images/Frame_2147227708_3.png"
+          }
+        },
+        "v3": {
+          "type": "value",
+          "settings": {
+            "title": "Quality First",
+            "description": "Choosing quality, purpose, and effectiveness over unnecessary complexity.",
+            "icon": "shopify://shop_images/Frame_2147227708_2.png"
+          }
+        },
+        "v4": {
+          "type": "value",
+          "settings": {
+            "title": "Everyday Simplicity",
+            "description": "Creating wellness products that fit naturally into everyday life.",
+            "icon": "shopify://shop_images/Frame_2147227708_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+      ],
+      "settings": {
+        "heading": "Our Inspiration",
+        "subheading": "Askknatural was inspired by the same principles that have guided our broader wellness journey over the years."
+      }
+    },
+    "why_created": {
+      "type": "react-about-why-created",
+      "settings": {
+        "eyebrow": "Why We Created It",
+        "heading": "PCOS/PMOS Hormonal Balance Premix",
+        "body": "Women's hormonal health deserves more attention, better solutions, and greater convenience. Our PCOS/PMOS Hormonal Balance Premix was created to support women looking for an easy and enjoyable way to incorporate carefully selected nutrients into their daily routine.\n\nWe wanted to move beyond capsules and complicated supplement regimens and create something that people would genuinely look forward to consuming every day. The result is a delicious wellness beverage formulated with ingredients commonly associated with supporting hormonal balance, metabolic wellness, and overall wellbeing.",
+        "button_label": "Learn More",
         "button_link": "",
-        "image": "shopify://shop_images/Frame_2147227261.png"
+        "image": "shopify://shop_images/Frame_2147227708.png"
       }
     },
-    "problem": {
-      "type": "react-about-split",
-      "settings": {
-        "eyebrow": "The problem",
-        "heading": "Wellness became too complicated.",
-        "body": "Women are expected to navigate thousands of products, endless social media advice, and conflicting wellness trends. The result is confusion, wasted money, and frustration.",
-        "image": "shopify://shop_images/coffee.png",
-        "image_position": "left",
-        "color_scheme": "white"
-      }
-    },
-    "approach": {
-      "type": "react-about-approach",
+    "values": {
+      "type": "react-about-values",
       "blocks": {
-        "p1": {
-          "type": "pillar",
+        "val1": {
+          "type": "value",
           "settings": {
-            "label": "Understand First",
-            "icon": "shopify://shop_images/Frame_2147227086.png"
+            "title": "Science-Led Formulations",
+            "description": "We believe customers deserve clarity about what they consume and confidence in what they choose.",
+            "icon": "shopify://shop_images/Frame_2147227086_d8735d03-d351-4d1a-a567-44231c50b81a.png"
           }
         },
-        "p2": {
-          "type": "pillar",
+        "val2": {
+          "type": "value",
           "settings": {
-            "label": "Long-Term Wellness",
-            "icon": "shopify://shop_images/Frame_2147227086_1.png"
+            "title": "Quality Ingredients",
+            "description": "Every ingredient is selected with care, with an emphasis on quality, functionality, and purpose.",
+            "icon": "shopify://shop_images/Frame_2147227086-1.png"
           }
         },
-        "p3": {
-          "type": "pillar",
+        "val3": {
+          "type": "value",
           "settings": {
-            "label": "Thoughtful Recommendations",
-            "icon": "shopify://shop_images/Frame_2147227086_2.png"
+            "title": "Daily Consistency",
+            "description": "Health is built through small actions repeated over time. Consistency matters more than perfection.",
+            "icon": "shopify://shop_images/Frame_2147227086-2.png"
           }
         },
-        "p4": {
-          "type": "pillar",
+        "val4": {
+          "type": "value",
           "settings": {
-            "label": "Transparent Information",
-            "icon": "shopify://shop_images/Frame_2147227086_3.png"
+            "title": "Transparency & Trust",
+            "description": "We believe customers deserve clarity about what they consume and confidence in what they choose.",
+            "icon": "shopify://shop_images/Frame_2147227086-3.png"
           }
         }
       },
       "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
+        "val1",
+        "val2",
+        "val3",
+        "val4"
       ],
       "settings": {
-        "eyebrow": "Our approach",
-        "heading": "Built around women, not wellness trends.",
-        "image": "shopify://shop_images/Group_1321314257.png",
-        "leaf_background": "shopify://shop_images/Group_1321314256.png"
+        "heading": "What We Stand For",
+        "subheading": "The values behind every formulation, ingredient, and decision we make."
       }
     },
-    "philosophy": {
-      "type": "react-about-split",
+    "mission_statement": {
+      "type": "react-about-mission-statement",
       "settings": {
-        "eyebrow": "Our philosophy",
-        "heading": "Better wellness starts with better understanding.",
-        "body": "We believe women deserve wellness guidance that feels honest, transparent, and easy to understand. Our goal isn't to create more noise. It's to help women make informed decisions with greater confidence.",
-        "image": "shopify://shop_images/AB6AXuAk7AwpsbCAhuDGyKZ8EnPTIP8FJHje0D7FrdS6c-Aq1f-BzATGExPZAo8xKizdNVS2uQ107HGaosTcg5I8_X8A3xBKW3XhCQBeLdL2cQjZAr4COYcLCj-co5OswkCxgLyN-oLtghpV5F5LGkTWfto-ud0z884kH0pkzZSd2iPsjjY8IKd.png",
-        "image_position": "left",
-        "color_scheme": "white"
+        "heading": "Our Mission",
+        "body": "To create wellness products that help people make healthier choices every day—without sacrificing convenience, taste, or quality. We are committed to building a brand that customers can trust, where every product serves a genuine purpose and contributes to a healthier lifestyle.",
+        "image": "shopify://shop_images/Bg_1.png"
       }
     },
-    "vision": {
-      "type": "react-about-vision",
+    "looking_ahead": {
+      "type": "react-about-looking-ahead",
       "settings": {
-        "eyebrow": "Our vision",
-        "heading": "A future where wellness feels simpler for every woman.",
-        "body": "We imagine a world where women no longer have to spend years experimenting, guessing, and navigating conflicting advice. A world where trusted wellness support is accessible — our step toward that future.",
-        "section_id": "about-vision"
-      }
-    },
-    "founder_intro": {
-      "type": "react-about-split",
-      "settings": {
-        "eyebrow": "Meet the founder",
-        "heading": "The frustration that started everything.",
-        "body": "Before AskNatural existed, I was simply trying to solve my own wellness challenges. Like many women, I followed advice that promised results but never seemed designed around what I actually needed. That experience eventually became the foundation for AskNatural.",
-        "image": "shopify://shop_images/Image.png",
-        "image_position": "right",
-        "color_scheme": "green"
-      }
-    },
-    "founder_quote": {
-      "type": "react-about-founder-quote",
-      "blocks": {
-        "b1": {
-          "type": "bullet",
-          "settings": {
-            "text": "Calorie counting."
-          }
-        },
-        "b2": {
-          "type": "bullet",
-          "settings": {
-            "text": "Generic advice."
-          }
-        },
-        "b3": {
-          "type": "bullet",
-          "settings": {
-            "text": "Supplements that promised everything and delivered nothing."
-          }
-        },
-        "b4": {
-          "type": "bullet",
-          "settings": {
-            "text": "That frustration became the foundation of AskNatural."
-          }
-        },
-        "b5": {
-          "type": "bullet",
-          "settings": {
-            "text": "Everything on this platform exists because I went looking for something better and couldn't find it."
-          }
-        },
-        "b6": {
-          "type": "bullet",
-          "settings": {
-            "text": "So I built it for women who are done being misled, done being sold to, and ready for something that actually works."
-          }
-        }
-      },
-      "block_order": [
-        "b1",
-        "b2",
-        "b3",
-        "b4",
-        "b5",
-        "b6"
-      ],
-      "settings": {
-        "quote": "I spent five years trying to fix my own body the way the industry told me to and failing.",
-        "author_name": "Yash",
-        "author_title": "Founder, AskNatural",
-        "leaf_background": "shopify://shop_images/Group_1321314256.png"
+        "eyebrow": "Looking Ahead",
+        "heading": "The Future Of Wellness Starts Here",
+        "body": "Our journey is just beginning. As we continue to grow, our focus remains unchanged: developing innovative, science-backed wellness products that empower people to take charge of their health, naturally and sustainably.\n\nThank you for being a part of the Askknatural community. Better health starts with better daily choices—and we're here to make those choices easier."
       }
     },
     "cta": {
@@ -177,12 +154,11 @@
   },
   "order": [
     "hero",
-    "problem",
-    "approach",
-    "philosophy",
-    "vision",
-    "founder_intro",
-    "founder_quote",
+    "mission",
+    "why_created",
+    "values",
+    "mission_statement",
+    "looking_ahead",
     "cta"
   ]
 }

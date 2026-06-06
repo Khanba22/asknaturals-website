@@ -1,0 +1,24 @@
+{%- doc -%}
+  Instant redirect for customer auth flows.
+  Pass redirect_url for a fixed destination, or return_to (relative path like /account)
+  to sign in and return after login.
+{%- enddoc -%}
+
+{%- liquid
+  if return_to != blank
+    assign encoded_return = return_to | url_encode
+    assign target = routes.root_url | append: 'customer_authentication/login?return_to=' | append: encoded_return
+  elsif redirect_url != blank
+    assign target = redirect_url
+  else
+    assign target = routes.storefront_login_url
+  endif
+-%}
+
+<script>
+  window.location.replace({{ target | json }});
+</script>
+<noscript>
+  <meta http-equiv="refresh" content="0;url={{ target | escape }}">
+  <p><a href="{{ target }}">Continue</a></p>
+</noscript>

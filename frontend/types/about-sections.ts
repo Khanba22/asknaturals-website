@@ -2,9 +2,54 @@ export interface AboutHeroSettings {
   eyebrow?: string;
   heading?: string;
   body?: string;
+  image_url?: string | null;
+}
+
+export interface AboutMissionBlock {
+  title: string;
+  description?: string;
+  icon_url?: string | null;
+}
+
+export interface AboutMissionSettings {
+  heading?: string;
+  subheading?: string;
+  blocks?: AboutMissionBlock[];
+}
+
+export interface AboutWhyCreatedSettings {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
   button_label?: string;
   button_link?: string;
   image_url?: string | null;
+}
+
+export interface AboutValuesBlock {
+  title: string;
+  description?: string;
+  icon_url?: string | null;
+}
+
+export interface AboutValuesSettings {
+  heading?: string;
+  subheading?: string;
+  blocks?: AboutValuesBlock[];
+}
+
+export interface AboutMissionStatementSettings {
+  heading?: string;
+  body?: string;
+  image_url?: string | null;
+  decor_left_url?: string | null;
+  decor_right_url?: string | null;
+}
+
+export interface AboutLookingAheadSettings {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
 }
 
 export interface AboutSplitSettings {

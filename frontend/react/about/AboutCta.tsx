@@ -40,15 +40,11 @@ export function AboutCta({ settings }: AboutCtaProps) {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           {settings.button_1_label && (
             <Button href={btn1Link} variant="inverse" className="!text-primary">
-              {settings.button_1_label} →
+              {settings.button_1_label}
             </Button>
           )}
           {settings.button_2_label && (
-            <Button
-              href={btn2Link}
-              variant="outline"
-              className="!border-white !text-white hover:!bg-white/10"
-            >
+            <Button href={btn2Link} variant="primary">
               {settings.button_2_label}
             </Button>
           )}

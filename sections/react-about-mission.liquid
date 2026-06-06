@@ -1,0 +1,109 @@
+{%- capture blocks_json -%}
+[
+{%- for block in section.blocks -%}
+  {
+    "title": {{ block.settings.title | json }},
+    "description": {{ block.settings.description | json }},
+    "icon_url": {% if block.settings.icon != blank %}{{ block.settings.icon | image_url: width: 256 | json }}{% else %}null{% endif %}
+  }{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture config_json -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "subheading": {{ section.settings.subheading | json }},
+  "blocks": {{ blocks_json }}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'about-mission-' | append: section.id,
+  component: 'AboutMission',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "About mission",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Inspiration"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Askknatural was inspired by the same principles that have guided our broader wellness journey over the years."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Long-Term Health"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Prioritizing long-term health over quick fixes and temporary results."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image",
+          "info": "Square image recommended. Fills the circular icon container."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About mission",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Long-Term Health",
+            "description": "Prioritizing long-term health over quick fixes and temporary results."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Sustainable Habits",
+            "description": "Focusing on daily habits that create meaningful and lasting change."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Quality First",
+            "description": "Choosing quality, purpose, and effectiveness over unnecessary complexity."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Everyday Simplicity",
+            "description": "Creating wellness products that fit naturally into everyday life."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
