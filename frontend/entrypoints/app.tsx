@@ -49,7 +49,10 @@ import { ContactFaq } from '@/react/contact/ContactFaq';
 import { OrderListPage } from '@/react/orders/OrderListPage';
 import { OrderStatusPage } from '@/react/orders/OrderStatusPage';
 
-const registry: Record<string, ComponentType<{ settings: unknown }>> = {
+// Islands receive JSON from Liquid; each component narrows settings internally.
+type IslandComponent = ComponentType<{ settings: any }>;
+
+const registry: Record<string, IslandComponent> = {
   Hero,
   Categories,
   Showcase,

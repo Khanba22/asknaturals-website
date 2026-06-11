@@ -1,11 +1,34 @@
 {%- liquid
-  assign hero_image_url = 'images/hero_bg.png' | asset_url
-  if section.settings.image != blank
-    assign hero_image_url = section.settings.image | image_url: width: 1200
-  endif
   assign overlay_header = false
   if template.name == 'index'
     assign overlay_header = true
+  endif
+
+  assign desktop_video_url = 'desktop_animation.mp4' | asset_url
+  assign mobile_video_url = 'mobile_animation.mp4' | asset_url
+
+  if section.settings.desktop_video != blank
+    for source in section.settings.desktop_video.sources
+      if source.mime_type contains 'mp4' or source.format == 'mp4'
+        assign desktop_video_url = source.url
+        break
+      endif
+    endfor
+    if desktop_video_url == blank and section.settings.desktop_video.sources.size > 0
+      assign desktop_video_url = section.settings.desktop_video.sources.first.url
+    endif
+  endif
+
+  if section.settings.mobile_video != blank
+    for source in section.settings.mobile_video.sources
+      if source.mime_type contains 'mp4' or source.format == 'mp4'
+        assign mobile_video_url = source.url
+        break
+      endif
+    endfor
+    if mobile_video_url == blank and section.settings.mobile_video.sources.size > 0
+      assign mobile_video_url = section.settings.mobile_video.sources.first.url
+    endif
   endif
 -%}
 {%- capture config_json -%}
@@ -17,11 +40,14 @@
   "button_link": {{ section.settings.button_link | json }},
   "button_label_2": {{ section.settings.button_label_2 | json }},
   "button_link_2": {{ section.settings.button_link_2 | json }},
-  "image_url": {{ hero_image_url | json }},
   "overlay_header": {{ overlay_header | json }},
   "show_trust_badges": {{ section.settings.show_trust_badges | json }},
   "show_floating_badges": {{ section.settings.show_floating_badges | json }},
-  "color_scheme": {{ section.settings.color_scheme | json }}
+  "color_scheme": {{ section.settings.color_scheme | json }},
+  "scroll_distance": {{ section.settings.scroll_distance | json }},
+  "intro_autoplay": {{ section.settings.intro_autoplay | json }},
+  "desktop_video_url": {{ desktop_video_url | json }},
+  "mobile_video_url": {{ mobile_video_url | json }}
 }
 {%- endcapture -%}
 
@@ -78,20 +104,33 @@
       "label": "Second button link"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Hero background image"
+      "type": "range",
+      "id": "scroll_distance",
+      "label": "Scroll distance",
+      "info": "Viewport heights for the full hero sequence. 1vh keeps the Shop Now button in view without scrolling past the section.",
+      "min": 1,
+      "max": 6,
+      "step": 0.5,
+      "unit": "vh",
+      "default": 1.5
     },
     {
-      "type": "range",
-      "id": "button_spacer_height",
-      "label": "Shop button vertical offset",
-      "info": "Adjust the invisible spacer height to move the Shop Now button up or down.",
-      "min": 0,
-      "max": 480,
-      "step": 8,
-      "unit": "px",
-      "default": 200
+      "type": "checkbox",
+      "id": "intro_autoplay",
+      "label": "Auto-scroll intro on load",
+      "default": true
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop scroll video",
+      "info": "Optional. Overrides theme asset desktop_animation.mp4."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile scroll video",
+      "info": "Optional. Overrides theme asset mobile_animation.mp4."
     },
     {
       "type": "checkbox",

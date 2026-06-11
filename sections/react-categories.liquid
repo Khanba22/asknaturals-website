@@ -5,13 +5,13 @@
     assign icon_url = null
     case block.settings.icon
       when 'pcos'
-        assign icon_url = 'images/icon_pcos.png' | asset_url
+        assign icon_url = 'icon_pcos.png' | asset_url
       when 'hormones'
-        assign icon_url = 'images/icon_hormonal.png' | asset_url
+        assign icon_url = 'icon_hormonal.png' | asset_url
       when 'fatloss'
-        assign icon_url = 'images/icon_fatloss.png' | asset_url
+        assign icon_url = 'icon_fatloss.png' | asset_url
       when 'sleep'
-        assign icon_url = 'images/icon_sleep.png' | asset_url
+        assign icon_url = 'icon_sleep.png' | asset_url
     endcase
     if block.settings.custom_icon != blank
       assign icon_url = block.settings.custom_icon | image_url: width: 80

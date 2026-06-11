@@ -50,7 +50,7 @@ export function Footer({ settings }: FooterProps) {
               <ul className="space-y-2.5 text-sm text-white/85">
                 {(exploreBlock.settings.links ?? []).map((link) => (
                   <li key={link.url}>
-                    <a href={link.url} className="transition hover:text-white">
+                    <a href={link.url} className="transition-all duration-200 hover:pl-1 hover:text-white">
                       {link.title}
                     </a>
                   </li>
@@ -65,7 +65,7 @@ export function Footer({ settings }: FooterProps) {
               <ul className="space-y-2.5 text-sm text-white/85">
                 {settings.policy_links.map((link) => (
                   <li key={link.url}>
-                    <a href={link.url} className="transition hover:text-white">
+                    <a href={link.url} className="transition-all duration-200 hover:pl-1 hover:text-white">
                       {link.title}
                     </a>
                   </li>
@@ -100,7 +100,7 @@ export function Footer({ settings }: FooterProps) {
                 />
                 <button
                   type="submit"
-                  className="shrink-0 rounded-full bg-white px-8 py-3 text-sm font-semibold text-primary transition hover:bg-cream"
+                  className="shrink-0 rounded-full bg-white px-8 py-3 text-sm font-semibold text-primary transition-all duration-300 hover:scale-105 hover:bg-cream hover:shadow-lg active:scale-95"
                 >
                   Subscribe
                 </button>
@@ -120,7 +120,7 @@ export function Footer({ settings }: FooterProps) {
                   <a
                     key={social.url}
                     href={social.url}
-                    className="text-white/80 transition hover:text-white"
+                    className="text-white/80 transition-all hover:scale-110 hover:text-white active:scale-95"
                     aria-label={social.label}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -135,7 +135,7 @@ export function Footer({ settings }: FooterProps) {
             {settings.policy_links && settings.policy_links.length > 0 && (
               <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/70">
                 {settings.policy_links.map((link) => (
-                  <a key={link.url} href={link.url} className="hover:text-white">
+                  <a key={link.url} href={link.url} className="transition-colors hover:text-white">
                     {link.title}
                   </a>
                 ))}

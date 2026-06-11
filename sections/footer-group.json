@@ -14,23 +14,33 @@
     "footer": {
       "type": "react-footer",
       "blocks": {
-        "explore": {
+        "menu_fGk8FP": {
           "type": "menu",
           "settings": {
-            "title": "Explore",
-            "menu": "footer"
+            "title": "Address",
+            "menu": "location"
           }
         }
       },
       "block_order": [
-        "explore"
+        "menu_fGk8FP"
       ],
       "settings": {
         "footer_description": "<p>Thoughtfully designed wellness support created around women's real everyday health journeys.</p>",
         "show_newsletter": true,
         "newsletter_title": "Join the wellness journal",
         "newsletter_description": "Receive thoughtful wellness insights, formulation updates, and calm guidance designed around women's everyday health.",
-        "newsletter_placeholder": "Your email address"
+        "newsletter_placeholder": "Your email address",
+        "show_contact": true,
+        "contact_title": "Contact Us",
+        "contact_email": "care@askknatural.in",
+        "contact_phone": "",
+        "contact_address": "2nd Floor, Office No. 210, Aditya Heritage Co-op Ind Premises,\nMindspace, Chincholi Bunder Road, Malad West, Mumbai,\nMumbai Suburban, Maharashtra, 400064",
+        "social_twitter": "",
+        "social_facebook": "",
+        "social_instagram": "",
+        "social_youtube": "",
+        "color_scheme": "scheme-3"
       }
     }
   },

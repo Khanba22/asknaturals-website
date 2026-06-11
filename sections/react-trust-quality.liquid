@@ -2,11 +2,11 @@
 [
 {%- for block in section.blocks -%}
   {%- liquid
-    assign badge_icon = 'images/tick_icon.png' | asset_url
+    assign badge_icon = 'tick_icon.png' | asset_url
     if forloop.index == 2
-      assign badge_icon = 'images/lab_icon.png' | asset_url
+      assign badge_icon = 'lab_icon.png' | asset_url
     elsif forloop.index == 3
-      assign badge_icon = 'images/thumb_icon.png' | asset_url
+      assign badge_icon = 'thumb_icon.png' | asset_url
     endif
     if block.settings.icon != blank
       assign badge_icon = block.settings.icon | image_url: width: 80

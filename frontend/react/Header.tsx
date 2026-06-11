@@ -48,7 +48,9 @@ export function Header({ settings }: HeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full bg-primary px-4 text-white ${overlayHero ? 'max-md:absolute max-md:bg-transparent' : ''
+      className={`w-full px-4 text-white ${overlayHero
+          ? 'bg-primary/95 backdrop-blur-sm supports-[backdrop-filter]:bg-primary/85'
+          : 'bg-primary'
         }`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 py-4 md:py-5">
@@ -69,7 +71,7 @@ export function Header({ settings }: HeaderProps) {
               <a
                 key={link.url}
                 href={link.url}
-                className="whitespace-nowrap text-sm font-medium text-white transition hover:text-white/80"
+                className="relative whitespace-nowrap text-sm font-medium text-white transition-all duration-300 hover:text-white/80 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:origin-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100"
               >
                 {link.title}
               </a>
@@ -79,7 +81,7 @@ export function Header({ settings }: HeaderProps) {
           <div className="flex shrink-0 items-center justify-end gap-1">
             <a
               href={getRoutes().search_url}
-              className="hidden rounded-full p-2.5 transition hover:bg-white/10 sm:inline-flex"
+              className="hidden rounded-full p-2.5 transition-all hover:scale-110 hover:bg-white/10 active:scale-95 sm:inline-flex"
               aria-label="Search"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -94,7 +96,7 @@ export function Header({ settings }: HeaderProps) {
             <button
               type="button"
               onClick={() => dispatchOpenCart()}
-              className="relative rounded-full p-2.5 transition hover:bg-white/10"
+              className="relative rounded-full p-2.5 transition-all hover:scale-110 hover:bg-white/10 active:scale-95"
               aria-label={`Cart, ${cartCount} items`}
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -108,7 +110,7 @@ export function Header({ settings }: HeaderProps) {
             </button>
             <button
               type="button"
-              className="rounded-full p-2.5 lg:hidden"
+              className="rounded-full p-2.5 transition-all hover:scale-110 hover:bg-white/10 active:scale-95 lg:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
@@ -131,7 +133,7 @@ export function Header({ settings }: HeaderProps) {
         >
           <a
             href={getRoutes().search_url}
-            className="block border-b border-white/10 py-3 text-sm text-white"
+            className="block border-b border-white/10 py-3 text-sm text-white transition-all hover:pl-2 hover:text-white/80"
             onClick={() => setMobileOpen(false)}
           >
             Search
@@ -140,7 +142,7 @@ export function Header({ settings }: HeaderProps) {
             <a
               key={link.url}
               href={link.url}
-              className="block border-b border-white/10 py-3 text-sm text-white last:border-0"
+              className="block border-b border-white/10 py-3 text-sm text-white transition-all hover:pl-2 hover:text-white/80 last:border-0"
               onClick={() => setMobileOpen(false)}
             >
               {link.title}

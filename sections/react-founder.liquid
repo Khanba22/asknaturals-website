@@ -1,5 +1,5 @@
 {%- liquid
-  assign founder_image = 'images/img_founder.png' | asset_url
+  assign founder_image = 'img_founder.png' | asset_url
   if section.settings.image != blank
     assign founder_image = section.settings.image | image_url: width: 800
   endif

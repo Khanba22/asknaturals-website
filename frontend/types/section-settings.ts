@@ -12,6 +12,12 @@ export interface HeroSettings {
   show_trust_badges?: boolean;
   show_floating_badges?: boolean;
   color_scheme?: string;
+  scroll_duration?: number;
+  hold_duration?: number;
+  scroll_distance?: number;
+  intro_autoplay?: boolean;
+  desktop_video_url?: string;
+  mobile_video_url?: string;
 }
 
 export interface CategoryBlock {

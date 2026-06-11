@@ -10,7 +10,8 @@
         "button_link": "/collections/all",
         "button_label_2": "",
         "button_link_2": "",
-        "button_spacer_height": 200,
+        "scroll_distance": 1.5,
+        "intro_autoplay": true,
         "show_trust_badges": true,
         "show_floating_badges": true,
         "color_scheme": "scheme-1"
@@ -71,11 +72,11 @@
     "featured": {
       "type": "react-featured-product",
       "settings": {
-        "subtitle": "AskNatural Original",
-        "heading": "ASKNATURAL ORIGINAL",
-        "description": "Most supplements work alone. Askknatural Originals are formulated to work together for hormones, sleep, metabolism, and real daily results. One intentional formulation. This is not a product. It is a decision made for you, by someone who actually understands the biology.",
+        "subtitle": "Askknatural Originals",
+        "heading": "ASKKNATURAL ORIGINALS",
+        "description": "Most supplements work alone. Askknatural Originals are formulated to work together for hormones, sleep, metabolism, and real daily results. An intentional formulation, which is not just a product, It is a decision made for you, by someone who actually understands the biology.",
         "image": "shopify://shop_images/Group_1321314257.png",
-        "button_label": "Shop AskNatural Original",
+        "button_label": "Shop Askknatural Originals",
         "button_link": "/collections/all"
       }
     },
@@ -83,6 +84,12 @@
       "type": "react-trust-quality",
       "blocks": {
         "b1": {
+          "type": "badge",
+          "settings": {
+            "label": "Third-Party Lab Tested"
+          }
+        },
+        "badge_Bxykzi": {
           "type": "badge",
           "settings": {
             "label": "Third-Party Lab Tested"
@@ -103,6 +110,7 @@
       },
       "block_order": [
         "b1",
+        "badge_Bxykzi",
         "b2",
         "b3"
       ],
@@ -257,7 +265,7 @@
       "settings": {
         "heading": "FROM THE FOUNDER",
         "body": "Askknatural grew from years of working closely with women navigating hormonal imbalance, fatigue, irregular cycles, and everyday wellness struggles.\n\nWe kept seeing the same challenge — supplements that never felt truly personal or thoughtfully designed.\n\nAskknatural exists to fill that gap with gentle, science-informed wellness support built around real daily routines.",
-        "signature": "-Yash, Founder of Askknatural",
+        "signature": "-Yash Patel, Founder of Askknatural",
         "image": "shopify://shop_images/5c959900e69f4b928eb71ed02140e55e.png"
       }
     }

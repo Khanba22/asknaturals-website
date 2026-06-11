@@ -12,7 +12,7 @@ export function ProductCard({ product, onAddToCart, showAddButton = true }: Prod
     (product.variant_available ?? product.available) && Boolean(onAddToCart);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl bg-cream/50 md:rounded-2xl">
+    <article className="group flex flex-col overflow-hidden rounded-xl bg-cream/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 md:rounded-2xl">
       <a href={product.url} className="relative block aspect-square overflow-hidden bg-cream">
         {product.featured_image ? (
           <img
@@ -32,7 +32,7 @@ export function ProductCard({ product, onAddToCart, showAddButton = true }: Prod
       </a>
       <div className="flex flex-1 flex-col p-2.5 text-center md:p-5">
         <h3 className="font-heading text-[0.65rem] font-bold uppercase leading-snug tracking-wide text-text md:text-sm">
-          <a href={product.url} className="hover:text-primary">
+          <a href={product.url} className="transition-colors duration-200 hover:text-primary">
             {product.title}
           </a>
         </h3>
@@ -43,7 +43,7 @@ export function ProductCard({ product, onAddToCart, showAddButton = true }: Prod
           <button
             type="button"
             onClick={() => onAddToCart?.(product)}
-            className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-primary px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white hover:opacity-90 md:mt-4 md:px-8 md:py-3 md:text-xs"
+            className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-primary px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:opacity-90 active:scale-95 md:mt-4 md:px-8 md:py-3 md:text-xs"
           >
             Add to cart
           </button>

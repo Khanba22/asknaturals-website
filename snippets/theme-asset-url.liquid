@@ -1,5 +1,5 @@
 {%- comment -%}
-  Resolves a theme static file under /assets (e.g. images/hero_bg.png).
-  Usage: {% render 'theme-asset-url', filename: 'images/hero_bg.png' %}
+  Resolves a theme static file under /assets (e.g. hero_bg.png).
+  Usage: {% render 'theme-asset-url', filename: 'hero_bg.png' %}
 {%- endcomment -%}
 {{- filename | asset_url -}}

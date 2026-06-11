@@ -1,15 +1,32 @@
-# Theme images
+# Theme assets
 
-Static images live in **`frontend/public/images/`**. Vite copies them to **`assets/images/`** on `npm run build` (alongside `app.js` / `app.css`).
+Built JS/CSS and static files live in **`assets/`** after `npm run build`.
 
-Do not put PNGs directly in `assets/` — `emptyOutDir` clears that folder on each build.
+Source static files go in **`frontend/public/`** (copied to `assets/` on build).
 
-## File map
+## Hero scroll videos
+
+Place source MP4s in **`frontend/videos-source/`**, then encode:
+
+```bash
+npm run encode:hero
+```
+
+Outputs:
 
 | File | Used in |
 |------|---------|
-| `Logo.png` | Header & footer (fallback when no logo in theme settings) |
-| `hero_bg.png` | Hero section (fallback when no image picker image) |
+| `desktop_animation.mp4` | Hero — desktop scroll scrub |
+| `mobile_animation.mp4` | Hero — mobile scroll scrub |
+
+Or upload videos in **Theme Editor → Hero** (overrides theme assets).
+
+## Static images
+
+| File | Used in |
+|------|---------|
+| `Logo.png` | Header & footer (fallback) |
+| `hero_bg.png` | Legacy fallback image |
 | `icon_pcos.png` | Categories — PCOS |
 | `icon_hormonal.png` | Categories — Hormonal balance |
 | `icon_fatloss.png` | Categories — Fat loss |
@@ -19,6 +36,6 @@ Do not put PNGs directly in `assets/` — `emptyOutDir` clears that folder on ea
 | `lab_icon.png` | Trust & quality — badge 2 |
 | `thumb_icon.png` | Trust & quality — badge 3 |
 
-Reference in Liquid: `{{ 'images/hero_bg.png' | asset_url }}`
+Reference in Liquid: `{{ 'Logo.png' | asset_url }}`
 
-Upload a logo in **Theme settings → Brand** to replace the SVG fallback.
+Upload a logo in **Theme settings → Brand** to replace the PNG fallback.

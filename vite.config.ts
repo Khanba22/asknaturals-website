@@ -17,7 +17,8 @@ export default defineConfig({
   },
   build: {
     outDir: path.resolve(__dirname, 'assets'),
-    emptyOutDir: true,
+    // Keep hero frame assets on disk during watch rebuilds (emptyOutDir would wipe 1800+ files).
+    emptyOutDir: false,
     sourcemap: true,
     rollupOptions: {
       input: path.resolve(__dirname, 'frontend/entrypoints/app.tsx'),

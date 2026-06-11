@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 32" fill="none" aria-hidden="true">
+  <text x="0" y="24" fill="#ffffff" font-family="DM Sans, system-ui, sans-serif" font-size="18" font-weight="700" letter-spacing="0.2em">ASKK</text>
+  <g transform="translate(88, 4)" fill="#ffffff">
+    <rect x="2" y="14" width="4" height="8"/>
+    <rect x="14" y="14" width="4" height="8"/>
+    <rect x="0" y="10" width="20" height="3"/>
+    <rect x="4" y="4" width="3" height="5"/>
+    <rect x="13" y="4" width="3" height="5"/>
+  </g>
+  <text x="116" y="24" fill="#ffffff" font-family="DM Sans, system-ui, sans-serif" font-size="18" font-weight="700" letter-spacing="0.2em">NATURAL</text>
+</svg>

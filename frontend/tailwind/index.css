@@ -29,18 +29,9 @@
     background-color: #ffffff;
   }
 
-  /* Home hero: header overlays on mobile — collapse section height so no green gap */
-  @media (max-width: 767px) {
-    .template-index .shopify-section-group-header-group {
-      display: contents;
-    }
-
-    .template-index .section-header {
-      position: relative;
-      z-index: 50;
-      height: 0;
-      min-height: 0;
-      overflow: visible;
-    }
+  .shopify-section-group-header-group {
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 }

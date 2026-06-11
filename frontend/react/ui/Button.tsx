@@ -4,13 +4,13 @@ type Variant = 'primary' | 'inverse' | 'outline' | 'cream';
 
 const variantClass: Record<Variant, string> = {
   primary:
-    'inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-opacity duration-150 hover:opacity-90',
+    'inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg active:scale-95 hover:opacity-90',
   inverse:
-    'inline-flex items-center justify-center rounded-full bg-white px-10 py-3 text-sm font-semibold text-primary transition-colors duration-150 hover:bg-cream',
+    'inline-flex items-center justify-center rounded-full bg-white px-10 py-3 text-sm font-semibold text-primary transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg active:scale-95 hover:bg-cream',
   outline:
-    'inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-wider text-primary transition-opacity duration-150',
+    'inline-flex items-center justify-center rounded-full border-2 border-primary bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-wider text-primary transition-all duration-300 ease-out hover:scale-105 hover:shadow-md active:scale-95 hover:bg-primary/5',
   cream:
-    'inline-flex items-center justify-center rounded-full bg-cream px-8 py-3 text-sm font-semibold uppercase tracking-wider text-primary transition-colors duration-150 hover:bg-cream-dark',
+    'inline-flex items-center justify-center rounded-full bg-cream px-8 py-3 text-sm font-semibold uppercase tracking-wider text-primary transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg active:scale-95 hover:bg-cream-dark',
 };
 
 type BaseProps = {
