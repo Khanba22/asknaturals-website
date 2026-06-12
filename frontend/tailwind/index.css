@@ -33,5 +33,9 @@
     position: sticky;
     top: 0;
     z-index: 50;
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    isolation: isolate;
   }
 }

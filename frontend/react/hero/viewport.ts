@@ -1,16 +1,13 @@
 const MOBILE_MQ = '(max-width: 767px)';
 
+/** Used only to pick mobile vs desktop video (aspect ratio). */
 export function isMobileViewport() {
   if (typeof window === 'undefined') return false;
   return window.matchMedia(MOBILE_MQ).matches;
 }
 
-/** Height unit for vh-based hero math — uses visualViewport on mobile for iOS/Android accuracy. */
 export function getScrollUnit() {
   if (typeof window === 'undefined') return 0;
-  if (isMobileViewport() && window.visualViewport) {
-    return window.visualViewport.height;
-  }
   return window.innerHeight;
 }
 

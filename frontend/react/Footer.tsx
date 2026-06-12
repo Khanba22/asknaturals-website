@@ -18,10 +18,19 @@ const SOCIAL_ICONS = [
   { id: 'youtube', label: 'YouTube', path: 'M22 8l-6 4 6 4V8M2 6h12a2 2 0 012 2v8a2 2 0 01-2 2H2V6z' },
 ];
 
+function formatAddress(address: string): string[] {
+  return address
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
 export function Footer({ settings }: FooterProps) {
   const blocks = settings.blocks ?? [];
   const year = new Date().getFullYear();
-  const exploreBlock = blocks.find((b) => b.settings.title?.toLowerCase().includes('explore')) ?? blocks[0];
+  const exploreBlock = blocks.find((b) => b.settings.title?.toLowerCase().includes('explore'));
+  const menuBlocks = blocks.filter((b) => b !== exploreBlock);
+  const addressLines = settings.contact_address ? formatAddress(settings.contact_address) : [];
   const routes = getRoutes();
   const token = getShopifyBootstrap().authenticity_token;
 
@@ -56,6 +65,60 @@ export function Footer({ settings }: FooterProps) {
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {menuBlocks.map((block) => {
+            const isAddressBlock = block.settings.title?.toLowerCase().includes('address');
+
+            return (
+              <div key={block.id}>
+                <h3 className="mb-5 text-sm font-bold uppercase tracking-widest">
+                  {block.settings.title ?? 'Links'}
+                </h3>
+                {isAddressBlock && addressLines.length > 0 ? (
+                  <address className="not-italic text-sm leading-relaxed text-white/85">
+                    {addressLines.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </address>
+                ) : (block.settings.links ?? []).length > 0 ? (
+                  <ul className="space-y-2.5 text-sm text-white/85">
+                    {block.settings.links?.map((link) => (
+                      <li key={link.url}>
+                        <a href={link.url} className="transition-all duration-200 hover:pl-1 hover:text-white">
+                          {link.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            );
+          })}
+
+          {settings.show_contact && addressLines.length > 0 && !menuBlocks.some((b) => b.settings.title?.toLowerCase().includes('address')) && (
+            <div>
+              <h3 className="mb-5 text-sm font-bold uppercase tracking-widest">
+                {settings.contact_title ?? 'Contact Us'}
+              </h3>
+              <address className="not-italic text-sm leading-relaxed text-white/85">
+                {addressLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
+              {settings.contact_email && (
+                <a
+                  href={`mailto:${settings.contact_email}`}
+                  className="mt-3 block text-sm text-white/85 transition-colors hover:text-white"
+                >
+                  {settings.contact_email}
+                </a>
+              )}
             </div>
           )}
 

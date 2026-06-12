@@ -55,6 +55,15 @@ function resolveScrollDistance(settings: HeroSettings) {
   return HERO_SCROLL_DISTANCE_VH;
 }
 
+function resolveVideoUrl(
+  isMobile: boolean,
+  desktopVideoUrl: string,
+  mobileVideoUrl: string,
+) {
+  if (isMobile) return mobileVideoUrl || desktopVideoUrl;
+  return desktopVideoUrl || mobileVideoUrl;
+}
+
 export function Hero({ settings }: HeroProps) {
   const {
     button_label = 'Shop Now',
@@ -73,35 +82,43 @@ export function Hero({ settings }: HeroProps) {
   const driveLockRef = useRef<HeroDriveLock>('idle');
   const headerHeight = useHeaderHeight();
   const { isMobile, scrollUnit, frameHeight, frameWidth, viewportHeight } =
-    useViewportFrameSize(headerHeight);
+    useViewportFrameSize(headerHeight, driveLockRef);
 
-  const videoUrl = isMobile
-    ? mobile_video_url || desktop_video_url
-    : desktop_video_url || mobile_video_url;
+  const videoUrl = resolveVideoUrl(isMobile, desktop_video_url, mobile_video_url);
 
   const [sectionHeight, setSectionHeight] = useState(() =>
-    getHeroSectionHeight(scrollDistance, viewportHeight, scrollUnit, isMobile),
+    getHeroSectionHeight(scrollDistance, viewportHeight, scrollUnit),
   );
   const [ctaReveal, setCtaReveal] = useState(0);
 
   useEffect(() => {
+    if (driveLockRef.current === 'driving') return;
+
+    let debounceTimer = 0;
     const update = () =>
-      setSectionHeight(getHeroSectionHeight(scrollDistance, viewportHeight, scrollUnit, isMobile));
+      setSectionHeight(getHeroSectionHeight(scrollDistance, viewportHeight, scrollUnit));
+
     update();
-    window.addEventListener('resize', update);
-    window.visualViewport?.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('resize', update);
-      window.visualViewport?.removeEventListener('resize', update);
+
+    const scheduleUpdate = () => {
+      if (driveLockRef.current === 'driving') return;
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(update, 150);
     };
-  }, [scrollDistance, viewportHeight, scrollUnit, isMobile]);
+
+    window.addEventListener('resize', scheduleUpdate);
+
+    return () => {
+      window.clearTimeout(debounceTimer);
+      window.removeEventListener('resize', scheduleUpdate);
+    };
+  }, [scrollDistance, viewportHeight, scrollUnit]);
 
   const { setTargetProgress, isReady, loadProgress } = useHeroVideoScrub({
     videoRef,
     canvasRef,
     displayWidth: frameWidth,
     displayHeight: frameHeight,
-    isMobile,
     videoUrl,
   });
 
@@ -123,7 +140,6 @@ export function Hero({ settings }: HeroProps) {
     scrollUnit,
     viewportHeight,
     headerHeight,
-    isMobile,
     driveLockRef,
     onVideoProgress: setTargetProgress,
     onScrollProgress: handleScrollProgress,
@@ -136,26 +152,33 @@ export function Hero({ settings }: HeroProps) {
     driveLockRef,
     enabled: isReady && Boolean(videoUrl),
     autoplay: intro_autoplay,
-    isMobile,
     onScrollProgress: emitHeroProgress,
   });
 
   useEffect(() => {
-    if (!isReady) return;
-    ScrollTrigger.refresh();
-  }, [isReady, scrollDistance, viewportHeight, scrollUnit, isMobile, headerHeight, videoUrl]);
+    if (!isReady || driveLockRef.current === 'driving') return;
+
+    let debounceTimer = 0;
+    debounceTimer = window.setTimeout(() => {
+      if (driveLockRef.current !== 'driving') {
+        ScrollTrigger.refresh();
+      }
+    }, 150);
+
+    return () => window.clearTimeout(debounceTimer);
+  }, [isReady, scrollDistance, viewportHeight, scrollUnit, headerHeight, videoUrl]);
 
   const ctaOffsetY = (1 - ctaReveal) * 36;
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full touch-pan-y"
+      className="relative w-full"
       style={{ height: sectionHeight > 0 ? `${sectionHeight}px` : undefined }}
       aria-label="Hero"
     >
       <div
-        className="sticky left-0 w-full overflow-hidden bg-black supports-[height:100dvh]:min-h-0"
+        className="sticky left-0 w-full overflow-hidden bg-black"
         style={{
           top: headerHeight,
           height: viewportHeight > 0 ? `${viewportHeight}px` : undefined,

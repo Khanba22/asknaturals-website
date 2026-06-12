@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 
-const SMOOTH_FACTOR = 0.07;
-const SEEK_MIN_DELTA = 0.01;
+const VIDEO_FPS = 24;
+const FRAME_STEP = 1 / VIDEO_FPS;
+
+function snapToFrame(time: number) {
+  return Math.round(time / FRAME_STEP) * FRAME_STEP;
+}
 
 function drawCover(
   ctx: CanvasRenderingContext2D,
@@ -41,21 +45,17 @@ export function useHeroVideoScrub({
   canvasRef,
   displayWidth,
   displayHeight,
-  isMobile,
   videoUrl,
 }: {
   videoRef: RefObject<HTMLVideoElement | null>;
   canvasRef: RefObject<HTMLCanvasElement | null>;
   displayWidth: number;
   displayHeight: number;
-  isMobile: boolean;
   videoUrl: string;
 }) {
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const targetProgressRef = useRef(0);
-  const smoothTimeRef = useRef(0);
-  const lastSeekTimeRef = useRef(-1);
-  const lastDrawnTimeRef = useRef(-1);
+  const displayedTimeRef = useRef(0);
   const rafRef = useRef(0);
   const [isReady, setIsReady] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
@@ -64,7 +64,7 @@ export function useHeroVideoScrub({
     const canvas = canvasRef.current;
     if (!canvas || displayWidth <= 0 || displayHeight <= 0) return;
 
-    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.25);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
     canvas.width = Math.round(displayWidth * dpr);
     canvas.height = Math.round(displayHeight * dpr);
     canvas.style.width = `${displayWidth}px`;
@@ -77,7 +77,7 @@ export function useHeroVideoScrub({
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctxRef.current = ctx;
-  }, [canvasRef, displayHeight, displayWidth, isMobile]);
+  }, [canvasRef, displayHeight, displayWidth]);
 
   const drawVideoFrame = useCallback(() => {
     const video = videoRef.current;
@@ -88,37 +88,6 @@ export function useHeroVideoScrub({
     ctx.clearRect(0, 0, displayWidth, displayHeight);
     drawCover(ctx, video, video.videoWidth, video.videoHeight, displayWidth, displayHeight);
   }, [displayHeight, displayWidth, videoRef]);
-
-  const shouldDrawFrame = useCallback((time: number) => {
-    return (
-      lastDrawnTimeRef.current < 0 ||
-      Math.abs(time - lastDrawnTimeRef.current) >= SEEK_MIN_DELTA
-    );
-  }, []);
-
-  const drawWhenFrameReady = useCallback(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const paint = () => {
-      if (!shouldDrawFrame(video.currentTime)) return;
-      lastDrawnTimeRef.current = video.currentTime;
-      drawVideoFrame();
-    };
-
-    const requestFrame = (
-      video as HTMLVideoElement & {
-        requestVideoFrameCallback?: (cb: () => void) => void;
-      }
-    ).requestVideoFrameCallback;
-
-    if (typeof requestFrame === 'function') {
-      requestFrame.call(video, paint);
-      return;
-    }
-
-    paint();
-  }, [drawVideoFrame, shouldDrawFrame, videoRef]);
 
   const setTargetProgress = useCallback((progress: number) => {
     targetProgressRef.current = Math.min(1, Math.max(0, progress));
@@ -142,9 +111,7 @@ export function useHeroVideoScrub({
     setIsReady(false);
     setLoadProgress(0);
     targetProgressRef.current = 0;
-    smoothTimeRef.current = 0;
-    lastSeekTimeRef.current = -1;
-    lastDrawnTimeRef.current = -1;
+    displayedTimeRef.current = 0;
 
     let firstFramePending = false;
 
@@ -152,9 +119,7 @@ export function useHeroVideoScrub({
       if (cancelled || !video.duration) return;
       setLoadProgress(100);
       video.pause();
-      smoothTimeRef.current = 0;
-      lastSeekTimeRef.current = -1;
-      lastDrawnTimeRef.current = -1;
+      displayedTimeRef.current = 0;
       firstFramePending = true;
       targetProgressRef.current = 0;
       video.currentTime = 0;
@@ -175,7 +140,9 @@ export function useHeroVideoScrub({
 
     const onSeeked = () => {
       if (cancelled) return;
-      drawWhenFrameReady();
+
+      displayedTimeRef.current = snapToFrame(video.currentTime);
+      drawVideoFrame();
 
       if (firstFramePending) {
         firstFramePending = false;
@@ -188,6 +155,8 @@ export function useHeroVideoScrub({
     video.addEventListener('canplay', onCanPlay);
     video.addEventListener('canplaythrough', onCanPlay);
     video.addEventListener('seeked', onSeeked);
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
     video.src = videoUrl;
     video.load();
 
@@ -195,21 +164,19 @@ export function useHeroVideoScrub({
       if (cancelled) return;
 
       const currentVideo = videoRef.current;
-      if (currentVideo?.duration) {
-        const targetTime = targetProgressRef.current * currentVideo.duration;
-        const smooth = smoothTimeRef.current;
-        const distance = Math.abs(targetTime - smooth);
-        const factor = distance > 0.5 ? SMOOTH_FACTOR * 1.4 : SMOOTH_FACTOR;
-        const nextTime = smooth + (targetTime - smooth) * factor;
-        const clamped = Math.min(currentVideo.duration, Math.max(0, nextTime));
-        smoothTimeRef.current = clamped;
+      if (currentVideo?.duration && !currentVideo.seeking) {
+        const targetTime = snapToFrame(targetProgressRef.current * currentVideo.duration);
+        const currentTime = snapToFrame(displayedTimeRef.current);
+        const delta = targetTime - currentTime;
 
-        if (
-          !currentVideo.seeking &&
-          Math.abs(clamped - lastSeekTimeRef.current) >= SEEK_MIN_DELTA
-        ) {
-          lastSeekTimeRef.current = clamped;
-          currentVideo.currentTime = clamped;
+        if (Math.abs(delta) >= FRAME_STEP * 0.5) {
+          const direction = delta > 0 ? 1 : -1;
+          const nextTime = snapToFrame(
+            Math.min(currentVideo.duration, Math.max(0, currentTime + direction * FRAME_STEP)),
+          );
+
+          displayedTimeRef.current = nextTime;
+          currentVideo.currentTime = nextTime;
         }
       }
 
@@ -229,7 +196,7 @@ export function useHeroVideoScrub({
       video.removeAttribute('src');
       video.load();
     };
-  }, [drawVideoFrame, drawWhenFrameReady, videoRef, videoUrl]);
+  }, [drawVideoFrame, videoRef, videoUrl]);
 
   return { setTargetProgress, isReady, loadProgress };
 }

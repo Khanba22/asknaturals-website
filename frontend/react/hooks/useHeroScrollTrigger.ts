@@ -2,7 +2,11 @@ import { useEffect, useRef, type MutableRefObject, type RefObject } from 'react'
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { HeroDriveLock } from '@/react/hooks/useHeroScrollDrive';
-import { getHeroBufferVh, getHeroCtaReveal, getHeroVideoProgress } from '@/react/hero/timing';
+import {
+  HERO_BUFFER_VH,
+  getHeroCtaReveal,
+  getHeroVideoProgress,
+} from '@/react/hero/timing';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +17,6 @@ export function useHeroScrollTrigger({
   scrollDistance,
   scrollUnit,
   headerHeight,
-  isMobile,
   driveLockRef,
   onVideoProgress,
   onScrollProgress,
@@ -25,7 +28,6 @@ export function useHeroScrollTrigger({
   scrollUnit: number;
   viewportHeight: number;
   headerHeight: number;
-  isMobile: boolean;
   driveLockRef: MutableRefObject<HeroDriveLock>;
   onVideoProgress: (progress: number) => void;
   onScrollProgress?: (progress: number) => void;
@@ -50,11 +52,6 @@ export function useHeroScrollTrigger({
     const section = sectionRef.current;
     if (!section || !enabled || scrollUnit <= 0) return;
 
-    let normalizer: { kill?: () => void } | undefined;
-    if (isMobile && ScrollTrigger.normalizeScroll) {
-      normalizer = ScrollTrigger.normalizeScroll(true);
-    }
-
     const trigger = ScrollTrigger.create({
       trigger: section,
       start: () => `top ${headerHeight}px`,
@@ -77,11 +74,10 @@ export function useHeroScrollTrigger({
     ScrollTrigger.refresh();
 
     return () => {
-      normalizer?.kill?.();
       trigger.kill();
       if (triggerRef) triggerRef.current = null;
     };
-  }, [sectionRef, scrollDistance, scrollUnit, headerHeight, isMobile, enabled, triggerRef, driveLockRef]);
+  }, [sectionRef, scrollDistance, scrollUnit, headerHeight, enabled, triggerRef, driveLockRef]);
 
   return { emitProgress };
 }
@@ -91,11 +87,10 @@ export function getHeroSectionHeight(
   scrollDistance: number,
   viewportHeight: number,
   scrollUnit: number,
-  isMobile: boolean,
 ) {
   if (typeof window === 'undefined' || scrollUnit <= 0) return 0;
   const animationScroll = scrollDistance * SCROLL_HEIGHT_CONST * scrollUnit;
-  const buffer = getHeroBufferVh(isMobile) * scrollUnit;
+  const buffer = HERO_BUFFER_VH * scrollUnit;
   return animationScroll + viewportHeight + buffer;
 }
 

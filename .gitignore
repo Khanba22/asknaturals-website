@@ -1,4 +1,5 @@
 node_modules/
+.vite-staging/
 .shopify/
 .DS_Store
 *.log

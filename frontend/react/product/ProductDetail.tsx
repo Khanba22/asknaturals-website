@@ -12,6 +12,16 @@ interface MainProductProps {
 
 type PurchaseMode = 'subscribe' | 'onetime';
 
+function getVariantPrices(
+  variant: ProductVariant | undefined,
+  settings: ProductDetailSettings,
+) {
+  const subscribePrice =
+    settings.subscribe_price ?? variant?.compare_at_price ?? variant?.price ?? 0;
+  const onetimePrice = settings.onetime_price ?? variant?.price ?? subscribePrice;
+  return { subscribePrice, onetimePrice };
+}
+
 const DEFAULT_BADGES = [
   { label: 'Lab Tested', icon: 'beaker' },
   { label: 'Authenticity Verified', icon: 'check' },
@@ -41,12 +51,17 @@ export function MainProduct({ settings }: MainProductProps) {
     [variants, selectedVariantId],
   );
 
-  const subscribePrice =
-    settings.subscribe_price ?? selectedVariant?.compare_at_price ?? selectedVariant?.price ?? 0;
-  const onetimePrice =
-    settings.onetime_price ?? selectedVariant?.price ?? subscribePrice;
-
+  const { subscribePrice, onetimePrice } = getVariantPrices(selectedVariant, settings);
   const displayPrice = purchaseMode === 'subscribe' ? subscribePrice : onetimePrice;
+
+  const selectVariant = (variant: ProductVariant) => {
+    if (!variant.available) return;
+    setSelectedVariantId(variant.id);
+    if (variant.image) {
+      const imageIndex = images.indexOf(variant.image);
+      if (imageIndex >= 0) setActiveImage(imageIndex);
+    }
+  };
   const badges = settings.trust_badges ?? DEFAULT_BADGES;
   const breadcrumbs = settings.breadcrumbs ?? [];
 
@@ -180,6 +195,43 @@ export function MainProduct({ settings }: MainProductProps) {
               </p>
             )}
 
+            {/* Variant options */}
+            {variants.length > 0 && (
+              <div className="mt-8 space-y-3">
+                {variants.map((variant: ProductVariant) => {
+                  const { onetimePrice: variantOnetimePrice } = getVariantPrices(variant, settings);
+                  const isSelected = selectedVariantId === variant.id;
+
+                  return (
+                    <button
+                      key={variant.id}
+                      type="button"
+                      disabled={!variant.available}
+                      onClick={() => selectVariant(variant)}
+                      className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition disabled:cursor-not-allowed disabled:opacity-50 ${isSelected
+                        ? 'border-primary bg-primary/5'
+                        : 'border-cream-dark bg-white hover:border-primary/40'
+                        }`}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-bold uppercase tracking-wider text-primary">
+                            {variant.title}
+                          </p>
+                          {!variant.available && (
+                            <p className="mt-1 text-sm text-text-muted">Sold out</p>
+                          )}
+                        </div>
+                        <p className="text-lg font-bold text-primary">
+                          {formatMoney(variantOnetimePrice)}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
             {/* Purchase options */}
             <div className="mt-8 space-y-3">
               <button
@@ -216,31 +268,6 @@ export function MainProduct({ settings }: MainProductProps) {
                 </div>
               </button>
             </div>
-
-            {/* Size / variant */}
-            {variants.length > 1 && (
-              <div className="mt-8">
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-text">
-                  Select size:
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {variants.map((variant: ProductVariant) => (
-                    <button
-                      key={variant.id}
-                      type="button"
-                      disabled={!variant.available}
-                      onClick={() => setSelectedVariantId(variant.id)}
-                      className={`min-w-[4.5rem] rounded-full border-2 px-5 py-2.5 text-sm font-semibold transition ${selectedVariantId === variant.id
-                        ? 'border-primary bg-white text-primary'
-                        : 'border-cream-dark text-text-muted hover:border-primary/40'
-                        } disabled:cursor-not-allowed disabled:opacity-40`}
-                    >
-                      {variant.title}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Quantity + CTAs */}
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-stretch">

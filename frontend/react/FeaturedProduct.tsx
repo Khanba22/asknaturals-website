@@ -15,7 +15,7 @@ interface FeaturedProductProps {
 
 export function FeaturedProduct({ settings }: FeaturedProductProps) {
   const buttonUrl = settings.button_link;
-  const buttonLabel = settings.button_label ?? 'Shop AskNatural Original';
+  const buttonLabel = settings.button_label ?? 'Shop Now';
 
   return (
     <section className="bg-cream py-16 md:py-20 lg:py-24">
@@ -36,7 +36,11 @@ export function FeaturedProduct({ settings }: FeaturedProductProps) {
           )}
           {buttonUrl && buttonLabel && (
             <div className="mt-8 md:mt-10">
-              <Button href={buttonUrl} variant="primary" className="uppercase tracking-wide">
+              <Button
+                href={buttonUrl}
+                variant="primary"
+                className="!px-12 !py-4 !text-base uppercase tracking-wide"
+              >
                 {buttonLabel}
               </Button>
             </div>

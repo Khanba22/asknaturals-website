@@ -1,13 +1,12 @@
 import { useEffect, useRef, type MutableRefObject, type RefObject } from 'react';
 import gsap from 'gsap';
-import type { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HERO_TOTAL_SECONDS, getHeroDriveDurationSeconds } from '@/react/hero/timing';
 import { setScrollY } from '@/react/hero/viewport';
 
 const WHEEL_COMMIT_DELTA = 28;
 const WHEEL_ACCUMULATE_MS = 180;
-const TOUCH_THRESHOLD_DESKTOP = 12;
-const TOUCH_THRESHOLD_MOBILE = 6;
+const TOUCH_COMMIT_DELTA = 12;
 
 export type HeroDriveLock = 'idle' | 'driving' | 'done';
 
@@ -22,14 +21,12 @@ export function useHeroScrollDrive({
   driveLockRef,
   enabled = false,
   autoplay = true,
-  isMobile = false,
   onScrollProgress,
 }: {
   triggerRef: RefObject<ScrollTrigger | null>;
   driveLockRef: MutableRefObject<HeroDriveLock>;
   enabled?: boolean;
   autoplay?: boolean;
-  isMobile?: boolean;
   onScrollProgress?: (progress: number) => void;
 }) {
   const tweenRef = useRef<gsap.core.Tween | null>(null);
@@ -44,8 +41,6 @@ export function useHeroScrollDrive({
 
     let cancelled = false;
     let introAttempts = 0;
-    const touchThreshold = isMobile ? TOUCH_THRESHOLD_MOBILE : TOUCH_THRESHOLD_DESKTOP;
-
     const hasPlaythroughCompleted = () => driveLockRef.current === 'done';
 
     const isInHeroZone = () => {
@@ -105,6 +100,7 @@ export function useHeroScrollDrive({
         overwrite: true,
         onUpdate: () => {
           setScrollY(scrollProxy.y);
+          ScrollTrigger.update();
           emitProgress(scrollProxy.y);
         },
         onComplete: () => {
@@ -166,7 +162,7 @@ export function useHeroScrollDrive({
       if (!isInHeroZone()) return;
 
       const delta = startY - currentY;
-      if (Math.abs(delta) < touchThreshold) return;
+      if (Math.abs(delta) < TOUCH_COMMIT_DELTA) return;
 
       event.preventDefault();
       beginPlaythrough();
@@ -213,7 +209,7 @@ export function useHeroScrollDrive({
       killTween();
       detachInputListeners();
     };
-  }, [autoplay, driveLockRef, enabled, isMobile, triggerRef]);
+  }, [autoplay, driveLockRef, enabled, triggerRef]);
 }
 
 export { HERO_TOTAL_SECONDS };

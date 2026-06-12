@@ -16,11 +16,6 @@ export const HERO_SCROLL_DISTANCE_VH = 1.5;
  * stays on screen while the Shop Now button is visible.
  */
 export const HERO_BUFFER_VH = 0.4;
-export const HERO_BUFFER_VH_MOBILE = 0.5;
-
-export function getHeroBufferVh(isMobile: boolean) {
-  return isMobile ? HERO_BUFFER_VH_MOBILE : HERO_BUFFER_VH;
-}
 
 export const HERO_VIDEO_SHARE = HERO_VIDEO_SECONDS / HERO_TOTAL_SECONDS;
 export const HERO_CTA_APPEAR_START = HERO_VIDEO_SHARE;

@@ -1,5 +1,5 @@
+import { Component, type ComponentType, type ErrorInfo, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
-import type { ComponentType } from 'react';
 import '@/tailwind/index.css';
 import { parseLiquidConfig } from '@/utils/liquidConfig';
 import { Hero } from '@/react/Hero';
@@ -103,6 +103,30 @@ const registry: Record<string, IslandComponent> = {
 
 type RegistryKey = keyof typeof registry;
 
+const islandRoots = new WeakMap<HTMLElement, ReturnType<typeof createRoot>>();
+
+class IslandErrorBoundary extends Component<
+  { name: string; children: ReactNode },
+  { error: Error | null }
+> {
+  state = { error: null as Error | null };
+
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error(`[island:${this.props.name}]`, error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.error) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
 function mountIslands() {
   document.querySelectorAll<HTMLElement>('[data-react-root]').forEach((el) => {
     const name = el.getAttribute('data-react-root') as RegistryKey | null;
@@ -110,9 +134,24 @@ function mountIslands() {
       console.warn(`Unknown React island: ${name}`);
       return;
     }
-    const Component = registry[name];
-    const settings = parseLiquidConfig(el);
-    createRoot(el).render(<Component settings={settings} />);
+
+    try {
+      const Island = registry[name];
+      const settings = parseLiquidConfig(el);
+      let root = islandRoots.get(el);
+      if (!root) {
+        root = createRoot(el);
+        islandRoots.set(el, root);
+      }
+
+      root.render(
+        <IslandErrorBoundary name={name}>
+          <Island settings={settings} />
+        </IslandErrorBoundary>,
+      );
+    } catch (error) {
+      console.error(`Failed to mount island "${name}"`, error);
+    }
   });
 }
 

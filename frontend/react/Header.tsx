@@ -49,7 +49,7 @@ export function Header({ settings }: HeaderProps) {
   return (
     <header
       className={`w-full px-4 text-white ${overlayHero
-          ? 'bg-primary/95 backdrop-blur-sm supports-[backdrop-filter]:bg-primary/85'
+          ? 'bg-primary md:bg-primary/95 md:backdrop-blur-sm md:supports-[backdrop-filter]:bg-primary/85'
           : 'bg-primary'
         }`}
     >

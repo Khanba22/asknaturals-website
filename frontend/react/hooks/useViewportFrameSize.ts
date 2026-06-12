@@ -1,41 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MutableRefObject } from 'react';
+import type { HeroDriveLock } from '@/react/hooks/useHeroScrollDrive';
 import {
   getAvailableViewportHeight,
   getScrollUnit,
   isMobileViewport,
 } from '@/react/hero/viewport';
 
-export function useViewportFrameSize(headerHeight: number) {
+export function useViewportFrameSize(
+  headerHeight: number,
+  driveLockRef?: MutableRefObject<HeroDriveLock>,
+) {
   const [size, setSize] = useState(() => computeSize(headerHeight));
 
   useEffect(() => {
-    const update = () => setSize(computeSize(headerHeight));
+    let debounceTimer = 0;
+
+    const update = () => {
+      if (driveLockRef?.current === 'driving') return;
+      setSize(computeSize(headerHeight));
+    };
+
+    const scheduleUpdate = () => {
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(update, 150);
+    };
+
     update();
 
     const media = window.matchMedia('(max-width: 767px)');
-    media.addEventListener('change', update);
-    window.addEventListener('resize', update);
-    window.visualViewport?.addEventListener('resize', update);
-    window.visualViewport?.addEventListener('scroll', update);
+    media.addEventListener('change', scheduleUpdate);
+    window.addEventListener('resize', scheduleUpdate);
 
     return () => {
-      media.removeEventListener('change', update);
-      window.removeEventListener('resize', update);
-      window.visualViewport?.removeEventListener('resize', update);
-      window.visualViewport?.removeEventListener('scroll', update);
+      window.clearTimeout(debounceTimer);
+      media.removeEventListener('change', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
     };
-  }, [headerHeight]);
+  }, [headerHeight, driveLockRef]);
 
   return size;
 }
 
 function computeSize(headerHeight: number) {
-  const isMobile = isMobileViewport();
   const scrollUnit = getScrollUnit();
   const availableHeight = getAvailableViewportHeight(headerHeight);
 
   return {
-    isMobile,
+    isMobile: isMobileViewport(),
     scrollUnit,
     frameWidth: window.innerWidth,
     frameHeight: availableHeight,
