@@ -10,7 +10,7 @@ interface MainProductProps {
   settings: ProductDetailSettings;
 }
 
-type PurchaseMode = 'subscribe' | 'onetime';
+type PurchaseMode = 'subscribe_30' | 'subscribe_7' | 'onetime_7' | 'onetime_30' | null;
 
 function getVariantPrices(
   variant: ProductVariant | undefined,
@@ -26,7 +26,6 @@ const DEFAULT_BADGES = [
   { label: 'Lab Tested', icon: 'beaker' },
   { label: 'Authenticity Verified', icon: 'check' },
   { label: 'Women Formulated', icon: 'female' },
-  { label: 'Ayurvedic Blend', icon: 'leaf' },
 ];
 
 export function MainProduct({ settings }: MainProductProps) {
@@ -43,7 +42,7 @@ export function MainProduct({ settings }: MainProductProps) {
     () => variants.find((v) => v.available)?.id ?? variants[0]?.id,
   );
   const [quantity, setQuantity] = useState(1);
-  const [purchaseMode, setPurchaseMode] = useState<PurchaseMode>('subscribe');
+  const [purchaseMode, setPurchaseMode] = useState<PurchaseMode>(null);
   const [adding, setAdding] = useState(false);
 
   const selectedVariant = useMemo(
@@ -52,7 +51,7 @@ export function MainProduct({ settings }: MainProductProps) {
   );
 
   const { subscribePrice, onetimePrice } = getVariantPrices(selectedVariant, settings);
-  const displayPrice = purchaseMode === 'subscribe' ? subscribePrice : onetimePrice;
+  const displayPrice = purchaseMode?.startsWith('subscribe') ? subscribePrice : onetimePrice;
 
   const selectVariant = (variant: ProductVariant) => {
     if (!variant.available) return;
@@ -199,7 +198,7 @@ export function MainProduct({ settings }: MainProductProps) {
             {variants.length > 0 && (
               <div className="mt-8 space-y-3">
                 {variants.map((variant: ProductVariant) => {
-                  const { onetimePrice: variantOnetimePrice } = getVariantPrices(variant, settings);
+                  const { subscribePrice: variantSubscribePrice } = getVariantPrices(variant, settings);
                   const isSelected = selectedVariantId === variant.id;
 
                   return (
@@ -223,7 +222,7 @@ export function MainProduct({ settings }: MainProductProps) {
                           )}
                         </div>
                         <p className="text-lg font-bold text-primary">
-                          {formatMoney(variantOnetimePrice)}
+                          {formatMoney(variantSubscribePrice)}
                         </p>
                       </div>
                     </button>
@@ -233,40 +232,60 @@ export function MainProduct({ settings }: MainProductProps) {
             )}
 
             {/* Purchase options */}
-            <div className="mt-8 space-y-3">
-              <button
-                type="button"
-                onClick={() => setPurchaseMode('subscribe')}
-                className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition ${purchaseMode === 'subscribe'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-cream-dark bg-white'
+            <div className="mt-8 space-y-3  pointer-events-none cursor-not-allowed">
+
+
+              <div
+                className={`rounded-2xl  border-2 px-5 py-4 transition ${purchaseMode?.startsWith('subscribe')
+                  ? 'border-gray-500 bg-gray-500/5'
+                  : 'border-cream-dark bg-white hover:border-primary/40'
                   }`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                      Subscribe &amp; Save
-                    </p>
-                    <p className="mt-1 text-sm text-text-muted">Delivered every 30 days</p>
+                <button
+                  type="button"
+                  onClick={() => setPurchaseMode('subscribe_30')}
+                  className="w-full text-left"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-bold uppercase tracking-wider text-gray-500">
+                        Subscribe &amp; Save ( Coming Soon )
+                      </p>
+                      {purchaseMode?.startsWith('subscribe') && (
+                        <p className="mt-1 text-sm text-text-muted">Choose delivery frequency</p>
+                      )}
+                    </div>
+                    <p className="text-lg font-bold text-gray-500">Coming Soon</p>
                   </div>
-                  <p className="text-lg font-bold text-primary">{formatMoney(subscribePrice)}</p>
-                </div>
-              </button>
-              <button
-                type="button"
-                onClick={() => setPurchaseMode('onetime')}
-                className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition ${purchaseMode === 'onetime'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-cream-dark bg-white'
-                  }`}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                    One-Time Purchase
-                  </p>
-                  <p className="text-lg font-bold text-primary">{formatMoney(onetimePrice)}</p>
-                </div>
-              </button>
+                </button>
+
+                {purchaseMode?.startsWith('subscribe') && (
+                  <div className="mt-4 space-y-2 border-t border-primary/10 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setPurchaseMode('subscribe_7')}
+                      className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition ${purchaseMode === 'subscribe_7'
+                        ? 'border-primary bg-white shadow-sm'
+                        : 'border-transparent bg-white/50 hover:bg-white'
+                        }`}
+                    >
+                      <span className="text-sm font-bold text-text">Deliver every 7 days</span>
+                      {purchaseMode === 'subscribe_7' && <span className="text-primary">✓</span>}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPurchaseMode('subscribe_30')}
+                      className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition ${purchaseMode === 'subscribe_30'
+                        ? 'border-primary bg-white shadow-sm'
+                        : 'border-transparent bg-white/50 hover:bg-white'
+                        }`}
+                    >
+                      <span className="text-sm font-bold text-text">Deliver every 30 days</span>
+                      {purchaseMode === 'subscribe_30' && <span className="text-primary">✓</span>}
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Quantity + CTAs */}

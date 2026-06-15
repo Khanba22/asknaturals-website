@@ -7,6 +7,7 @@ import {
   getHeroCtaReveal,
   getHeroVideoProgress,
 } from '@/react/hero/timing';
+import { getEffectiveScrollY } from '@/utils/scrollRestoration';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,7 +70,13 @@ export function useHeroScrollTrigger({
     if (triggerRef) triggerRef.current = trigger;
 
     if (driveLockRef.current !== 'driving') {
-      emitProgress(0);
+      const scrollY = getEffectiveScrollY();
+      const range = trigger.end - trigger.start;
+      const progress = range > 0 ? (scrollY - trigger.start) / range : 0;
+      emitProgress(progress);
+      if (scrollY > trigger.start + 8) {
+        driveLockRef.current = 'done';
+      }
     }
     ScrollTrigger.refresh();
 

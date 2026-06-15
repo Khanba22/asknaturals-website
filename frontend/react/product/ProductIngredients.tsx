@@ -225,8 +225,8 @@ export function ProductIngredients({ settings }: ProductIngredientsProps) {
           </h2>
         )}
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="sticky top-24 self-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-16">
+          <div className="col-start-1 row-start-1 sticky top-24 self-start max-lg:top-[20vh] max-lg:opacity-75 flex justify-center">
             <IngredientWheel
               hubLabel={hubLabel}
               ingredients={satelliteIngredients}
@@ -234,13 +234,13 @@ export function ProductIngredients({ settings }: ProductIngredientsProps) {
             />
           </div>
 
-          <div className="divide-y divide-cream">
+          <div className="col-start-1 row-start-1 divide-y divide-cream lg:col-start-2 relative z-10">
             {scrollItems.map((item, index) => (
               <div
                 key={item.title}
                 ref={setItemRef(index)}
                 data-index={index}
-                className="min-h-[40vh] py-10 first:pt-0 lg:min-h-[45vh]"
+                className="py-6 lg:py-10 first:pt-0 lg:min-h-[45vh]"
               >
                 <h3
                   className={`font-bold uppercase tracking-wide transition-colors duration-300 text-xl md:text-2xl ${activeIndex === index ? 'text-primary' : 'text-text'
@@ -248,7 +248,7 @@ export function ProductIngredients({ settings }: ProductIngredientsProps) {
                 >
                   {item.title}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-text-muted md:text-base">
+                <p className="mt-4 text-sm leading-relaxed text-text-muted md:text-base max-lg:font-medium">
                   {item.description}
                 </p>
               </div>

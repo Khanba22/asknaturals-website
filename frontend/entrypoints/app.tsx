@@ -2,6 +2,9 @@ import { Component, type ComponentType, type ErrorInfo, type ReactNode } from 'r
 import { createRoot } from 'react-dom/client';
 import '@/tailwind/index.css';
 import { parseLiquidConfig } from '@/utils/liquidConfig';
+import { initScrollRestoration } from '@/utils/scrollRestoration';
+
+initScrollRestoration();
 import { Hero } from '@/react/Hero';
 import { Categories } from '@/react/Categories';
 import { Showcase } from '@/react/Showcase';

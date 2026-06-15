@@ -1,233 +1,80 @@
-import { useCallback, useRef, useState, useEffect } from 'react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import type { ScrollTrigger as ScrollTriggerInstance } from 'gsap/ScrollTrigger';
 import type { HeroSettings } from '@/types/section-settings';
-import { useHeaderHeight } from '@/react/hooks/useHeaderHeight';
-import { useViewportFrameSize } from '@/react/hooks/useViewportFrameSize';
-import { useHeroVideoScrub } from '@/react/hooks/useHeroVideoScrub';
-import { getHeroSectionHeight, useHeroScrollTrigger } from '@/react/hooks/useHeroScrollTrigger';
-import { useHeroScrollDrive, type HeroDriveLock } from '@/react/hooks/useHeroScrollDrive';
-import {
-  getHeroCtaReveal,
-  getHeroVideoProgress,
-  HERO_SCROLL_DISTANCE_VH,
-} from '@/react/hero/timing';
 import { Button } from './ui/Button';
 
 interface HeroProps {
   settings: HeroSettings;
 }
 
-function HeroLoader({ progress }: { progress: number }) {
+const headlineClass =
+  'font-bold uppercase leading-[1.1] tracking-[0.04em] text-white text-[clamp(1.75rem,6vw,5rem)]';
+
+function HeroHeading({ html }: { html?: string }) {
+  if (!html) return null;
+
   return (
     <div
-      className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-5 bg-primary/95 px-6 text-white"
-      role="status"
-      aria-live="polite"
-      aria-label={`Loading hero video, ${progress} percent`}
-    >
-      <div className="h-12 w-12 animate-spin rounded-full border-2 border-white/25 border-t-white" />
-
-      <div className="text-center">
-        <p className="text-sm font-medium tracking-[0.2em] uppercase">Loading experience</p>
-        <p className="mt-2 text-xs text-white/70">Preparing scroll video</p>
-      </div>
-
-      <div className="w-full max-w-xs">
-        <div className="h-1 overflow-hidden rounded-full bg-white/20">
-          <div
-            className="h-full rounded-full bg-white transition-[width] duration-200 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <p className="mt-2 text-center text-xs text-white/80">{progress}%</p>
-      </div>
-    </div>
+      className={`${headlineClass} [&_*]:!text-white [&_em]:not-italic [&_p]:m-0`}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
-}
-
-function easeOutCubic(value: number) {
-  return 1 - (1 - value) ** 3;
-}
-
-function resolveScrollDistance(settings: HeroSettings) {
-  if (settings.scroll_distance != null) return settings.scroll_distance;
-  return HERO_SCROLL_DISTANCE_VH;
-}
-
-function resolveVideoUrl(
-  isMobile: boolean,
-  desktopVideoUrl: string,
-  mobileVideoUrl: string,
-) {
-  if (isMobile) return mobileVideoUrl || desktopVideoUrl;
-  return desktopVideoUrl || mobileVideoUrl;
 }
 
 export function Hero({ settings }: HeroProps) {
-  const {
-    button_label = 'Shop Now',
-    button_link,
-    intro_autoplay = true,
-    desktop_video_url = '',
-    mobile_video_url = '',
-  } = settings;
-
-  const scrollDistance = resolveScrollDistance(settings);
-
-  const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const scrollTriggerRef = useRef<ScrollTriggerInstance | null>(null);
-  const driveLockRef = useRef<HeroDriveLock>('idle');
-  const headerHeight = useHeaderHeight();
-  const { isMobile, scrollUnit, frameHeight, frameWidth, viewportHeight } =
-    useViewportFrameSize(headerHeight, driveLockRef);
-
-  const videoUrl = resolveVideoUrl(isMobile, desktop_video_url, mobile_video_url);
-
-  const [sectionHeight, setSectionHeight] = useState(() =>
-    getHeroSectionHeight(scrollDistance, viewportHeight, scrollUnit),
-  );
-  const [ctaReveal, setCtaReveal] = useState(0);
-
-  useEffect(() => {
-    if (driveLockRef.current === 'driving') return;
-
-    let debounceTimer = 0;
-    const update = () =>
-      setSectionHeight(getHeroSectionHeight(scrollDistance, viewportHeight, scrollUnit));
-
-    update();
-
-    const scheduleUpdate = () => {
-      if (driveLockRef.current === 'driving') return;
-      window.clearTimeout(debounceTimer);
-      debounceTimer = window.setTimeout(update, 150);
-    };
-
-    window.addEventListener('resize', scheduleUpdate);
-
-    return () => {
-      window.clearTimeout(debounceTimer);
-      window.removeEventListener('resize', scheduleUpdate);
-    };
-  }, [scrollDistance, viewportHeight, scrollUnit]);
-
-  const { setTargetProgress, isReady, loadProgress } = useHeroVideoScrub({
-    videoRef,
-    canvasRef,
-    displayWidth: frameWidth,
-    displayHeight: frameHeight,
-    videoUrl,
-  });
-
-  const handleScrollProgress = useCallback((rawProgress: number) => {
-    setCtaReveal(easeOutCubic(getHeroCtaReveal(rawProgress)));
-  }, []);
-
-  const emitHeroProgress = useCallback(
-    (rawProgress: number) => {
-      handleScrollProgress(rawProgress);
-      setTargetProgress(getHeroVideoProgress(rawProgress));
-    },
-    [handleScrollProgress, setTargetProgress],
-  );
-
-  useHeroScrollTrigger({
-    sectionRef,
-    scrollDistance,
-    scrollUnit,
-    viewportHeight,
-    headerHeight,
-    driveLockRef,
-    onVideoProgress: setTargetProgress,
-    onScrollProgress: handleScrollProgress,
-    triggerRef: scrollTriggerRef,
-    enabled: isReady && Boolean(videoUrl),
-  });
-
-  useHeroScrollDrive({
-    triggerRef: scrollTriggerRef,
-    driveLockRef,
-    enabled: isReady && Boolean(videoUrl),
-    autoplay: intro_autoplay,
-    onScrollProgress: emitHeroProgress,
-  });
-
-  useEffect(() => {
-    if (!isReady || driveLockRef.current === 'driving') return;
-
-    let debounceTimer = 0;
-    debounceTimer = window.setTimeout(() => {
-      if (driveLockRef.current !== 'driving') {
-        ScrollTrigger.refresh();
-      }
-    }, 150);
-
-    return () => window.clearTimeout(debounceTimer);
-  }, [isReady, scrollDistance, viewportHeight, scrollUnit, headerHeight, videoUrl]);
-
-  const ctaOffsetY = (1 - ctaReveal) * 36;
+  const { heading, button_label, button_link, image_url, mobile_image_url } = settings;
+  const mobileImg = mobile_image_url || image_url;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full"
-      style={{ height: sectionHeight > 0 ? `${sectionHeight}px` : undefined }}
-      aria-label="Hero"
-    >
-      <div
-        className="sticky left-0 w-full overflow-hidden bg-black"
-        style={{
-          top: headerHeight,
-          height: viewportHeight > 0 ? `${viewportHeight}px` : undefined,
-        }}
-      >
-        <div className="relative h-full w-full overflow-hidden">
-          <video
-            ref={videoRef}
-            className="hidden"
-            muted
-            playsInline
-            preload="auto"
-            disablePictureInPicture
-            aria-hidden
-          />
+    <section className="relative w-full overflow-hidden bg-primary max-md:h-dvh max-md:min-h-dvh md:bg-cover md:bg-center md:bg-no-repeat">
+      {/* Mobile: full-bleed image anchored right */}
+      {mobileImg && (
+        <img
+          src={mobileImg}
+          alt=""
+          className="absolute inset-0 h-full min-h-full w-full min-w-full object-cover object-center md:hidden"
+          aria-hidden
+        />
+      )}
 
-          <canvas
-            ref={canvasRef}
-            className="absolute inset-0 h-full w-full"
-            aria-hidden
-          />
+      {/* Desktop: CSS background (original) */}
+      {image_url && (
+        <div
+          className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
+          style={{ backgroundImage: `url("${image_url}")` }}
+          aria-hidden
+        />
+      )}
 
-          {!isReady && <HeroLoader progress={loadProgress} />}
+      <div className="absolute inset-0 bg-primary/45 max-md:block md:hidden" aria-hidden />
+
+      <div className="relative z-10 mx-auto w-full">
+        <div
+          className="
+            flex flex-col justify-center
+            gap-[clamp(1.25rem,3vw,2rem)]
+            max-md:h-dvh max-md:min-h-dvh max-md:items-center max-md:px-6 max-md:py-10 max-md:text-center
+            md:min-h-[calc(100vh-88px)] md:w-[75%] md:items-start md:px-[clamp(1.5rem,4vw,5rem)] md:py-0 md:text-left
+            lg:w-[60%]
+          "
+        >
+          {heading ? (
+            <HeroHeading html={heading} />
+          ) : (
+            <h1 className={headlineClass}>Supplements designed around her biology.</h1>
+          )}
 
           {button_label && button_link && (
-            <div
-              className="absolute top-[80%] left-1/2 z-20 flex w-full justify-center px-6"
-              style={{
-                opacity: ctaReveal,
-                transform: `translate(-50%, calc(-50% + ${ctaOffsetY}px)) scale(${0.88 + ctaReveal * 0.12})`,
-                pointerEvents: ctaReveal > 0.35 ? 'auto' : 'none',
-              }}
+            <Button
+              href={button_link}
+              variant="inverse"
+              className="
+                !px-[clamp(1.25rem,2vw,2.5rem)]
+                !py-[clamp(0.75rem,1vw,1rem)]
+                text-[clamp(0.875rem,1vw,1rem)]
+                tracking-wide
+              "
             >
-              <Button
-                href={button_link}
-                variant="inverse"
-                className="
-                  min-w-[clamp(14rem,32vw,22rem)]
-                  !px-[clamp(2.25rem,4.5vw,4rem)]
-                  !py-[clamp(1.125rem,2vw,1.625rem)]
-                  text-[clamp(1.0625rem,1.5vw,1.375rem)]
-                  !font-semibold
-                  tracking-wide
-                  shadow-xl
-                "
-              >
-                {button_label}
-              </Button>
-            </div>
+              {button_label}
+            </Button>
           )}
         </div>
       </div>

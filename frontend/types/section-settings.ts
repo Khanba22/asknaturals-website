@@ -7,6 +7,7 @@ export interface HeroSettings {
   button_label_2?: string;
   button_link_2?: string;
   image_url?: string | null;
+  mobile_image_url?: string | null;
   overlay_header?: boolean;
   button_spacer_height?: number;
   show_trust_badges?: boolean;

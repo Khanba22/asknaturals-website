@@ -106,62 +106,62 @@
     "ingredients": {
       "type": "react-product-ingredients",
       "blocks": {
-        "ashwa": {
+        "myo": {
           "type": "ingredient",
           "settings": {
-            "title": "Ashwagandha",
-            "short_label": "ASHWA",
-            "description": "The gold-standard adaptogen. Clinically shown to reduce cortisol by up to 28%, supporting the adrenal-hormonal axis and easing stress-driven hormonal disruption."
+            "title": "Myo-Inositol",
+            "short_label": "INOSITOL",
+            "description": "Crucial for cellular signaling. Clinically supported to help regulate insulin sensitivity and promote healthy ovarian function, essential for hormonal balance."
           }
         },
-        "shatav": {
+        "mag": {
           "type": "ingredient",
           "settings": {
-            "title": "Shatavari",
-            "short_label": "SHATAV",
-            "description": "Ayurveda's sacred women's tonic. Supports follicular health, eases perimenopause symptoms, and nourishes the reproductive system through every phase of life."
+            "title": "Magnesium Glycinate",
+            "short_label": "MAGNESIUM",
+            "description": "A highly bioavailable form of magnesium that supports nervous system relaxation, reduces stress-related tension, and aids in restorative sleep."
           }
         },
-        "brahmi": {
+        "chro": {
           "type": "ingredient",
           "settings": {
-            "title": "Brahmi",
-            "short_label": "BRAHMI",
-            "description": "Enhances cognitive clarity and reduces anxiety by modulating GABA and serotonin pathways — supporting mental wellness alongside hormonal balance."
+            "title": "Chromium Picolinate",
+            "short_label": "CHROMIUM",
+            "description": "An essential trace mineral that enhances insulin action, helping to stabilize blood sugar levels and reduce cravings."
           }
         },
-        "lodhra": {
+        "vitd": {
           "type": "ingredient",
           "settings": {
-            "title": "Lodhra",
-            "short_label": "LODHRA",
-            "description": "A traditional Ayurvedic herb used specifically for female reproductive health. Supports ovarian function and helps regulate FSH and LH levels."
+            "title": "Vitamin D3",
+            "short_label": "VITAMIN D3",
+            "description": "The 'sunshine vitamin'. Vital for immune function, mood regulation, and supporting bone health. Many women with hormonal imbalances are deficient."
           }
         },
-        "moringa": {
+        "circ": {
           "type": "ingredient",
           "settings": {
-            "title": "Moringa",
-            "short_label": "MORINGA",
-            "description": "Nature's most nutrient-dense plant. Provides essential micronutrients including iron, calcium, and zinc — often depleted during hormonal imbalance and menstruation."
+            "title": "Circumin Extract",
+            "short_label": "CIRCUMIN",
+            "description": "A potent anti-inflammatory compound derived from turmeric. Helps soothe systemic inflammation which can often be at the root of hormonal symptoms."
           }
         },
-        "triphala": {
+        "spear": {
           "type": "ingredient",
           "settings": {
-            "title": "Triphala",
-            "short_label": "TRIPHALA",
-            "description": "The ancient tri-fruit formula. Supports gut health, enhances nutrient absorption, and promotes gentle detoxification — the foundation for hormonal resilience."
+            "title": "Spearmint Extract",
+            "short_label": "SPEARMINT",
+            "description": "Clinically shown to help reduce excess androgens (male hormones) in women, supporting clear skin and reducing unwanted hair growth."
           }
         }
       },
       "block_order": [
-        "ashwa",
-        "shatav",
-        "brahmi",
-        "lodhra",
-        "moringa",
-        "triphala"
+        "myo",
+        "mag",
+        "chro",
+        "vitd",
+        "circ",
+        "spear"
       ],
       "settings": {
         "heading": "Ingredients",

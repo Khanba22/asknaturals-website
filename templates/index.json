@@ -1,17 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "react-hero",
       "settings": {
         "subtitle": "PREMIUM SUPPLEMENTS",
-        "heading": "<p>SUPPLEMENTS DESIGNED AROUND HER BIOLOGY.</p>",
+        "heading": "<p>SUPPLEMENTS DESIGNED AROUND YOUR BIOLOGY.</p>",
         "description": "<p>Clinically selected ingredients to support hormones, digestion, metabolism and energy.</p>",
-        "button_label": "Shop Originals",
+        "button_label": "Shop Now",
         "button_link": "/collections/all",
         "button_label_2": "",
         "button_link_2": "",
-        "scroll_distance": 1.5,
-        "intro_autoplay": true,
+        "image": "shopify://shop_images/Frame_2147227708.png",
+        "mobile_image": "shopify://shop_images/Frame_2147227261_a9cf4f76-97ac-40dd-931e-0610e1538c9c.png",
+        "button_spacer_height": 200,
         "show_trust_badges": true,
         "show_floating_badges": true,
         "color_scheme": "scheme-1"
@@ -78,6 +88,72 @@
         "image": "shopify://shop_images/Group_1321314257.png",
         "button_label": "Shop Now",
         "button_link": "/collections/all"
+      }
+    },
+    "ingredients": {
+      "type": "react-product-ingredients",
+      "blocks": {
+        "myo": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Myo-Inositol",
+            "short_label": "INOSITOL",
+            "description": "Crucial for cellular signaling. Clinically supported to help regulate insulin sensitivity and promote healthy ovarian function, essential for hormonal balance."
+          }
+        },
+        "mag": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Magnesium Glycinate",
+            "short_label": "MAGNESIUM",
+            "description": "A highly bioavailable form of magnesium that supports nervous system relaxation, reduces stress-related tension, and aids in restorative sleep."
+          }
+        },
+        "chro": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Chromium Picolinate",
+            "short_label": "CHROMIUM",
+            "description": "An essential trace mineral that enhances insulin action, helping to stabilize blood sugar levels and reduce cravings."
+          }
+        },
+        "vitd": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Vitamin D3",
+            "short_label": "VITAMIN D3",
+            "description": "The 'sunshine vitamin'. Vital for immune function, mood regulation, and supporting bone health. Many women with hormonal imbalances are deficient."
+          }
+        },
+        "circ": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Circumin Extract",
+            "short_label": "CIRCUMIN",
+            "description": "A potent anti-inflammatory compound derived from turmeric. Helps soothe systemic inflammation which can often be at the root of hormonal symptoms."
+          }
+        },
+        "spear": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Spearmint Extract",
+            "short_label": "SPEARMINT",
+            "description": "Clinically shown to help reduce excess androgens (male hormones) in women, supporting clear skin and reducing unwanted hair growth."
+          }
+        }
+      },
+      "block_order": [
+        "myo",
+        "mag",
+        "chro",
+        "vitd",
+        "circ",
+        "spear"
+      ],
+      "settings": {
+        "heading": "Our Ingredients",
+        "hub_label": "Harmony Blend",
+        "hub_description": "A synergistic Ayurvedic blend designed to support hormonal balance, energy, and everyday wellness."
       }
     },
     "trust": {
@@ -274,6 +350,7 @@
     "hero",
     "categories",
     "featured",
+    "ingredients",
     "trust",
     "quiz",
     "stats",

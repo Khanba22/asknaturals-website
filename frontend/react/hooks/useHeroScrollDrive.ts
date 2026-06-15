@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HERO_TOTAL_SECONDS, getHeroDriveDurationSeconds } from '@/react/hero/timing';
 import { setScrollY } from '@/react/hero/viewport';
+import { getEffectiveScrollY } from '@/utils/scrollRestoration';
 
 const WHEEL_COMMIT_DELTA = 28;
 const WHEEL_ACCUMULATE_MS = 180;
@@ -174,8 +175,14 @@ export function useHeroScrollDrive({
       const trigger = triggerRef.current;
       if (!trigger) return;
 
-      if (window.scrollY > trigger.start + 8) {
+      const scrollY = getEffectiveScrollY();
+
+      if (scrollY > trigger.start + 8) {
         driveLockRef.current = 'done';
+        if (scrollY !== window.scrollY) {
+          setScrollY(scrollY);
+        }
+        emitProgress(scrollY);
         return;
       }
 
