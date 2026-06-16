@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { HeroSettings } from '@/types/section-settings';
 import { Button } from './ui/Button';
 
@@ -22,6 +23,12 @@ function HeroHeading({ html }: { html?: string }) {
 export function Hero({ settings }: HeroProps) {
   const { heading, button_label, button_link, image_url, mobile_image_url } = settings;
   const mobileImg = mobile_image_url || image_url;
+  const [shaking, setShaking] = useState(false);
+
+  const handleShopClick = () => {
+    setShaking(true);
+    window.setTimeout(() => setShaking(false), 500);
+  };
 
   return (
     <section className="relative w-full overflow-hidden bg-primary max-md:h-dvh max-md:min-h-dvh md:bg-cover md:bg-center md:bg-no-repeat">
@@ -66,12 +73,15 @@ export function Hero({ settings }: HeroProps) {
             <Button
               href={button_link}
               variant="inverse"
-              className="
-                !px-[clamp(1.25rem,2vw,2.5rem)]
-                !py-[clamp(0.75rem,1vw,1rem)]
-                text-[clamp(0.875rem,1vw,1rem)]
+              onClick={handleShopClick}
+              className={`
+                !px-[clamp(2rem,3.5vw,3.5rem)]
+                !py-[clamp(1rem,1.5vw,1.375rem)]
+                text-[clamp(1.0625rem,1.35vw,1.25rem)]
                 tracking-wide
-              "
+                hover:animate-shake hover:!scale-100 active:!scale-100
+                ${shaking ? 'animate-shake' : ''}
+              `.trim()}
             >
               {button_label}
             </Button>

@@ -3,6 +3,7 @@ export interface AboutHeroSettings {
   heading?: string;
   body?: string;
   image_url?: string | null;
+  mobile_image_url?: string | null;
 }
 
 export interface AboutMissionBlock {
@@ -24,6 +25,7 @@ export interface AboutWhyCreatedSettings {
   button_label?: string;
   button_link?: string;
   image_url?: string | null;
+  mobile_image_url?: string | null;
 }
 
 export interface AboutValuesBlock {

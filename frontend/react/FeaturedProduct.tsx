@@ -35,7 +35,7 @@ export function FeaturedProduct({ settings }: FeaturedProductProps) {
             <p className="mt-6 text-sm leading-[1.75] text-text md:text-base">{settings.description}</p>
           )}
           {buttonUrl && buttonLabel && (
-            <div className="mt-8 md:mt-10">
+            <div className="mt-8 max-md:flex max-md:justify-center md:mt-10">
               <Button
                 href={buttonUrl}
                 variant="primary"
