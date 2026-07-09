@@ -1,5 +1,6 @@
 import type { AboutWhyCreatedSettings } from '@/types/about-sections';
 import { Button } from '../ui/Button';
+import { Reveal } from '../motion/Reveal';
 
 interface AboutWhyCreatedProps {
   settings: AboutWhyCreatedSettings;
@@ -31,7 +32,7 @@ export function AboutWhyCreated({ settings }: AboutWhyCreatedProps) {
       )}
 
       <div className="relative z-10 mx-auto flex min-h-[28rem] w-full max-w-7xl items-center px-4 py-16 sm:px-6 md:min-h-[32rem] md:py-20 lg:min-h-[34rem] lg:py-24">
-        <div className="w-full max-w-xl lg:max-w-[55%]">
+        <Reveal variant="slideInLeft" className="w-full max-w-xl lg:max-w-[55%]">
           {settings.eyebrow && (
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-white/80">
               {settings.eyebrow}
@@ -60,7 +61,7 @@ export function AboutWhyCreated({ settings }: AboutWhyCreatedProps) {
               </Button>
             </div>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

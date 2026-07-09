@@ -28,17 +28,12 @@
   if contact_url == blank
     assign contact_url = routes.root_url | append: 'pages/contact'
   endif
-  assign lab_results_url = section.settings.lab_results_link
-  if lab_results_url == blank
-    assign lab_results_url = routes.root_url | append: 'pages/lab-results'
-  endif
 -%}
 
 {%- capture utility_links_json -%}
 [
   { "title": {{ section.settings.about_label | json }}, "url": {{ about_url | json }} },
-  { "title": {{ section.settings.contact_label | json }}, "url": {{ contact_url | json }} },
-  { "title": {{ section.settings.lab_results_label | json }}, "url": {{ lab_results_url | json }} }
+  { "title": {{ section.settings.contact_label | json }}, "url": {{ contact_url | json }} }
 ]
 {%- endcapture -%}
 
@@ -73,9 +68,7 @@
     { "type": "text", "id": "about_label", "label": "About label", "default": "About Us" },
     { "type": "url", "id": "about_link", "label": "About link" },
     { "type": "text", "id": "contact_label", "label": "Contact label", "default": "Contact Us" },
-    { "type": "url", "id": "contact_link", "label": "Contact link" },
-    { "type": "text", "id": "lab_results_label", "label": "Lab results label", "default": "Lab Results" },
-    { "type": "url", "id": "lab_results_link", "label": "Lab results link" }
+    { "type": "url", "id": "contact_link", "label": "Contact link" }
   ]
 }
 {% endschema %}

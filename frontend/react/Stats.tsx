@@ -1,3 +1,5 @@
+import { Reveal, Stagger, StaggerItem } from './motion/Reveal';
+
 export interface StatBlock {
   value: string;
   label: string;
@@ -24,29 +26,31 @@ export function Stats({ settings }: StatsProps) {
     <section className="bg-cream/60 py-16 md:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-          <div>
+          <Reveal variant="slideInLeft">
             {settings.heading && (
               <h2 className="font-bold uppercase leading-tight tracking-wide text-primary text-2xl md:text-3xl">
                 {settings.heading}
               </h2>
             )}
-          </div>
-          <div>
+          </Reveal>
+          <Reveal variant="slideInRight" delay={0.1}>
             {settings.description && (
               <p className="text-base leading-relaxed text-text-muted">{settings.description}</p>
             )}
-          </div>
+          </Reveal>
         </div>
-        <div className={gridClass}>
+        <Stagger className={gridClass}>
           {stats.map((stat) => (
-            <div key={`${stat.value}-${stat.label}`} className="text-center justify-center md:text-left">
-              <p className="text-center text-3xl font-bold text-primary md:text-4xl">{stat.value}</p>
-              <p className="mt-2 text-center text-xs font-bold uppercase leading-snug tracking-wide text-primary">
-                {stat.label}
-              </p>
-            </div>
+            <StaggerItem key={`${stat.value}-${stat.label}`} variant="scaleIn">
+              <div className="text-center justify-center md:text-left">
+                <p className="text-center text-3xl font-bold text-primary md:text-4xl">{stat.value}</p>
+                <p className="mt-2 text-center text-xs font-bold uppercase leading-snug tracking-wide text-primary">
+                  {stat.label}
+                </p>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

@@ -48,10 +48,7 @@ export function Header({ settings }: HeaderProps) {
 
   return (
     <header
-      className={`w-full px-4 text-white ${overlayHero
-          ? 'bg-primary md:bg-primary/95 md:backdrop-blur-sm md:supports-[backdrop-filter]:bg-primary/85'
-          : 'bg-primary'
-        }`}
+      className={`w-full px-4 text-white bg-primary`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 py-4 md:py-5">
         <a href={homeUrl} className="flex shrink-0 items-center">

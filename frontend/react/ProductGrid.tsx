@@ -89,7 +89,7 @@ export function ProductGrid({ settings }: ProductGridProps) {
   };
 
   return (
-    <section className="bg-white py-10 md:py-14">
+    <section className="bg-white py-10 md:py-14 mb-10 md:mb-14">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         {settings.show_shop_header && (
           <div className="mb-10 md:mb-12">
@@ -159,18 +159,6 @@ export function ProductGrid({ settings }: ProductGridProps) {
           </div>
         )}
 
-        {!settings.show_shop_header && (settings.heading || settings.subheading) && (
-          <div className="mb-12 text-center">
-            {title && typeof title === 'string' && !title.includes('<') && (
-              <h2 className="mb-4 font-bold uppercase leading-tight tracking-wide text-primary">
-                {title}
-              </h2>
-            )}
-            {settings.subheading && (
-              <p className="text-lg text-text-muted">{settings.subheading}</p>
-            )}
-          </div>
-        )}
 
         {sortedProducts.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6 lg:gap-8">

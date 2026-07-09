@@ -1,4 +1,5 @@
 import type { AboutMissionSettings } from '@/types/about-sections';
+import { Reveal, Stagger, StaggerItem } from '../motion/Reveal';
 
 interface AboutMissionProps {
   settings: AboutMissionSettings;
@@ -28,7 +29,7 @@ export function AboutMission({ settings }: AboutMissionProps) {
     <section className="py-16 md:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         {(settings.heading || settings.subheading) && (
-          <header className="mb-12 text-center md:mb-16">
+          <Reveal as="header" className="mb-12 text-center md:mb-16">
             {settings.heading && (
               <h2 className="font-bold uppercase tracking-wide text-text text-2xl md:text-3xl">
                 {settings.heading}
@@ -39,32 +40,34 @@ export function AboutMission({ settings }: AboutMissionProps) {
                 {settings.subheading}
               </p>
             )}
-          </header>
+          </Reveal>
         )}
 
         {blocks.length > 0 && (
-          <div className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <Stagger className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             <div
               className="pointer-events-none absolute inset-x-0 top-10 hidden h-px bg-text-muted/20 lg:block"
               aria-hidden
             />
 
             {blocks.map((block) => (
-              <div key={block.title} className="flex flex-col items-center text-center">
-                <MissionIcon iconUrl={block.icon_url} title={block.title} />
-                {block.title && (
-                  <h3 className="mt-6 text-sm font-bold uppercase tracking-wide text-text md:text-[15px]">
-                    {block.title}
-                  </h3>
-                )}
-                {block.description && (
-                  <p className="mt-3 max-w-[16rem] text-sm leading-relaxed text-text-muted">
-                    {block.description}
-                  </p>
-                )}
-              </div>
+              <StaggerItem key={block.title}>
+                <div className="flex flex-col items-center text-center">
+                  <MissionIcon iconUrl={block.icon_url} title={block.title} />
+                  {block.title && (
+                    <h3 className="mt-6 text-sm font-bold uppercase tracking-wide text-text md:text-[15px]">
+                      {block.title}
+                    </h3>
+                  )}
+                  {block.description && (
+                    <p className="mt-3 max-w-[16rem] text-sm leading-relaxed text-text-muted">
+                      {block.description}
+                    </p>
+                  )}
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         )}
       </div>
     </section>

@@ -19,8 +19,8 @@
         "button_link": "/collections/all",
         "button_label_2": "",
         "button_link_2": "",
-        "image": "shopify://shop_images/Frame_2147227708.png",
-        "mobile_image": "shopify://shop_images/Frame_2147227261_a9cf4f76-97ac-40dd-931e-0610e1538c9c.png",
+        "image": "shopify://shop_images/Frame_2147227708_2_6c7bbe7d-8181-46e4-99e2-0ac2e0c4774a.png",
+        "mobile_image": "shopify://shop_images/Frame_2147227731_1.png",
         "button_spacer_height": 200,
         "show_trust_badges": true,
         "show_floating_badges": true,
@@ -36,25 +36,8 @@
             "title": "PCOS",
             "subtitle": "",
             "icon": "pcos",
-            "link": "/collections/all"
-          }
-        },
-        "cat-2": {
-          "type": "category",
-          "settings": {
-            "title": "Hormonal Balance",
-            "subtitle": "",
-            "icon": "hormones",
-            "link": "/collections/all"
-          }
-        },
-        "cat-3": {
-          "type": "category",
-          "settings": {
-            "title": "Fat Loss",
-            "subtitle": "",
-            "icon": "fatloss",
-            "link": "/collections/all"
+            "custom_icon": "shopify://shop_images/Frame_2147227086_dbcffe5a-e165-4c05-903d-0e90fa4d348d.png",
+            "link": "shopify://products/pcos-hot-chocolate"
           }
         },
         "cat-4": {
@@ -63,97 +46,41 @@
             "title": "Sleep",
             "subtitle": "",
             "icon": "sleep",
-            "link": "/collections/all"
+            "custom_icon": "shopify://shop_images/Frame_2147227086_3_70dbd951-f334-42c7-a193-76708f3d644c.png",
+            "link": ""
+          }
+        },
+        "cat-5": {
+          "type": "category",
+          "settings": {
+            "title": "Menopause",
+            "subtitle": "",
+            "icon": "menopause",
+            "custom_icon": "shopify://shop_images/Frame_2147227730_1.png",
+            "link": ""
           }
         }
       },
       "block_order": [
         "cat-1",
-        "cat-2",
-        "cat-3",
-        "cat-4"
+        "cat-4",
+        "cat-5"
       ],
       "settings": {
         "heading": "FIND SUPPORT DESIGNED AROUND YOUR BODY",
-        "subheading": "Explore by how you feel. Get support designed around hormones, energy, metabolism, recovery, and everyday balance.",
+        "subheading": "Explore how you feel.",
         "color_scheme": "scheme-1"
       }
     },
     "featured": {
       "type": "react-featured-product",
       "settings": {
-        "subtitle": "Askknatural Originals",
+        "subtitle": "",
         "heading": "ASKKNATURAL ORIGINALS",
-        "description": "Most supplements work alone. Askknatural Originals are formulated to work together for hormones, sleep, metabolism, and real daily results. An intentional formulation, which is not just a product, It is a decision made for you, by someone who actually understands the biology.",
-        "image": "shopify://shop_images/Group_1321314257_1.jpg",
+        "description": "Built by us",
+        "image": "shopify://shop_images/download_2.png",
         "button_label": "Shop Now",
         "button_link": "/collections/all"
-      }
-    },
-    "ingredients": {
-      "type": "react-product-ingredients",
-      "blocks": {
-        "myo": {
-          "type": "ingredient",
-          "settings": {
-            "title": "Myo-Inositol",
-            "short_label": "INOSITOL",
-            "description": "Crucial for cellular signaling. Clinically supported to help regulate insulin sensitivity and promote healthy ovarian function, essential for hormonal balance."
-          }
-        },
-        "mag": {
-          "type": "ingredient",
-          "settings": {
-            "title": "Magnesium Glycinate",
-            "short_label": "MAGNESIUM",
-            "description": "A highly bioavailable form of magnesium that supports nervous system relaxation, reduces stress-related tension, and aids in restorative sleep."
-          }
-        },
-        "chro": {
-          "type": "ingredient",
-          "settings": {
-            "title": "Chromium Picolinate",
-            "short_label": "CHROMIUM",
-            "description": "An essential trace mineral that enhances insulin action, helping to stabilize blood sugar levels and reduce cravings."
-          }
-        },
-        "vitd": {
-          "type": "ingredient",
-          "settings": {
-            "title": "Vitamin D3",
-            "short_label": "VITAMIN D3",
-            "description": "The 'sunshine vitamin'. Vital for immune function, mood regulation, and supporting bone health. Many women with hormonal imbalances are deficient."
-          }
-        },
-        "circ": {
-          "type": "ingredient",
-          "settings": {
-            "title": "Circumin Extract",
-            "short_label": "CIRCUMIN",
-            "description": "A potent anti-inflammatory compound derived from turmeric. Helps soothe systemic inflammation which can often be at the root of hormonal symptoms."
-          }
-        },
-        "spear": {
-          "type": "ingredient",
-          "settings": {
-            "title": "Spearmint Extract",
-            "short_label": "SPEARMINT",
-            "description": "Clinically shown to help reduce excess androgens (male hormones) in women, supporting clear skin and reducing unwanted hair growth."
-          }
-        }
-      },
-      "block_order": [
-        "myo",
-        "mag",
-        "chro",
-        "vitd",
-        "circ",
-        "spear"
-      ],
-      "settings": {
-        "heading": "Our Ingredients",
-        "hub_label": "Harmony Blend",
-        "hub_description": "A synergistic Ayurvedic blend designed to support hormonal balance, energy, and everyday wellness."
       }
     },
     "trust": {
@@ -201,9 +128,9 @@
     "quiz": {
       "type": "react-wellness-quiz",
       "settings": {
-        "heading": "NOT SURE WHAT YOUR BODY NEEDS RIGHT NOW?",
-        "subheading": "Answer a few thoughtful questions and receive personalized wellness recommendations designed around your goals, lifestyle, and how you feel day to day.",
-        "button_label": "Take the wellness quiz",
+        "heading": "2 MINUTES TO KNOW EXACTLY WHAT YOU NEED",
+        "subheading": "Take a quiz",
+        "button_label": "Take the Quiz",
         "button_link": "/pages/wellness-quiz"
       }
     },
@@ -213,29 +140,29 @@
         "s1": {
           "type": "stat",
           "settings": {
-            "value": "12,000+",
-            "label": "Wellness routines supported"
+            "value": "20,000+",
+            "label": "Happy Customers"
           }
         },
         "s2": {
           "type": "stat",
           "settings": {
             "value": "5+",
-            "label": "Years of research"
+            "label": "Years of Research"
           }
         },
         "s3": {
           "type": "stat",
           "settings": {
-            "value": "1,800+",
-            "label": "Coaching hours"
+            "value": "100%",
+            "label": "Clean Ingredients"
           }
         },
         "s4": {
           "type": "stat",
           "settings": {
-            "value": "94%",
-            "label": "Community trust"
+            "value": "100%",
+            "label": "Third-Party Lab Tested"
           }
         }
       },
@@ -331,8 +258,6 @@
       "settings": {
         "heading": "WHAT PEOPLE ARE SAYING",
         "subheading": "The AskNatural experience",
-        "know_more_label": "Know More",
-        "know_more_link": "/pages/lab-results",
         "color_scheme": "scheme-2"
       }
     },
@@ -350,7 +275,6 @@
     "hero",
     "categories",
     "featured",
-    "ingredients",
     "trust",
     "quiz",
     "stats",

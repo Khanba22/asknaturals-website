@@ -1,4 +1,5 @@
 import type { AboutMissionStatementSettings } from '@/types/about-sections';
+import { Reveal } from '../motion/Reveal';
 
 interface AboutMissionStatementProps {
   settings: AboutMissionStatementSettings;
@@ -17,7 +18,7 @@ export function AboutMissionStatement({ settings }: AboutMissionStatementProps) 
           : undefined
       }
     >
-      <div className="relative mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
+      <Reveal variant="scaleIn" className="relative mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
         {settings.heading && (
           <h2 className="font-bold uppercase tracking-wide text-primary text-2xl md:text-3xl">
             {settings.heading}
@@ -30,7 +31,7 @@ export function AboutMissionStatement({ settings }: AboutMissionStatementProps) 
             </p>
           </div>
         )}
-      </div>
+      </Reveal>
     </section>
   );
 }

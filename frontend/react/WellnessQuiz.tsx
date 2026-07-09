@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import { Button } from './ui/Button';
+import { Reveal } from './motion/Reveal';
+import { QuizModal } from './quiz/QuizModal';
+import './quiz/quiz.css';
 
 export interface WellnessQuizSettings {
   heading?: string;
@@ -12,23 +16,35 @@ interface WellnessQuizProps {
 }
 
 export function WellnessQuiz({ settings }: WellnessQuizProps) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <section className="bg-primary py-20 text-white md:py-28">
-      <div className="relative mx-auto w-full max-w-2xl px-4 text-center sm:px-6">
-        {settings.heading && (
-          <h2 className="mb-6 font-bold uppercase leading-tight tracking-wide text-2xl text-white md:text-3xl">
-            {settings.heading}
-          </h2>
-        )}
-        {settings.subheading && (
-          <p className="mb-10 text-base leading-relaxed text-white/90">{settings.subheading}</p>
-        )}
-        {settings.button_label && settings.button_link && (
-          <Button href={settings.button_link} variant="inverse">
-            {settings.button_label}
-          </Button>
-        )}
-      </div>
-    </section>
+    <>
+      <QuizModal open={showModal} onClose={() => setShowModal(false)} />
+
+      <section className="bg-primary py-20 text-white md:py-28">
+        <Reveal className="relative mx-auto w-full max-w-2xl px-4 text-center sm:px-6" variant="scaleIn">
+          {settings.heading && (
+            <h2 className="mb-4 font-bold uppercase leading-tight tracking-wide text-3xl text-white md:text-4xl lg:text-5xl">
+              {settings.heading}
+            </h2>
+          )}
+          {settings.subheading && (
+            <p className="mb-10 text-lg font-semibold leading-relaxed text-white/90 md:text-xl">
+              {settings.subheading}
+            </p>
+          )}
+          {settings.button_label && (
+            <Button
+              variant="inverse"
+              className="!px-12 !py-4 !text-base font-bold uppercase tracking-wider"
+              onClick={() => setShowModal(true)}
+            >
+              {settings.button_label}
+            </Button>
+          )}
+        </Reveal>
+      </section>
+    </>
   );
 }

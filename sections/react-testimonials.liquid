@@ -22,8 +22,6 @@
 {
   "heading": {{ section.settings.heading | json }},
   "subheading": {{ section.settings.subheading | json }},
-  "know_more_label": {{ section.settings.know_more_label | json }},
-  "know_more_link": {{ section.settings.know_more_link | json }},
   "blocks": {{ blocks_json }},
   "color_scheme": {{ section.settings.color_scheme | json }}
 }
@@ -49,13 +47,6 @@
       "default": "WHAT PEOPLE ARE SAYING"
     },
     { "type": "text", "id": "subheading", "label": "Subheading" },
-    { "type": "text", "id": "know_more_label", "label": "Know more label", "default": "Know More" },
-    {
-      "type": "url",
-      "id": "know_more_link",
-      "label": "Know more link",
-      "info": "Links to lab results page."
-    },
     { "type": "text", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" }
   ],
   "blocks": [

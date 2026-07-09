@@ -103,12 +103,12 @@ function IngredientWheel({
                     transform: `rotate(${-ringRotation}deg)`,
                     transformOrigin: 'center center',
                     transition: `${rotationTransition}, background-color 300ms ease, box-shadow 300ms ease, color 300ms ease`,
-                    backgroundColor: isActive ? '#2d4a1e' : '#c5d4bc',
-                    color: isActive ? '#fff' : '#2d4a1e',
+                    backgroundColor: isActive ? '#034c29' : '#D8E8DE',
+                    color: isActive ? '#fff' : '#034c29',
                     fontWeight: 700,
                     fontSize: '0.65rem',
                     letterSpacing: '0.04em',
-                    boxShadow: isActive ? '0 4px 20px rgba(45,74,30,0.35)' : 'none',
+                    boxShadow: isActive ? '0 4px 20px rgba(3,76,41,0.35)' : 'none',
                     willChange: 'transform',
                   }}
                 >

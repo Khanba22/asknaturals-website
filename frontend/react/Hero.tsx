@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import type { HeroSettings } from '@/types/section-settings';
-import { Button } from './ui/Button';
+import { HeroReveal } from './motion/Reveal';
+import { HeroShopButton } from './motion/HeroShopButton';
 
 interface HeroProps {
   settings: HeroSettings;
@@ -23,16 +23,9 @@ function HeroHeading({ html }: { html?: string }) {
 export function Hero({ settings }: HeroProps) {
   const { heading, button_label, button_link, image_url, mobile_image_url } = settings;
   const mobileImg = mobile_image_url || image_url;
-  const [shaking, setShaking] = useState(false);
-
-  const handleShopClick = () => {
-    setShaking(true);
-    window.setTimeout(() => setShaking(false), 500);
-  };
 
   return (
     <section className="relative w-full overflow-hidden bg-primary max-md:h-dvh max-md:min-h-dvh md:bg-cover md:bg-center md:bg-no-repeat">
-      {/* Mobile: full-bleed image anchored right */}
       {mobileImg && (
         <img
           src={mobileImg}
@@ -42,7 +35,6 @@ export function Hero({ settings }: HeroProps) {
         />
       )}
 
-      {/* Desktop: CSS background (original) */}
       {image_url && (
         <div
           className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
@@ -63,28 +55,18 @@ export function Hero({ settings }: HeroProps) {
             lg:w-[60%]
           "
         >
-          {heading ? (
-            <HeroHeading html={heading} />
-          ) : (
-            <h1 className={headlineClass}>Supplements designed around her biology.</h1>
-          )}
+          <HeroReveal delay={0.1}>
+            {heading ? (
+              <HeroHeading html={heading} />
+            ) : (
+              <h1 className={headlineClass}>Supplements designed around her biology.</h1>
+            )}
+          </HeroReveal>
 
           {button_label && button_link && (
-            <Button
-              href={button_link}
-              variant="inverse"
-              onClick={handleShopClick}
-              className={`
-                !px-[clamp(2rem,3.5vw,3.5rem)]
-                !py-[clamp(1rem,1.5vw,1.375rem)]
-                text-[clamp(1.0625rem,1.35vw,1.25rem)]
-                tracking-wide
-                hover:animate-shake hover:!scale-100 active:!scale-100
-                ${shaking ? 'animate-shake' : ''}
-              `.trim()}
-            >
-              {button_label}
-            </Button>
+            <div className="max-md:flex max-md:w-full max-md:justify-center">
+              <HeroShopButton href={button_link}>{button_label}</HeroShopButton>
+            </div>
           )}
         </div>
       </div>

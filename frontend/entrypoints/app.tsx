@@ -20,6 +20,7 @@ import { TrustQuality } from '@/react/TrustQuality';
 import { WellnessQuiz } from '@/react/WellnessQuiz';
 import { Stats } from '@/react/Stats';
 import { Founder } from '@/react/Founder';
+import { OriginalsStory } from '@/react/OriginalsStory';
 import { CustomerLogin } from '@/react/CustomerLogin';
 import { CustomerRegister } from '@/react/CustomerRegister';
 import { CustomerActivate } from '@/react/CustomerActivate';
@@ -71,6 +72,7 @@ const registry: Record<string, IslandComponent> = {
   WellnessQuiz,
   Stats,
   Founder,
+  OriginalsStory,
   CustomerLogin,
   CustomerRegister,
   CustomerActivate,

@@ -1,3 +1,5 @@
+import { Reveal } from './motion/Reveal';
+
 export interface FounderSettings {
   heading?: string;
   body?: string;
@@ -13,7 +15,7 @@ export function Founder({ settings }: FounderProps) {
   return (
     <section className="bg-white py-16 md:py-20 lg:py-24">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] lg:gap-16 xl:gap-20">
-        <div className="overflow-hidden rounded-3xl bg-cream">
+        <Reveal variant="slideInLeft" className="overflow-hidden rounded-3xl bg-cream">
           {settings.image_url ? (
             <img
               src={settings.image_url}
@@ -25,8 +27,8 @@ export function Founder({ settings }: FounderProps) {
               Founder photo
             </div>
           )}
-        </div>
-        <div>
+        </Reveal>
+        <Reveal variant="slideInRight" delay={0.1}>
           {settings.heading && (
             <h2 className="mb-6 font-bold uppercase leading-tight tracking-wide text-xl text-primary md:text-2xl lg:mb-8">
               {settings.heading}
@@ -44,7 +46,7 @@ export function Founder({ settings }: FounderProps) {
               {settings.signature}
             </p>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

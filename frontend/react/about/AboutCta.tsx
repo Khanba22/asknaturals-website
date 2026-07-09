@@ -1,6 +1,7 @@
 import type { AboutCtaSettings } from '@/types/about-sections';
 import { Button } from '../ui/Button';
 import { getRoutes } from '@/utils/routes';
+import { Reveal } from '../motion/Reveal';
 
 interface AboutCtaProps {
   settings: AboutCtaSettings;
@@ -26,7 +27,7 @@ export function AboutCta({ settings }: AboutCtaProps) {
       )}
       {!settings.image_url && <div className="absolute inset-0 bg-primary" aria-hidden />}
 
-      <div className="relative mx-auto w-full max-w-3xl px-4 text-center text-white sm:px-6">
+      <Reveal variant="scaleIn" className="relative mx-auto w-full max-w-3xl px-4 text-center text-white sm:px-6">
         {settings.heading && (
           <h2 className="font-bold uppercase leading-snug tracking-wide text-2xl md:text-3xl lg:text-4xl">
             {settings.heading}
@@ -49,7 +50,7 @@ export function AboutCta({ settings }: AboutCtaProps) {
             </Button>
           )}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

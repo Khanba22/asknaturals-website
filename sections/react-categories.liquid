@@ -12,6 +12,8 @@
         assign icon_url = 'icon_fatloss.png' | asset_url
       when 'sleep'
         assign icon_url = 'icon_sleep.png' | asset_url
+      when 'menopause'
+        assign icon_url = 'icon_menopause.png' | asset_url
     endcase
     if block.settings.custom_icon != blank
       assign icon_url = block.settings.custom_icon | image_url: width: 80
@@ -89,6 +91,7 @@
             { "value": "hormones", "label": "Hormones" },
             { "value": "fatloss", "label": "Fat loss" },
             { "value": "sleep", "label": "Sleep" },
+            { "value": "menopause", "label": "Menopause" },
             { "value": "digestion", "label": "Digestion" },
             { "value": "metabolism", "label": "Metabolism" },
             { "value": "energy", "label": "Energy" },

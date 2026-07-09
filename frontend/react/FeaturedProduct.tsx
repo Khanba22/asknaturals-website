@@ -1,4 +1,5 @@
 import { Button } from './ui/Button';
+import { Reveal } from './motion/Reveal';
 
 export interface FeaturedProductSettings {
   subtitle?: string;
@@ -20,34 +21,32 @@ export function FeaturedProduct({ settings }: FeaturedProductProps) {
   return (
     <section className="bg-cream py-16 md:py-20 lg:py-24">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 xl:gap-20">
-        <div className="max-w-lg">
-          {settings.subtitle && (
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-              {settings.subtitle}
-            </p>
-          )}
+        <Reveal variant="slideInLeft" className="max-w-lg">
+
           {settings.heading && (
             <h2 className="text-2xl font-bold uppercase tracking-[0.08em] text-text md:text-3xl lg:text-4xl">
               {settings.heading}
             </h2>
           )}
           {settings.description && (
-            <p className="mt-6 text-sm leading-[1.75] text-text md:text-base">{settings.description}</p>
+            <p className="mt-6 text-sm md:text-[18px] lg:text-[20px] leading-[1.75] text-text-muted">
+              {settings.description}
+            </p>
           )}
           {buttonUrl && buttonLabel && (
             <div className="mt-8 max-md:flex max-md:justify-center md:mt-10">
               <Button
                 href={buttonUrl}
                 variant="primary"
-                className="!px-12 !py-4 !text-base uppercase tracking-wide"
+                className="!px-14 !py-5 !text-lg uppercase tracking-wide"
               >
                 {buttonLabel}
               </Button>
             </div>
           )}
-        </div>
+        </Reveal>
 
-        <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none lg:justify-self-end">
+        <Reveal variant="slideInRight" delay={0.1} className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none lg:justify-self-end">
           <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-cream-dark">
             {settings.image_url ? (
               <img
@@ -61,7 +60,7 @@ export function FeaturedProduct({ settings }: FeaturedProductProps) {
               </div>
             )}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

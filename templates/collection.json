@@ -12,11 +12,19 @@
     "main": {
       "type": "react-collection-grid",
       "settings": {
+        "show_shop_header": true,
         "products_per_page": 12
+      }
+    },
+    "originals_story": {
+      "type": "react-originals-story",
+      "settings": {
+        "image": "shopify://shop_images/download_2.png"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "originals_story"
   ]
 }

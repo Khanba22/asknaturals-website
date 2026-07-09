@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-primary: #2d4a1e;
-  --color-primary-dark: #243c18;
-  --color-primary-light: #3a5c28;
+  --color-primary: #034c29;
+  --color-primary-dark: #023a1f;
+  --color-primary-light: #034c29;
   --color-cream: #f5f1eb;
   --color-cream-dark: #ebe5dc;
   --color-marble: #f0eeeb;
@@ -12,34 +12,82 @@
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-heading: 'Libre Baskerville', Georgia, serif;
   --radius-pill: 9999px;
-  --animate-shake: shake 0.5s ease-in-out;
 }
 
-@keyframes shake {
+@keyframes hero-shop-nudge {
 
   0%,
+  38%,
   100% {
     transform: translateX(0);
   }
 
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
+  5% {
+    transform: translateX(-1px);
   }
 
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
+  10% {
+    transform: translateX(1px);
+  }
+
+  15% {
+    transform: translateX(-1px);
+  }
+
+  20% {
+    transform: translateX(1px);
+  }
+
+  25% {
+    transform: translateX(-0.5px);
+  }
+
+  30% {
+    transform: translateX(0.5px);
   }
 }
 
-@utility animate-shake {
-  animation: shake 0.5s ease-in-out;
+@keyframes hero-shop-shine {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.85;
+  }
+
+  42% {
+    transform: translateX(330%) skewX(-18deg);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: translateX(330%) skewX(-18deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(-140%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .hero-shop-btn__nudge {
+    animation: hero-shop-nudge 2s ease-in-out infinite;
+  }
+
+  .hero-shop-btn__shine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -70px;
+    height: 100%;
+    pointer-events: none;
+    animation: hero-shop-shine 4s linear infinite;
+    will-change: transform, opacity;
+  }
 }
 
 @utility font-heading {

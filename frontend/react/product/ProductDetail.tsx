@@ -5,6 +5,7 @@ import { cartService } from '@/services/cart';
 import { customerService } from '@/services/customer';
 import { dispatchOpenCart } from '@/utils/events';
 import { TrustBadgeIcon } from './ProductIcons';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface MainProductProps {
   settings: ProductDetailSettings;
@@ -127,43 +128,50 @@ export function MainProduct({ settings }: MainProductProps) {
                     key={src}
                     type="button"
                     onClick={() => setActiveImage(index)}
-                    className={`size-16 overflow-hidden rounded-xl border-2 transition ${activeImage === index ? 'border-primary' : 'border-transparent opacity-70'
+                    aria-current={activeImage === index}
+                    aria-label={`View image ${index + 1}`}
+                    className={`size-16 overflow-hidden rounded-xl border-2 bg-white transition ${activeImage === index
+                      ? 'border-primary'
+                      : 'border-transparent opacity-60 hover:opacity-100'
                       }`}
                   >
-                    <img src={src} alt="" className="size-full object-cover" />
+                    <img src={src} alt="" className="size-full object-contain" />
                   </button>
                 ))}
               </div>
             )}
-            <div className="relative aspect-square flex-1 overflow-hidden rounded-3xl bg-cream">
+
+            <div className="group relative aspect-square flex-1 overflow-hidden rounded-3xl bg-transparent">
               {images[activeImage] ? (
                 <img
+                  key={images[activeImage]}
                   src={images[activeImage]}
                   alt={product.title}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-contain animate-in fade-in duration-200"
                 />
               ) : (
                 <div className="flex aspect-square items-center justify-center text-text-muted">
                   No image
                 </div>
               )}
+
               {images.length > 1 && (
                 <>
                   <button
                     type="button"
                     onClick={prevImage}
-                    className="absolute left-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white"
                     aria-label="Previous image"
+                    className="absolute left-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-text opacity-0 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:shadow-md group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
                   >
-                    ‹
+                    <ChevronLeft className="size-5" strokeWidth={2} />
                   </button>
                   <button
                     type="button"
                     onClick={nextImage}
-                    className="absolute right-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-md hover:bg-white"
                     aria-label="Next image"
+                    className="absolute right-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-text opacity-0 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:shadow-md group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
                   >
-                    ›
+                    <ChevronRight className="size-5" strokeWidth={2} />
                   </button>
                 </>
               )}

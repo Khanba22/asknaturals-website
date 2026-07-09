@@ -1,0 +1,29 @@
+{%- capture config_json -%}
+{
+  "image_url": {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1200 | json }}{% else %}null{% endif %}
+}
+{%- endcapture -%}
+
+{% render 'react-mount',
+  mount_id: 'originals-story-' | append: section.id,
+  component: 'OriginalsStory',
+  config_json: config_json,
+  shopify_attributes: section.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "Originals Story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image",
+      "info": "Shown on the right side of the story block."
+    }
+  ],
+  "presets": [{ "name": "Originals Story" }]
+}
+{% endschema %}
