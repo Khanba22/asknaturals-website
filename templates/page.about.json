@@ -15,8 +15,8 @@
         "eyebrow": "About Askknatural",
         "heading": "Wellness Inspired By Nature. Backed By Science.",
         "body": "At Askknatural, we believe that good health begins with the choices we make every day.\n\nIn a world filled with complicated health advice and unrealistic promises, our goal is simple: create products that make healthy living easier, more enjoyable, and more sustainable.\n\nOur brand was born from the belief that wellness should be accessible, practical, and rooted in both nature and science. Every product we develop is inspired by this philosophy—combining thoughtfully selected ingredients with evidence-based formulations to support modern health needs.",
-        "image": "shopify://shop_images/BG.png",
-        "mobile_image": "shopify://shop_images/760b43cccbe9456277ca631c3dc7e8678b6fe031.png"
+        "image": "shopify://shop_images/Group_1321314256.png",
+        "mobile_image": "shopify://shop_images/Group_1321314256.png"
       }
     },
     "mission": {
@@ -27,7 +27,7 @@
           "settings": {
             "title": "Long-Term Health",
             "description": "Prioritizing long-term health over quick fixes and temporary results.",
-            "icon": "shopify://shop_images/Frame_2147227708_4.png"
+            "icon": "shopify://shop_images/Frame_2147227708_4_430x_14054f14-f507-4024-9597-625f0566d491.svg"
           }
         },
         "v2": {
@@ -35,7 +35,7 @@
           "settings": {
             "title": "Sustainable Habits",
             "description": "Focusing on daily habits that create meaningful and lasting change.",
-            "icon": "shopify://shop_images/Frame_2147227708_3.png"
+            "icon": "shopify://shop_images/Frame_2147227708_3_430x_90a17d0f-953d-40f2-a75e-db64d5cf9eec.svg"
           }
         },
         "v3": {
@@ -43,7 +43,7 @@
           "settings": {
             "title": "Quality First",
             "description": "Choosing quality, purpose, and effectiveness over unnecessary complexity.",
-            "icon": "shopify://shop_images/Frame_2147227708_2.png"
+            "icon": "shopify://shop_images/Frame_2147227708_2_430x_f9cbdf6e-99da-4e37-a1ad-13f7a6ac1e7f.svg"
           }
         },
         "v4": {
@@ -51,7 +51,7 @@
           "settings": {
             "title": "Everyday Simplicity",
             "description": "Creating wellness products that fit naturally into everyday life.",
-            "icon": "shopify://shop_images/Frame_2147227708_1.png"
+            "icon": "shopify://shop_images/Frame_2147227708_1_430x_bc88fc79-75e9-42a2-b129-2891dd15a1a2.svg"
           }
         }
       },
@@ -74,7 +74,7 @@
         "body": "Women's hormonal health deserves more attention, better solutions, and greater convenience. Our PCOS/PMOS Blend was created to support women looking for an easy and enjoyable way to incorporate carefully selected nutrients into their daily routine.\n\nWe wanted to move beyond capsules and complicated supplement regimens and create something that people would genuinely look forward to consuming every day. The result is a delicious wellness beverage formulated with ingredients commonly associated with supporting hormonal balance, metabolic wellness, and overall wellbeing.",
         "button_label": "Learn More",
         "button_link": "",
-        "image": "shopify://shop_images/Frame_2147227708_2_6c7bbe7d-8181-46e4-99e2-0ac2e0c4774a.png",
+        "image": "shopify://shop_images/Frame_2147227708_9.png",
         "mobile_image": "shopify://shop_images/Frame_2147227731_1.png"
       }
     },
@@ -86,7 +86,7 @@
           "settings": {
             "title": "Science-Led Formulations",
             "description": "We believe customers deserve clarity about what they consume and confidence in what they choose.",
-            "icon": "shopify://shop_images/Frame_2147227086_d8735d03-d351-4d1a-a567-44231c50b81a.png"
+            "icon": "shopify://shop_images/Frame_2147227086_430x_0072d472-8aa1-4e96-9551-7d3ebc944bf6.svg"
           }
         },
         "val2": {
@@ -94,7 +94,7 @@
           "settings": {
             "title": "Quality Ingredients",
             "description": "Every ingredient is selected with care, with an emphasis on quality, functionality, and purpose.",
-            "icon": "shopify://shop_images/Frame_2147227086-1.png"
+            "icon": "shopify://shop_images/Frame_2147227086-1_430x_9cceb992-4099-44f9-b08d-c6691f1b8e35.svg"
           }
         },
         "val3": {
@@ -102,7 +102,7 @@
           "settings": {
             "title": "Daily Consistency",
             "description": "Health is built through small actions repeated over time. Consistency matters more than perfection.",
-            "icon": "shopify://shop_images/Frame_2147227086-2.png"
+            "icon": "shopify://shop_images/Frame_2147227086-2_430x_bea493a5-b27c-4cb0-a927-9f61920ac3ba.svg"
           }
         },
         "val4": {
@@ -110,7 +110,7 @@
           "settings": {
             "title": "Transparency & Trust",
             "description": "We believe customers deserve clarity about what they consume and confidence in what they choose.",
-            "icon": "shopify://shop_images/Frame_2147227086-3.png"
+            "icon": "shopify://shop_images/Frame_2147227086-3_430x_cd4a497a-6255-4b6f-82a4-d09d5e5a7041.svg"
           }
         }
       },
@@ -148,7 +148,7 @@
         "body": "Discover personalised wellness support designed around your body, goals, and everyday routine.",
         "button_1_label": "Explore Products",
         "button_1_link": "",
-        "button_2_label": "Take The Wellness Quiz",
+        "button_2_label": "",
         "button_2_link": "",
         "image": "shopify://shop_images/621838553ef10775cf55beaa10100e1ac3b8120f.png"
       }

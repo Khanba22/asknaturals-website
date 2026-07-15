@@ -341,13 +341,13 @@ export function MainProduct({ settings }: MainProductProps) {
             </p>
 
             {/* Trust badges */}
-            <div className="mt-10 grid grid-cols-2 gap-4 border-t border-cream pt-8 sm:grid-cols-4">
+            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-cream pt-8">
               {badges.map((badge) => (
                 <div key={badge.label} className="flex flex-col items-center gap-2 text-center">
-                  <span className="flex size-12 items-center justify-center rounded-full border border-primary/20 text-primary">
-                    <TrustBadgeIcon icon={badge.icon} className="size-5" />
+                  <span className="flex size-16 items-center justify-center rounded-full border border-primary/20 text-primary">
+                    <TrustBadgeIcon icon={badge.icon} className="size-8" />
                   </span>
-                  <span className="text-[10px] font-bold uppercase leading-tight tracking-wide text-text">
+                  <span className="text-[12px] font-bold uppercase leading-tight tracking-wide text-text">
                     {badge.label}
                   </span>
                 </div>

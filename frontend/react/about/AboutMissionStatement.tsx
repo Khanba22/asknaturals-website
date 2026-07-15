@@ -10,14 +10,7 @@ export function AboutMissionStatement({ settings }: AboutMissionStatementProps) 
     settings.image_url ?? settings.decor_right_url ?? settings.decor_left_url;
 
   return (
-    <section
-      className="relative w-full overflow-hidden bg-cream bg-cover bg-center bg-no-repeat py-16 md:py-20 lg:py-24"
-      style={
-        backgroundUrl
-          ? { backgroundImage: `url(${backgroundUrl})` }
-          : undefined
-      }
-    >
+    <section className="relative w-full overflow-hidden bg-[#fcf6ef] py-16 md:py-20 lg:py-24">
       <Reveal variant="scaleIn" className="relative mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
         {settings.heading && (
           <h2 className="font-bold uppercase tracking-wide text-primary text-2xl md:text-3xl">

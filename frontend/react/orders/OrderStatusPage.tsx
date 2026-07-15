@@ -39,7 +39,7 @@ function ProgressTracker({ order }: { order: OrderPageOrder }) {
           );
         })}
       </div>
-      <div className="mt-3 grid grid-cols-5 gap-1 text-center text-[10px] font-medium uppercase tracking-wide text-text-muted md:text-[11px]">
+      <div className="mt-3 grid grid-cols-5 gap-1 text-center text-[12px] font-medium uppercase tracking-wide text-text-muted md:text-[11px]">
         {labels.map((label) => (
           <span key={label}>{label}</span>
         ))}

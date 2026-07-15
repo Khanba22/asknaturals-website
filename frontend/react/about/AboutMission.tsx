@@ -14,7 +14,7 @@ function MissionIcon({ iconUrl, title }: { iconUrl?: string | null; title: strin
       {iconUrl ? (
         <img src={iconUrl} alt="" className="h-full w-full object-cover" />
       ) : (
-        <div className="flex h-full w-full items-center justify-center border border-dashed border-text-muted/30 text-[10px] font-medium uppercase tracking-wide text-text-muted/60">
+        <div className="flex h-full w-full items-center justify-center border border-dashed border-text-muted/30 text-[12px] font-medium uppercase tracking-wide text-text-muted/60">
           {title.slice(0, 1)}
         </div>
       )}

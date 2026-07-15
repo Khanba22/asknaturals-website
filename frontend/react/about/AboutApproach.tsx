@@ -18,7 +18,7 @@ function ApproachIcon({ iconUrl, label }: { iconUrl?: string | null; label: stri
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        <span className="flex h-full w-full items-center justify-center text-[10px] font-medium uppercase tracking-wide text-white/50">
+        <span className="flex h-full w-full items-center justify-center text-[12px] font-medium uppercase tracking-wide text-white/50">
           {label.slice(0, 1)}
         </span>
       )}

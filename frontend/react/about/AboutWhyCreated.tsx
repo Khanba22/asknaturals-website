@@ -15,12 +15,7 @@ export function AboutWhyCreated({ settings }: AboutWhyCreatedProps) {
   return (
     <section className="relative w-full overflow-hidden bg-primary text-white">
       {mobileImg && (
-        <img
-          src={mobileImg}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover object-[center_right] md:hidden"
-          aria-hidden
-        />
+        <></>
       )}
 
       {settings.image_url && (

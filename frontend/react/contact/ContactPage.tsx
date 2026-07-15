@@ -104,7 +104,7 @@ export function ContactPage({ settings }: ContactPageProps) {
               {items.filter((item) => item.label || item.value).map((item, index) => {
                 const content = (
                   <>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-text-muted">
+                    <p className="text-[12px] font-bold uppercase tracking-[0.15em] text-text-muted">
                       {item.label}
                     </p>
                     <p className="mt-1 whitespace-pre-line text-sm font-medium text-text md:text-base">

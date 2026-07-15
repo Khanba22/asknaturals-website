@@ -62,7 +62,7 @@ export function OriginalsStory({ settings, imageUrl }: OriginalsStoryProps) {
           delay={0.1}
           className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none lg:justify-self-end"
         >
-          <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-cream-dark">
+          <div className="relative aspect-square w-full overflow-hidden rounded-3xl">
             {img ? (
               <img
                 src={img}

@@ -28,17 +28,17 @@ export function ProductStorySplit({ settings }: ProductStorySplitProps) {
 
   const imageBlock = (
     <div
-      className={`overflow-hidden rounded-[1.5rem] bg-cream md:rounded-[2rem] ${imageRight ? 'order-1 lg:order-2' : 'order-1 lg:order-1'
+      className={`overflow-hidden rounded-[1.5rem] bg-cream md:rounded-[2rem] ${imageRight && "hidden lg:block"} ${imageRight ? 'order-1 lg:order-2' : 'order-1 lg:order-1'
         }`}
     >
       {settings.image_url ? (
         <img
           src={settings.image_url}
           alt=""
-          className="aspect-[4/3] w-full object-cover md:aspect-square"
+          className="aspect-square w-full object-cover md:aspect-square"
         />
       ) : (
-        <div className="flex aspect-[4/3] items-center justify-center bg-cream text-text-muted md:aspect-square">
+        <div className="flex aspect-square items-center justify-center bg-cream text-text-muted md:aspect-square">
           Image
         </div>
       )}

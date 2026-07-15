@@ -111,15 +111,13 @@ export function Categories({ settings }: CategoriesProps) {
                   >
                     <motion.div
                       variants={rotateIn}
-                      className="mb-4 flex size-16 shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-110 md:size-20"
+                      className="mb-4 size-20 overflow-hidden rounded-full"
                     >
-                      {icon_url ? (
-                        <img src={icon_url} alt="" className="size-full object-contain" />
-                      ) : (
-                        <span className="text-3xl text-primary md:text-4xl">
-                          {ICONS[icon ?? 'other'] ?? '•'}
-                        </span>
-                      )}
+                      <img
+                        src={icon_url}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
                     </motion.div>
                     {title && (
                       <h3 className="text-center text-sm font-bold uppercase tracking-wide text-primary transition-opacity duration-200 group-hover:opacity-70">

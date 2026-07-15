@@ -24,17 +24,17 @@ export function FeaturedProduct({ settings }: FeaturedProductProps) {
         <Reveal variant="slideInLeft" className="max-w-lg">
 
           {settings.heading && (
-            <h2 className="text-2xl font-bold uppercase tracking-[0.08em] text-text md:text-3xl lg:text-4xl">
+            <h2 className="text-2xl font-bold uppercase tracking-[0.08em] text-center md:text-3xl lg:text-4xl">
               {settings.heading}
             </h2>
           )}
           {settings.description && (
-            <p className="mt-6 text-sm md:text-[18px] lg:text-[20px] leading-[1.75] text-text-muted">
+            <p className="mt-6 text-sm md:text-[22px] lg:text-[24px] leading-[1.75] text-text-muted text-center">
               {settings.description}
             </p>
           )}
           {buttonUrl && buttonLabel && (
-            <div className="mt-8 max-md:flex max-md:justify-center md:mt-10">
+            <div className="mt-8 flex justify-center md:mt-10">
               <Button
                 href={buttonUrl}
                 variant="primary"
@@ -47,7 +47,7 @@ export function FeaturedProduct({ settings }: FeaturedProductProps) {
         </Reveal>
 
         <Reveal variant="slideInRight" delay={0.1} className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none lg:justify-self-end">
-          <div className="relative aspect-square w-full overflow-hidden rounded-3xl bg-cream-dark">
+          <div className="relative aspect-square w-full overflow-hidden rounded-3xl">
             {settings.image_url ? (
               <img
                 src={settings.image_url}

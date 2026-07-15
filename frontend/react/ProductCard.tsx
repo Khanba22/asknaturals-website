@@ -18,14 +18,14 @@ export function ProductCard({ product, onAddToCart, showAddButton = true }: Prod
           <img
             src={product.featured_image}
             alt={product.title}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            className="h-full w-full object-contain transition duration-300 group-hover:scale-105"
             loading="lazy"
           />
         ) : (
           <div className="flex h-full items-center justify-center text-text-muted">No image</div>
         )}
         {!canAdd && (
-          <span className="absolute left-2 top-2 rounded-full bg-primary px-2 py-0.5 text-[10px] text-white md:left-3 md:top-3 md:px-3 md:py-1 md:text-xs">
+          <span className="absolute left-2 top-2 rounded-full bg-primary px-2 py-0.5 text-[12px] text-white md:left-3 md:top-3 md:px-3 md:py-1 md:text-xs">
             Sold out
           </span>
         )}
@@ -43,7 +43,7 @@ export function ProductCard({ product, onAddToCart, showAddButton = true }: Prod
           <button
             type="button"
             onClick={() => onAddToCart?.(product)}
-            className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-primary px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:opacity-90 active:scale-95 md:mt-4 md:px-8 md:py-3 md:text-xs"
+            className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-primary px-3 py-2 text-[12px] font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:opacity-90 active:scale-95 md:mt-4 md:px-8 md:py-3 md:text-xs"
           >
             Add to cart
           </button>

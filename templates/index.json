@@ -16,10 +16,10 @@
         "heading": "<p>SUPPLEMENTS DESIGNED AROUND YOUR BIOLOGY.</p>",
         "description": "<p>Clinically selected ingredients to support hormones, digestion, metabolism and energy.</p>",
         "button_label": "Shop Now",
-        "button_link": "/collections/all",
+        "button_link": "shopify://products/pcos-hot-chocolate",
         "button_label_2": "",
         "button_link_2": "",
-        "image": "shopify://shop_images/Frame_2147227708_2_6c7bbe7d-8181-46e4-99e2-0ac2e0c4774a.png",
+        "image": "shopify://shop_images/Frame_2147227708_6.png",
         "mobile_image": "shopify://shop_images/Frame_2147227731_1.png",
         "button_spacer_height": 200,
         "show_trust_badges": true,
@@ -36,7 +36,7 @@
             "title": "PCOS",
             "subtitle": "",
             "icon": "pcos",
-            "custom_icon": "shopify://shop_images/Frame_2147227086_dbcffe5a-e165-4c05-903d-0e90fa4d348d.png",
+            "custom_icon": "shopify://shop_images/Frame_2147227086_1.svg",
             "link": "shopify://products/pcos-hot-chocolate"
           }
         },
@@ -46,7 +46,7 @@
             "title": "Sleep",
             "subtitle": "",
             "icon": "sleep",
-            "custom_icon": "shopify://shop_images/Frame_2147227086_3_70dbd951-f334-42c7-a193-76708f3d644c.png",
+            "custom_icon": "shopify://shop_images/Frame_2147227086_3_1.svg",
             "link": ""
           }
         },
@@ -56,7 +56,7 @@
             "title": "Menopause",
             "subtitle": "",
             "icon": "menopause",
-            "custom_icon": "shopify://shop_images/Frame_2147227730_1.png",
+            "custom_icon": "shopify://shop_images/Frame_2147227730_1_1.svg",
             "link": ""
           }
         }
@@ -78,9 +78,9 @@
         "subtitle": "",
         "heading": "ASKKNATURAL ORIGINALS",
         "description": "Built by us",
-        "image": "shopify://shop_images/download_2.png",
+        "image": "shopify://shop_images/download_1.png",
         "button_label": "Shop Now",
-        "button_link": "/collections/all"
+        "button_link": "shopify://products/pcos-hot-chocolate"
       }
     },
     "trust": {
@@ -89,25 +89,29 @@
         "b1": {
           "type": "badge",
           "settings": {
-            "label": "Third-Party Lab Tested"
+            "label": "Third-Party Lab Tested",
+            "icon": "shopify://shop_images/icons8-tick-100.png"
           }
         },
         "badge_Bxykzi": {
           "type": "badge",
           "settings": {
-            "label": "Third-Party Lab Tested"
+            "label": "Third-Party Lab Tested",
+            "icon": "shopify://shop_images/icons8-flask-100.png"
           }
         },
         "b2": {
           "type": "badge",
           "settings": {
-            "label": "Authenticity Verified"
+            "label": "Authenticity Verified",
+            "icon": "shopify://shop_images/icons8-thumbs-up-100.png"
           }
         },
         "b3": {
           "type": "badge",
           "settings": {
-            "label": "Quality You Deserve"
+            "label": "Quality You Deserve",
+            "icon": "shopify://shop_images/icons8-quality-100.png"
           }
         }
       },

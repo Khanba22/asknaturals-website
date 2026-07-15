@@ -58,13 +58,12 @@ export function TrustQuality({ settings }: TrustQualityProps) {
           {badges.map((badge) => (
             <StaggerItem key={badge.label}>
               <div className="flex w-[160px] flex-col items-center justify-center gap-3">
-                <span className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-primary/30 bg-white">
+                <span className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full border-1 sm:p-2 p-1 border-primary/30 bg-white">
                   {badge.icon_url ? (
                     <img
                       src={badge.icon_url}
                       alt=""
                       className="size-full object-contain p-1"
-                      style={{ transform: 'scale(1.35)' }}
                     />
                   ) : (
                     <span className="text-xl text-primary">✓</span>
