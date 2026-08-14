@@ -398,7 +398,7 @@ export function QuizModal({ open, onClose }: QuizModalProps) {
                   </button>
                   <button
                     onClick={() => {
-                      window.open('https://wa.me/919999999999?text=Hi,%20I%20just%20completed%20the%20assessment%20and%20would%20like%20to%20talk%20to%20an%20expert.', '_blank');
+                      window.open('https://wa.me/918976034909?text=Hi,%20I%20just%20completed%20the%20assessment%20and%20would%20like%20to%20talk%20to%20an%20expert.', '_blank');
                     }}
                     className="quiz-btn quiz-btn-secondary w-full text-xs"
                   >
@@ -415,7 +415,7 @@ export function QuizModal({ open, onClose }: QuizModalProps) {
                 <div className="flex flex-col gap-3 w-full max-w-xs mx-auto">
                   <button
                     onClick={() => {
-                      window.open('https://wa.me/919999999999?text=Hi,%20I%20just%20completed%20the%20assessment%20and%20would%20like%20to%20set%20up%20a%20consultation%20call.', '_blank');
+                      window.open('https://wa.me/918976034909?text=Hi,%20I%20just%20completed%20the%20assessment%20and%20would%20like%20to%20set%20up%20a%20consultation%20call.', '_blank');
                     }}
                     className="quiz-btn quiz-btn-primary w-full"
                   >

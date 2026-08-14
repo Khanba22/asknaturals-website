@@ -46,10 +46,25 @@ export function MainProduct({ settings }: MainProductProps) {
   const [purchaseMode, setPurchaseMode] = useState<PurchaseMode>(null);
   const [adding, setAdding] = useState(false);
 
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(null);
+
+  const minSwipeDistance = 40;
+
   const selectedVariant = useMemo(
     () => variants.find((v) => v.id === selectedVariantId) ?? variants[0],
     [variants, selectedVariantId],
   );
+
+  const selectedVariantAvailable = selectedVariant ? selectedVariant.available : product.available;
+  const stockQuantity = selectedVariant?.inventory_quantity;
+
+  let stockBadge: 'no_stock' | 'low_stock' | null = null;
+  if (!selectedVariantAvailable || stockQuantity === 0) {
+    stockBadge = 'no_stock';
+  } else if (stockQuantity != null && stockQuantity < 7) {
+    stockBadge = 'low_stock';
+  }
 
   const { subscribePrice, onetimePrice } = getVariantPrices(selectedVariant, settings);
   const displayPrice = purchaseMode?.startsWith('subscribe') ? subscribePrice : onetimePrice;
@@ -67,6 +82,36 @@ export function MainProduct({ settings }: MainProductProps) {
 
   const prevImage = () => setActiveImage((i) => (i - 1 + images.length) % images.length);
   const nextImage = () => setActiveImage((i) => (i + 1) % images.length);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distanceX = touchStart.x - touchEnd.x;
+    const distanceY = touchStart.y - touchEnd.y;
+    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
+
+    if (isHorizontalSwipe && Math.abs(distanceX) > minSwipeDistance) {
+      if (distanceX > 0) {
+        nextImage();
+      } else {
+        prevImage();
+      }
+    }
+  };
 
   const addToCart = async (redirectCheckout = false) => {
     if (!selectedVariant?.available) return;
@@ -120,7 +165,7 @@ export function MainProduct({ settings }: MainProductProps) {
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           {/* Gallery */}
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             {images.length > 1 && (
               <div className="hidden flex-col gap-3 sm:flex">
                 {images.map((src, index) => (
@@ -141,39 +186,83 @@ export function MainProduct({ settings }: MainProductProps) {
               </div>
             )}
 
-            <div className="group relative aspect-square flex-1 overflow-hidden rounded-3xl bg-transparent">
-              {images[activeImage] ? (
-                <img
-                  key={images[activeImage]}
-                  src={images[activeImage]}
-                  alt={product.title}
-                  className="absolute inset-0 h-full w-full object-contain animate-in fade-in duration-200"
-                />
-              ) : (
-                <div className="flex aspect-square items-center justify-center text-text-muted">
-                  No image
-                </div>
-              )}
+            <div className="flex-1">
+              <div
+                className="group relative aspect-square w-full overflow-hidden rounded-3xl bg-transparent touch-pan-y select-none"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                {images[activeImage] ? (
+                  <img
+                    key={images[activeImage]}
+                    src={images[activeImage]}
+                    alt={product.title}
+                    draggable={false}
+                    className="absolute inset-0 h-full w-full object-contain animate-in fade-in duration-200"
+                  />
+                ) : (
+                  <div className="flex aspect-square items-center justify-center text-text-muted">
+                    No image
+                  </div>
+                )}
+
+                {/* Circular Stock Badge - Top Left Corner */}
+                {stockBadge && (
+                  <div className="absolute left-3 top-3 z-10 pointer-events-none sm:left-4 sm:top-4">
+                    {stockBadge === 'no_stock' ? (
+                      <div className="flex size-14 items-center justify-center rounded-full bg-[#1a1a1a]/95 text-white shadow-lg border border-white/20 backdrop-blur-sm transition-all duration-300 sm:size-16">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-center leading-tight sm:text-xs">
+                          Out Of<br />Stock
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex size-14 items-center justify-center rounded-full bg-primary/95 text-white shadow-lg border border-cream/30 backdrop-blur-sm transition-all duration-300 sm:size-16">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-center leading-tight sm:text-xs">
+                          Low<br />Stock
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={prevImage}
+                      aria-label="Previous image"
+                      className="absolute left-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-text opacity-100 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:shadow-md sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+                    >
+                      <ChevronLeft className="size-5" strokeWidth={2} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={nextImage}
+                      aria-label="Next image"
+                      className="absolute right-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-text opacity-100 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:shadow-md sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+                    >
+                      <ChevronRight className="size-5" strokeWidth={2} />
+                    </button>
+                  </>
+                )}
+              </div>
 
               {images.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={prevImage}
-                    aria-label="Previous image"
-                    className="absolute left-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-text opacity-0 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:shadow-md group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
-                  >
-                    <ChevronLeft className="size-5" strokeWidth={2} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextImage}
-                    aria-label="Next image"
-                    className="absolute right-4 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-text opacity-0 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:bg-white hover:shadow-md group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
-                  >
-                    <ChevronRight className="size-5" strokeWidth={2} />
-                  </button>
-                </>
+                <div className="mt-3 flex items-center justify-center gap-2 sm:hidden">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => setActiveImage(index)}
+                      aria-label={`Go to image ${index + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${activeImage === index
+                        ? 'w-6 bg-primary'
+                        : 'w-2 bg-text-muted/30 hover:bg-text-muted/60'
+                        }`}
+                    />
+                  ))}
+                </div>
               )}
             </div>
           </div>

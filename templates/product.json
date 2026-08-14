@@ -100,7 +100,7 @@
       "settings": {
         "heading": "Formulated with intention, not trends",
         "image_position": "left",
-        "image": "shopify://shop_images/download_2.png"
+        "image": "shopify://shop_images/download_1.png"
       }
     },
     "ingredients": {
@@ -197,8 +197,8 @@
         "t2": {
           "type": "testimonial",
           "settings": {
-            "quote": "Finally, something that actually works for my PMS brain fog. I feel sharper and more stable throughout the entire month.",
-            "author_name": "Sarah J.",
+            "quote": "The hot chocolate is delicious and easy to stick with every morning.",
+            "author_name": "Maya R.",
             "author_date": "24/06/2026",
             "author_title": "Verified Customer",
             "rating": 5,
@@ -208,8 +208,8 @@
         "t3": {
           "type": "testimonial",
           "settings": {
-            "quote": "Finally, something that actually works for my PMS brain fog. I feel sharper and more stable throughout the entire month.",
-            "author_name": "Sarah J.",
+            "quote": "Seeing the lab results gave me confidence. The product quality matches the brand promise.",
+            "author_name": "Divya N.",
             "author_date": "24/06/2026",
             "author_title": "Verified Customer",
             "rating": 5,

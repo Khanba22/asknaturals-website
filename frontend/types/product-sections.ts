@@ -4,6 +4,7 @@ export interface ProductVariant {
   price: number;
   compare_at_price: number | null;
   available: boolean;
+  inventory_quantity?: number | null;
   image?: string | null;
 }
 
