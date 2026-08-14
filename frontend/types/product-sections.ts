@@ -30,6 +30,8 @@ export interface ProductDetailSettings {
   onetime_price?: number | null;
   breadcrumbs?: { title: string; url: string }[];
   trust_badges?: { label: string; icon: string }[];
+  badge_low_stock_url?: string;
+  badge_no_stock_url?: string;
 }
 
 export interface AccordionItem {

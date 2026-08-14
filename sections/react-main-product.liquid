@@ -36,6 +36,8 @@
   "subscribe_price": {% if section.settings.subscribe_price != blank %}{{ section.settings.subscribe_price | plus: 0 | json }}{% else %}null{% endif %},
   "onetime_price": {% if section.settings.onetime_price != blank %}{{ section.settings.onetime_price | plus: 0 | json }}{% else %}null{% endif %},
   "breadcrumbs": {{ breadcrumbs_json }},
+  "badge_low_stock_url": {{ 'badge_low_stock.png' | asset_url | json }},
+  "badge_no_stock_url": {{ 'badge_no_stock.png' | asset_url | json }},
   "trust_badges": [
     { "label": "Lab Tested", "icon": "beaker" },
     { "label": "Authenticity Verified", "icon": "check" },

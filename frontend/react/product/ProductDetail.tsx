@@ -57,7 +57,9 @@ export function MainProduct({ settings }: MainProductProps) {
   );
 
   const selectedVariantAvailable = selectedVariant ? selectedVariant.available : product.available;
-  const stockQuantity = selectedVariant?.inventory_quantity;
+  const stockQuantity =
+    selectedVariant?.inventory_quantity ??
+    (typeof window !== 'undefined' ? (window as any).variantInventory?.[selectedVariant?.id] : undefined);
 
   let stockBadge: 'no_stock' | 'low_stock' | null = null;
   if (!selectedVariantAvailable || stockQuantity === 0) {
@@ -211,18 +213,56 @@ export function MainProduct({ settings }: MainProductProps) {
                 {stockBadge && (
                   <div className="absolute left-3 top-3 z-10 pointer-events-none sm:left-4 sm:top-4">
                     {stockBadge === 'no_stock' ? (
-                      <div className="flex size-14 items-center justify-center rounded-full bg-[#1a1a1a]/95 text-white shadow-lg border border-white/20 backdrop-blur-sm transition-all duration-300 sm:size-16">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-center leading-tight sm:text-xs">
-                          Out Of<br />Stock
-                        </span>
-                      </div>
+                      settings.badge_no_stock_url ? (
+                        <img
+                          src={settings.badge_no_stock_url}
+                          alt="Out of Stock"
+                          className="size-14 object-contain sm:size-16 drop-shadow-md"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = 'none';
+                            const sibling = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                            if (sibling) sibling.style.display = 'flex';
+                          }}
+                        />
+                      ) : null
                     ) : (
-                      <div className="flex size-14 items-center justify-center rounded-full bg-primary/95 text-white shadow-lg border border-cream/30 backdrop-blur-sm transition-all duration-300 sm:size-16">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-center leading-tight sm:text-xs">
-                          Low<br />Stock
-                        </span>
-                      </div>
+                      settings.badge_low_stock_url ? (
+                        <img
+                          src={settings.badge_low_stock_url}
+                          alt="Low Stock"
+                          className="size-14 object-contain sm:size-16 drop-shadow-md"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = 'none';
+                            const sibling = (e.target as HTMLElement).nextElementSibling as HTMLElement;
+                            if (sibling) sibling.style.display = 'flex';
+                          }}
+                        />
+                      ) : null
                     )}
+                    <div
+                      className={`flex size-14 items-center justify-center rounded-full text-white shadow-lg border backdrop-blur-sm transition-all duration-300 sm:size-16 ${
+                        (stockBadge === 'no_stock' && settings.badge_no_stock_url) ||
+                        (stockBadge === 'low_stock' && settings.badge_low_stock_url)
+                          ? 'hidden'
+                          : ''
+                      } ${
+                        stockBadge === 'no_stock'
+                          ? 'bg-[#1a1a1a]/95 border-white/20'
+                          : 'bg-primary/95 border-cream/30'
+                      }`}
+                    >
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-center leading-tight sm:text-xs">
+                        {stockBadge === 'no_stock' ? (
+                          <>
+                            Out Of<br />Stock
+                          </>
+                        ) : (
+                          <>
+                            Low<br />Stock
+                          </>
+                        )}
+                      </span>
+                    </div>
                   </div>
                 )}
 
