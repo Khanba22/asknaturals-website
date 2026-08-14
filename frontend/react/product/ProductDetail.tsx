@@ -317,15 +317,17 @@ export function MainProduct({ settings }: MainProductProps) {
                       className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition ${isSelected
                         ? 'border-primary bg-primary/5'
                         : 'border-cream-dark bg-white hover:border-primary/40'
-                        } ${!isVariantAvailable ? 'opacity-70' : ''}`}
+                        } ${!isVariantAvailable ? 'opacity-85' : ''}`}
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-2.5 flex-wrap">
                           <p className="text-xs font-bold uppercase tracking-wider text-primary">
                             {variant.title}
                           </p>
                           {!isVariantAvailable && (
-                            <p className="mt-1 text-sm text-text-muted">Sold out</p>
+                            <span className="inline-flex items-center rounded-full bg-red-100/80 px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-red-600 border border-red-200">
+                              Out of Stock
+                            </span>
                           )}
                         </div>
                         <p className="text-lg font-bold text-primary">
@@ -397,7 +399,7 @@ export function MainProduct({ settings }: MainProductProps) {
 
             {/* Quantity + CTAs */}
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-stretch">
-              <div className="flex items-center justify-between rounded-full border-2 border-cream-dark px-2 sm:w-36">
+              <div className={`flex items-center justify-between rounded-full border-2 border-cream-dark px-2 sm:w-36 ${!selectedVariantAvailable ? 'opacity-50 pointer-events-none' : ''}`}>
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -420,9 +422,13 @@ export function MainProduct({ settings }: MainProductProps) {
                 type="button"
                 disabled={!selectedVariantAvailable || adding}
                 onClick={() => void addToCart(false)}
-                className="flex-1 rounded-full bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:opacity-90 disabled:opacity-50"
+                className={`flex-1 rounded-full px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
+                  !selectedVariantAvailable
+                    ? 'bg-gray-400 text-gray-100 cursor-not-allowed border-transparent shadow-none'
+                    : 'bg-primary text-white hover:opacity-90 cursor-pointer'
+                }`}
               >
-                {adding ? 'Adding…' : selectedVariantAvailable ? 'Add to cart' : 'Sold out'}
+                {adding ? 'Adding…' : selectedVariantAvailable ? 'Add to cart' : 'Out of Stock'}
               </button>
             </div>
 
@@ -430,9 +436,13 @@ export function MainProduct({ settings }: MainProductProps) {
               type="button"
               disabled={!selectedVariantAvailable || adding}
               onClick={() => void addToCart(true)}
-              className="mt-3 w-full rounded-full border-2 border-text px-8 py-3.5 text-sm font-bold uppercase tracking-wider hover:bg-cream disabled:opacity-50"
+              className={`mt-3 w-full rounded-full border-2 px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 ${
+                !selectedVariantAvailable
+                  ? 'border-gray-300 bg-gray-100/80 text-gray-400 cursor-not-allowed shadow-none'
+                  : 'border-text bg-transparent text-text hover:bg-cream cursor-pointer'
+              }`}
             >
-              Buy it now
+              {selectedVariantAvailable ? 'Buy it now' : 'Out of Stock'}
             </button>
 
             <p className="mt-2 text-center text-lg font-bold text-primary sm:hidden">
