@@ -213,56 +213,22 @@ export function MainProduct({ settings }: MainProductProps) {
                 {stockBadge && (
                   <div className="absolute left-3 top-3 z-10 pointer-events-none sm:left-4 sm:top-4">
                     {stockBadge === 'no_stock' ? (
-                      settings.badge_no_stock_url ? (
-                        <img
-                          src={settings.badge_no_stock_url}
-                          alt="Out of Stock"
-                          className="size-14 object-contain sm:size-16 drop-shadow-md"
-                          onError={(e) => {
-                            (e.target as HTMLElement).style.display = 'none';
-                            const sibling = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                            if (sibling) sibling.style.display = 'flex';
-                          }}
-                        />
-                      ) : null
+                      <div className="flex size-14 sm:size-16 items-center justify-center rounded-full bg-[#173f35] text-white shadow-md border-[2px] border-white p-1 transition-all duration-300">
+                        <div className="flex size-full items-center justify-center rounded-full border border-white/60 text-center">
+                          <span className="text-[9px] font-extrabold uppercase tracking-wider leading-tight sm:text-[10px]">
+                            OUT OF<br />STOCK
+                          </span>
+                        </div>
+                      </div>
                     ) : (
-                      settings.badge_low_stock_url ? (
-                        <img
-                          src={settings.badge_low_stock_url}
-                          alt="Low Stock"
-                          className="size-14 object-contain sm:size-16 drop-shadow-md"
-                          onError={(e) => {
-                            (e.target as HTMLElement).style.display = 'none';
-                            const sibling = (e.target as HTMLElement).nextElementSibling as HTMLElement;
-                            if (sibling) sibling.style.display = 'flex';
-                          }}
-                        />
-                      ) : null
+                      <div className="flex size-14 sm:size-16 items-center justify-center rounded-full bg-[#173f35] text-white shadow-md border-[2px] border-white p-1 transition-all duration-300">
+                        <div className="flex size-full items-center justify-center rounded-full border border-white/60 text-center">
+                          <span className="text-[9px] font-extrabold uppercase tracking-wider leading-tight sm:text-[10px]">
+                            LOW<br />STOCK
+                          </span>
+                        </div>
+                      </div>
                     )}
-                    <div
-                      className={`flex size-14 items-center justify-center rounded-full text-white shadow-lg border backdrop-blur-sm transition-all duration-300 sm:size-16 ${
-                        (stockBadge === 'no_stock' && settings.badge_no_stock_url) ||
-                        (stockBadge === 'low_stock' && settings.badge_low_stock_url)
-                          ? 'hidden'
-                          : ''
-                      } ${
-                        stockBadge === 'no_stock'
-                          ? 'bg-[#1a1a1a]/95 border-white/20'
-                          : 'bg-primary/95 border-cream/30'
-                      }`}
-                    >
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-center leading-tight sm:text-xs">
-                        {stockBadge === 'no_stock' ? (
-                          <>
-                            Out Of<br />Stock
-                          </>
-                        ) : (
-                          <>
-                            Low<br />Stock
-                          </>
-                        )}
-                      </span>
-                    </div>
                   </div>
                 )}
 
