@@ -320,13 +320,13 @@ export function MainProduct({ settings }: MainProductProps) {
                         } ${!isVariantAvailable ? 'opacity-85' : ''}`}
                     >
                       <div className="flex items-center justify-between gap-4">
-                        <div className="flex items-center gap-2.5 flex-wrap">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <p className="text-xs font-bold uppercase tracking-wider text-primary">
                             {variant.title}
                           </p>
                           {!isVariantAvailable && (
-                            <span className="inline-flex items-center rounded-full bg-red-100/80 px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider text-red-600 border border-red-200">
-                              Out of Stock
+                            <span className="text-xs font-bold uppercase tracking-wider text-red-500">
+                              (Out of stock)
                             </span>
                           )}
                         </div>
