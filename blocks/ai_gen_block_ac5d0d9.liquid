@@ -1,0 +1,345 @@
+{% doc %}
+  @prompt
+    Create a low stock warning badge for the product page that shows "Only X left in stock!" message when inventory is 5 or fewer items remaining. The badge should be visually prominent, styled to match a premium natural wellness brand, and automatically show the actual stock number. It should disappear when stock is above 5.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign inventory_quantity = current_variant.inventory_quantity %}
+{% assign inventory_policy = current_variant.inventory_policy %}
+{% assign inventory_management = current_variant.inventory_management %}
+
+{% assign show_badge = false %}
+{% if inventory_management != blank and inventory_quantity <= block.settings.stock_threshold and inventory_quantity > 0 %}
+  {% assign show_badge = true %}
+{% endif %}
+
+{% style %}
+  .ai-low-stock-badge-{{ ai_gen_id }} {
+    display: {% if show_badge %}flex{% else %}none{% endif %};
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: {{ block.settings.margin_top }}px 0 {{ block.settings.margin_bottom }}px 0;
+  }
+
+  .ai-low-stock-badge__icon-{{ ai_gen_id }} {
+    display: {% if block.settings.show_icon %}flex{% else %}none{% endif %};
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ai-low-stock-badge__icon-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    fill: {{ block.settings.icon_color }};
+  }
+
+  .ai-low-stock-badge__text-{{ ai_gen_id }} {
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-low-stock-badge-{{ ai_gen_id }} {
+      width: 100%;
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+    }
+
+    .ai-low-stock-badge__icon-{{ ai_gen_id }} svg {
+      width: {{ block.settings.icon_size | times: 0.9 }}px;
+      height: {{ block.settings.icon_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<low-stock-badge-{{ ai_gen_id }}
+  class="ai-low-stock-badge-{{ ai_gen_id }}"
+  data-threshold="{{ block.settings.stock_threshold }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.show_icon %}
+    <span class="ai-low-stock-badge__icon-{{ ai_gen_id }}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.86-.93-7-5.43-7-9V8.3l7-3.11 7 3.11V11c0 3.57-3.14 8.07-7 9zm-1-6h2v2h-2v-2zm0-8h2v6h-2V6z"/>
+      </svg>
+    </span>
+  {% endif %}
+  <span class="ai-low-stock-badge__text-{{ ai_gen_id }}">
+    {% if show_badge %}
+      {{ block.settings.badge_text | replace: '[stock]', inventory_quantity }}
+    {% endif %}
+  </span>
+</low-stock-badge-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class LowStockBadge{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.threshold = parseInt(this.dataset.threshold) || 5;
+      }
+
+      connectedCallback() {
+        this.setupVariantListener();
+      }
+
+      setupVariantListener() {
+        const productForm = document.querySelector('form[action*="/cart/add"]');
+        if (!productForm) return;
+
+        const variantInput = productForm.querySelector('[name="id"]');
+        if (!variantInput) return;
+
+        const updateBadge = () => {
+          const variantId = variantInput.value;
+          this.fetchVariantData(variantId);
+        };
+
+        variantInput.addEventListener('change', updateBadge);
+
+        const observer = new MutationObserver(() => {
+          updateBadge();
+        });
+
+        observer.observe(variantInput, {
+          attributes: true,
+          attributeFilter: ['value']
+        });
+      }
+
+      fetchVariantData(variantId) {
+        if (!variantId) return;
+
+        fetch(window.location.pathname + '.js')
+          .then(response => response.json())
+          .then(product => {
+            const variant = product.variants.find(v => v.id == variantId);
+            if (!variant) return;
+
+            const inventory = variant.inventory_quantity;
+            const inventoryManagement = variant.inventory_management;
+            const textElement = this.querySelector('.ai-low-stock-badge__text-{{ ai_gen_id }}');
+
+            if (inventoryManagement && inventory <= this.threshold && inventory > 0) {
+              this.style.display = 'flex';
+              if (textElement) {
+                const badgeText = '{{ block.settings.badge_text | escape }}';
+                textElement.textContent = badgeText.replace('[stock]', inventory);
+              }
+            } else {
+              this.style.display = 'none';
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching variant data:', error);
+          });
+      }
+    }
+
+    customElements.define('low-stock-badge-{{ ai_gen_id }}', LowStockBadge{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Low stock badge",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Only [stock] left in stock!",
+      "info": "Use [stock] to show the actual inventory number"
+    },
+    {
+      "type": "range",
+      "id": "stock_threshold",
+      "label": "Stock threshold",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "info": "Show badge when stock is at or below this number"
+    },
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#D97706"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FEF3C7"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#92400E"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#FCD34D"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top margin",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom margin",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Low stock badge"
+    }
+  ]
+}
+{% endschema %}

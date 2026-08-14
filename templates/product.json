@@ -13,7 +13,7 @@
       "type": "react-main-product",
       "settings": {
         "category": "Hormonal Wellness",
-        "short_description": "A precisely formulated Ayurvedic supplement to support hormonal balance, reduce stress-related fatigue, and nurture your cycle from within.",
+        "short_description": "A precisely formulated Ayurvedic supplement to support hormonal balance, reduce stress-related fatigue, and nurture your cycle from within ----                                                                                                                                                                                                                                   Minimum order quantity for international orders is 2 boxes of the 30 day variant.",
         "review_count": 124,
         "subscribe_price": "",
         "onetime_price": ""
@@ -313,6 +313,10 @@
         "heading": "FAQ.",
         "subheading": "Common Inquiries"
       }
+    },
+    "17861112219efa25b2": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
@@ -324,6 +328,7 @@
     "lab_verified",
     "testimonials",
     "trust",
-    "faq"
+    "faq",
+    "17861112219efa25b2"
   ]
 }

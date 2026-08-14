@@ -15,6 +15,13 @@
     "color_cream": "#F5F1EB",
     "color_text": "#1A1A1A",
     "color_background": "#FFFFFF",
+    "mid": "195zpjkeq1u1",
+    "envType": "production",
+    "fbpixel": "975864512169682",
+    "goEnable": true,
+    "goBuynowEnable": false,
+    "buyNowText": "Buy It Now",
+    "enableIntlFlow": true,
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",

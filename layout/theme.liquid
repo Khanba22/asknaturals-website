@@ -130,7 +130,90 @@
         };
       })();
     </script>
-  </head>
+  <!-- Gokwik theme code start -->
+<link rel="dns-prefetch" href="https://pdp.gokwik.co/">
+<link rel="dns-prefetch" href="https://api.gokwik.co">
+{% render 'gokwik' %}
+
+<script>
+
+  function getSelectedVariantId() {
+  const selectedPack = document
+    .querySelector('button.border-primary.bg-primary\\/5 .text-xs')
+    ?.textContent.trim();
+
+  if (!selectedPack) return null;
+
+  const productEl = document.querySelector('[data-react-root="MainProduct"]');
+  if (!productEl) return null;
+
+  const { product } = JSON.parse(productEl.dataset.config);
+
+  return (
+    product.variants.find(v => v.title === selectedPack)?.id ?? null
+  );
+}
+
+
+ async function startGoKwikFlow(btn) {
+
+  const originalText = btn.textContent;
+  const originalDisabled = btn.disabled;
+
+  try {
+    btn.textContent = "Loading...";
+    btn.disabled = true;
+
+    await fetch('/cart/clear.js', { method: 'POST' });
+
+    const variantId = await getSelectedVariantId();
+
+    let quantity = Number(
+      document
+        .querySelector('button[aria-label="Increase quantity"]')
+        ?.previousElementSibling
+        ?.textContent
+        .trim()
+    );
+
+    const quantityLeft = window.variantInventory[variantId];
+
+        if(quantity > quantityLeft) {
+           quantity = quantityLeft;
+       }
+
+
+    await fetch("/cart/add.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: variantId,
+        quantity: quantity,
+      }),
+    });
+
+    if (
+      window.gokwikSdk &&
+      typeof window.gokwikSdk.initCheckout === "function"
+    ) {
+      window.gokwikSdk.initCheckout(merchantInfo);
+    } else {
+      throw new Error("GoKwik SDK not ready");
+    }
+  } catch (error) {
+    console.error("Flow failed:", error);
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = originalDisabled;
+  }
+}
+
+</script>
+
+<!-- Gokwik theme code End -->
+</head>
   <body class="template-{{ template.name | handle }}">
     <div id="site-container" class="mx-auto min-h-screen w-full max-w-[90rem] bg-white">
       {% sections 'header-group' %}
@@ -145,5 +228,19 @@
     {% section 'cart-drawer' %}
 
     <script src="{{ 'app.js' | asset_url }}" type="module"></script>
+
+    {% if product %}
+ <script>
+   window.variantInventory = {
+     {% for variant in product.variants %}
+       "{{ variant.id }}": {{ variant.inventory_quantity }}{% unless forloop.last %},{% endunless %}
+     {% endfor %}
+   };
+
+
+   {% comment %} console.log('variantInventory', window.variantInventory); {% endcomment %}
+ </script>
+{% endif %}
+
   </body>
 </html>
