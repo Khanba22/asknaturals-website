@@ -56,15 +56,19 @@ export function MainProduct({ settings }: MainProductProps) {
     [variants, selectedVariantId],
   );
 
-  const selectedVariantAvailable = selectedVariant ? selectedVariant.available : product.available;
   const stockQuantity =
     selectedVariant?.inventory_quantity ??
     (typeof window !== 'undefined' ? (window as any).variantInventory?.[selectedVariant?.id] : undefined);
 
+  const selectedVariantAvailable =
+    selectedVariant
+      ? (selectedVariant.available && (stockQuantity == null || stockQuantity > 0))
+      : product.available;
+
   let stockBadge: 'no_stock' | 'low_stock' | null = null;
-  if (!selectedVariantAvailable || stockQuantity === 0) {
+  if (!selectedVariantAvailable || (stockQuantity != null && stockQuantity <= 0)) {
     stockBadge = 'no_stock';
-  } else if (stockQuantity != null && stockQuantity < 7) {
+  } else if (stockQuantity != null && stockQuantity > 0 && stockQuantity < 7) {
     stockBadge = 'low_stock';
   }
 
@@ -72,7 +76,6 @@ export function MainProduct({ settings }: MainProductProps) {
   const displayPrice = purchaseMode?.startsWith('subscribe') ? subscribePrice : onetimePrice;
 
   const selectVariant = (variant: ProductVariant) => {
-    if (!variant.available) return;
     setSelectedVariantId(variant.id);
     if (variant.image) {
       const imageIndex = images.indexOf(variant.image);
@@ -303,24 +306,25 @@ export function MainProduct({ settings }: MainProductProps) {
                 {variants.map((variant: ProductVariant) => {
                   const { subscribePrice: variantSubscribePrice } = getVariantPrices(variant, settings);
                   const isSelected = selectedVariantId === variant.id;
+                  const vStock = variant.inventory_quantity ?? (typeof window !== 'undefined' ? (window as any).variantInventory?.[variant.id] : undefined);
+                  const isVariantAvailable = variant.available && (vStock == null || vStock > 0);
 
                   return (
                     <button
                       key={variant.id}
                       type="button"
-                      disabled={!variant.available}
                       onClick={() => selectVariant(variant)}
-                      className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition disabled:cursor-not-allowed disabled:opacity-50 ${isSelected
+                      className={`w-full rounded-2xl border-2 px-5 py-4 text-left transition ${isSelected
                         ? 'border-primary bg-primary/5'
                         : 'border-cream-dark bg-white hover:border-primary/40'
-                        }`}
+                        } ${!isVariantAvailable ? 'opacity-70' : ''}`}
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <p className="text-xs font-bold uppercase tracking-wider text-primary">
                             {variant.title}
                           </p>
-                          {!variant.available && (
+                          {!isVariantAvailable && (
                             <p className="mt-1 text-sm text-text-muted">Sold out</p>
                           )}
                         </div>
@@ -414,17 +418,17 @@ export function MainProduct({ settings }: MainProductProps) {
               </div>
               <button
                 type="button"
-                disabled={!selectedVariant?.available || adding}
+                disabled={!selectedVariantAvailable || adding}
                 onClick={() => void addToCart(false)}
                 className="flex-1 rounded-full bg-primary px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white hover:opacity-90 disabled:opacity-50"
               >
-                {adding ? 'Adding…' : selectedVariant?.available ? 'Add to cart' : 'Sold out'}
+                {adding ? 'Adding…' : selectedVariantAvailable ? 'Add to cart' : 'Sold out'}
               </button>
             </div>
 
             <button
               type="button"
-              disabled={!selectedVariant?.available || adding}
+              disabled={!selectedVariantAvailable || adding}
               onClick={() => void addToCart(true)}
               className="mt-3 w-full rounded-full border-2 border-text px-8 py-3.5 text-sm font-bold uppercase tracking-wider hover:bg-cream disabled:opacity-50"
             >
